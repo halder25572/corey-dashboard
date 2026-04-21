@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE TITLE | POS System</title>
+  <title>Items | POS System</title>
 
   <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -11,14 +11,117 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <!-- Page-specific CSS (optional) -->
-  <!-- <link rel="stylesheet" href="../assets/css/pages/PAGE_NAME.css" /> -->
+  <style>
+    /* Items Page Styles */
+    .customers-toolbar {
+      background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; box-shadow: var(--shadow-xs);
+    }
+    .search-wrap { display: flex; gap: 12px; flex: 1; max-width: 600px; }
+    .search-input {
+      flex: 1; max-width: 250px; background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm); padding: 8px 16px; font-size: 13.5px;
+      outline: none; transition: var(--transition);
+    }
+    .search-input:focus { border-color: var(--primary); background: #fff; }
+    .btn-search {
+      background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+      padding: 8px 20px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-search:hover { background: var(--primary-dark); }
+    
+    .toolbar-select {
+      background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+      padding: 8px 30px 8px 16px; font-size: 13.5px; outline: none; transition: var(--transition); appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%2364748B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; background-size: 10px 10px;
+      color: var(--gray-700); min-width: 120px;
+    }
+    .toolbar-select:focus { border-color: var(--primary); background-color: #fff; }
+
+    .toolbar-actions { display: flex; gap: 12px; }
+    .btn-new-customer {
+      background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+      padding: 8px 16px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-new-customer:hover { background: var(--primary-dark); }
+    .btn-icon-outline {
+      background: #fff; border: 1px solid var(--primary); color: var(--primary);
+      border-radius: var(--radius-sm); width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; transition: var(--transition);
+    }
+    .btn-icon-outline:hover { background: var(--primary-soft); }
+
+    /* Table Card */
+    .table-card {
+      background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-xs); overflow: hidden;
+    }
+    .table-actions {
+      padding: 16px 20px; border-bottom: 1px solid var(--gray-100); display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .btn-action-sm {
+      font-size: 12.5px; font-weight: 600; padding: 6px 14px; border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; gap: 6px; border: none; color: #fff;
+      transition: var(--transition); cursor: pointer;
+    }
+    .btn-action-blue { background: var(--primary); }
+    .btn-action-blue:hover { background: var(--primary-dark); }
+    .btn-delete { background: var(--danger); }
+    .btn-delete:hover { background: #DC2626; }
+    .btn-clear { background: var(--orange); }
+    .btn-clear:hover { background: #EA580C; }
+
+    /* Table */
+    .custom-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    .custom-table th {
+      background: var(--primary-light); color: var(--gray-700); font-size: 12px; font-weight: 700;
+      padding: 12px 20px; text-align: left; white-space: nowrap;
+    }
+    .custom-table td {
+      padding: 14px 20px; border-bottom: 1px solid var(--gray-100); font-size: 13.5px;
+      color: var(--gray-700); vertical-align: middle; font-weight: 500;
+    }
+    .custom-table tr:last-child td { border-bottom: none; }
+    .custom-table tr:hover { background: var(--gray-50); }
+
+    .custom-checkbox {
+      width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--gray-300);
+      appearance: none; outline: none; cursor: pointer; position: relative; transition: var(--transition);
+      background: #fff; display: flex; align-items: center; justify-content: center; margin: 0;
+    }
+    .custom-checkbox:checked { background: var(--primary); border-color: var(--primary); }
+    .custom-checkbox:checked::after {
+      content: '\F26A'; font-family: 'bootstrap-icons'; color: #fff; font-size: 13px; position: absolute;
+    }
+
+    .item-info { display: flex; align-items: center; gap: 14px; }
+    .item-img { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; background: var(--gray-100); }
+    .item-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+    .item-id { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; font-weight: 600; }
+
+    .row-actions { display: flex; align-items: center; gap: 14px; color: var(--gray-400); }
+    .action-icon { cursor: pointer; transition: color .2s; font-size: 16px; border: 1px solid transparent; padding: 4px 8px; border-radius: var(--radius-sm); }
+    .action-icon:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-soft); }
+
+    .table-responsive { overflow-x: auto; }
+
+    @media (max-width: 900px) {
+      .customers-toolbar { flex-direction: column; align-items: stretch; gap: 16px; }
+      .search-wrap { max-width: 100%; flex-wrap: wrap; }
+      .search-input { max-width: 100%; }
+      .toolbar-actions { justify-content: flex-end; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-  <!-- ── SIDEBAR ── -->
+  <!-- â”€â”€ SIDEBAR â”€â”€ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
@@ -52,7 +155,12 @@
         <div class="nav-submenu">
           <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
           <div class="nav-item"><a href="item-kits.html" class="nav-link"><i class="bi bi-dot"></i> Item Kits</a></div>
+          <div class="nav-item"><a href="labels.html" class="nav-link"><i class="bi bi-dot"></i> Labels</a></div>
+          <div class="nav-item"><a href="order.html" class="nav-link"><i class="bi bi-dot"></i> Order</a></div>
           <div class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-dot"></i> Categories</a></div>
+          <div class="nav-item"><a href="tags.html" class="nav-link"><i class="bi bi-dot"></i> Tags</a></div>
+          <div class="nav-item"><a href="attributes.html" class="nav-link"><i class="bi bi-dot"></i> Attributes</a></div>
+          <div class="nav-item"><a href="price-rules.html" class="nav-link"><i class="bi bi-dot"></i> Price Rules</a></div>
         </div>
       </div>
       <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
@@ -84,7 +192,7 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- ── MAIN CONTENT ── -->
+  <!-- â”€â”€ MAIN CONTENT â”€â”€ -->
   <div class="main-content">
 
     <!-- TOPBAR -->
@@ -92,7 +200,7 @@
       <button class="sidebar-toggle" id="sidebarToggle">
         <i class="bi bi-list"></i>
       </button>
-      <span class="topbar-title">PAGE TITLE</span>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Inventory / Items</span>
       <div class="topbar-actions">
         <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
         <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
@@ -109,17 +217,147 @@
     <!-- PAGE CONTENT -->
     <main class="page-content">
 
-      <div class="page-header">
-        <h1>PAGE TITLE</h1>
-        <p>Page description here</p>
+      <!-- Toolbar -->
+      <div class="customers-toolbar">
+        <div class="search-wrap">
+          <input type="text" class="search-input" placeholder="Search Items" />
+          <button class="btn-search"><i class="bi bi-search"></i> Search</button>
+          <select class="toolbar-select">
+            <option>Fields:</option>
+          </select>
+          <select class="toolbar-select">
+            <option>Category:</option>
+          </select>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn-new-customer" onclick="location.href='items/new.html'"><i class="bi bi-plus-lg"></i> New Item</button>
+          <button class="btn-icon-outline"><i class="bi bi-three-dots"></i></button>
+        </div>
       </div>
 
-      <!-- ════════════════════════════════════════
-           YOUR PAGE CONTENT GOES HERE
-           ════════════════════════════════════════ -->
+      <!-- Table Card -->
+      <div class="table-card">
+        <div class="table-actions" id="bulkActions" style="display: flex;">
+          <button class="btn-action-sm btn-action-blue"><i class="bi bi-pencil-square"></i> Edit</button>
+          <button class="btn-action-sm btn-action-blue"><i class="bi bi-check2-square"></i> Select All</button>
+          <button class="btn-action-sm btn-action-blue"><i class="bi bi-tags"></i> Labels <i class="bi bi-chevron-down ms-1" style="font-size: 10px;"></i></button>
+          <button class="btn-action-sm btn-delete"><i class="bi bi-trash3"></i> Delete</button>
+          <button class="btn-action-sm btn-clear" onclick="clearSelection()"><i class="bi bi-x-circle"></i> Clear Selection</button>
+        </div>
 
-
-      <!-- /PAGE CONTENT -->
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">
+                  <input type="checkbox" class="custom-checkbox" id="selectAll" onchange="toggleAll(this)" />
+                </th>
+                <th>Name / ID</th>
+                <th>Category</th>
+                <th>Cost Price</th>
+                <th>Selling Price</th>
+                <th>Quantity</th>
+                <th>UPC/EAN/ISBN</th>
+                <th style="width: 100px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+              <tr>
+                <td><input type="checkbox" class="custom-checkbox row-checkbox" checked onchange="checkSelection()" /></td>
+                <td>
+                  <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?auto=format&fit=crop&w=150&q=80" alt="Apple" class="item-img" />
+                    <div>
+                      <div class="item-name">Apple</div>
+                      <div class="item-id">ID:101</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Fruits</td>
+                <td>$ 15.00</td>
+                <td>$ 20.00</td>
+                <td>Not set</td>
+                <td>Not set</td>
+                <td>
+                  <div class="row-actions">
+                    <i class="bi bi-pencil-square action-icon"></i>
+                    <i class="bi bi-three-dots action-icon"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="custom-checkbox row-checkbox" onchange="checkSelection()" /></td>
+                <td>
+                  <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=150&q=80" alt="Banana" class="item-img" />
+                    <div>
+                      <div class="item-name">Banana</div>
+                      <div class="item-id">ID:102</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Fruits</td>
+                <td>$ 15.00</td>
+                <td>$ 20.00</td>
+                <td>Not set</td>
+                <td>Not set</td>
+                <td>
+                  <div class="row-actions">
+                    <i class="bi bi-pencil-square action-icon"></i>
+                    <i class="bi bi-three-dots action-icon"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="custom-checkbox row-checkbox" onchange="checkSelection()" /></td>
+                <td>
+                  <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=150&q=80" alt="Mango" class="item-img" />
+                    <div>
+                      <div class="item-name">Mango</div>
+                      <div class="item-id">ID:103</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Fruits</td>
+                <td>$ 15.00</td>
+                <td>$ 20.00</td>
+                <td>Not set</td>
+                <td>Not set</td>
+                <td>
+                  <div class="row-actions">
+                    <i class="bi bi-pencil-square action-icon"></i>
+                    <i class="bi bi-three-dots action-icon"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="custom-checkbox row-checkbox" onchange="checkSelection()" /></td>
+                <td>
+                  <div class="item-info">
+                    <img src="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&w=150&q=80" alt="Orange" class="item-img" />
+                    <div>
+                      <div class="item-name">Orange</div>
+                      <div class="item-id">ID:104</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Fruits</td>
+                <td>$ 15.00</td>
+                <td>$ 20.00</td>
+                <td>Not set</td>
+                <td>Not set</td>
+                <td>
+                  <div class="row-actions">
+                    <i class="bi bi-pencil-square action-icon"></i>
+                    <i class="bi bi-three-dots action-icon"></i>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     </main>
 
@@ -132,7 +370,40 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <!-- Custom JS -->
 <script src="../assets/js/main.js"></script>
-<!-- Page-specific JS (optional) -->
-<!-- <script src="../assets/js/pages/PAGE_NAME.js"></script> -->
+<script>
+  function checkSelection() {
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    const bulkActions = document.getElementById('bulkActions');
+    const selectAll = document.getElementById('selectAll');
+    
+    let checkedCount = 0;
+    checkboxes.forEach(cb => {
+      if (cb.checked) checkedCount++;
+    });
+
+    if (checkedCount > 0) {
+      bulkActions.style.display = 'flex';
+    } else {
+      bulkActions.style.display = 'none';
+    }
+
+    selectAll.checked = (checkedCount === checkboxes.length && checkboxes.length > 0);
+  }
+
+  function toggleAll(source) {
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    checkboxes.forEach(cb => cb.checked = source.checked);
+    checkSelection();
+  }
+
+  function clearSelection() {
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    const selectAll = document.getElementById('selectAll');
+    checkboxes.forEach(cb => cb.checked = false);
+    selectAll.checked = false;
+    checkSelection();
+  }
+</script>
 </body>
 </html>
+

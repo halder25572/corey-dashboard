@@ -46,9 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const href = link.getAttribute('href').split('/').pop();
     if (href === currentPage) {
       link.classList.add('active');
-      // open parent submenu if nested
-      const parentItem = link.closest('.nav-submenu')?.closest('.nav-item');
-      if (parentItem) parentItem.classList.add('open');
+      // User specifically requested NOT to auto-open the dropdown when navigating to child pages
+      // like Item Kits or Order. The dropdown should only open when explicitly clicking Inventory.
     }
   });
 
