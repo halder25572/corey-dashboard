@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE TITLE | POS System</title>
+  <title>Receiving | POS System</title>
 
   <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -11,14 +11,449 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <!-- Page-specific CSS (optional) -->
-  <!-- <link rel="stylesheet" href="../assets/css/pages/PAGE_NAME.css" /> -->
+  <style>
+    .receiving-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 0;
+      padding: 0;
+      min-height: calc(100vh - var(--topbar-height));
+    }
+    
+    /* Full width fix */
+    .page-content-recv {
+      padding: 0 !important;
+    }
+
+    /* Left Side */
+    .recv-left {
+      padding: 20px;
+      border-right: 1px solid var(--gray-200);
+    }
+    .recv-right {
+      background: #f8fafc;
+    }
+    .recv-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .recv-filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .btn-filter {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      background: #f1f5f9;
+      border: none;
+      transition: var(--transition);
+    }
+    .btn-filter.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 16px;
+    }
+    .category-item {
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .category-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .category-img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .category-name-box {
+      padding: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .breadcrumb-recv {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .breadcrumb-recv span { color: #3b82f6; cursor: pointer; }
+    .breadcrumb-recv i { color: #64748b; font-size: 12px; }
+
+    .tag-item {
+      padding: 8px 16px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+    }
+    .tag-item.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+    .recv-search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn-scan {
+      background: var(--primary);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+    }
+    .search-input-recv {
+      flex: 1;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 0 16px;
+      font-size: 14px;
+      outline: none;
+    }
+    .btn-recv-action {
+      padding: 0 15px;
+      height: 42px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-recv-mode { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; }
+    .btn-recv-mode:hover { background: #fecaca; }
+    .btn-blue { background: var(--primary); color: #fff; }
+
+    .recv-dropdown-menu {
+      border: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 8px;
+      min-width: 180px;
+    }
+    .recv-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      color: #475569;
+      transition: var(--transition);
+    }
+    .recv-dropdown-item:hover { background: #f1f5f9; color: var(--primary); }
+    .recv-dropdown-item i { font-size: 16px; }
+    
+    .mode-receive { color: #ef4444; }
+    .mode-return { color: #f59e0b; }
+    .mode-po { color: #ef4444; }
+    .mode-transfer { color: #3b82f6; }
+
+    /* Recv Table */
+    .recv-table { width: 100%; border-collapse: collapse; }
+    .recv-table th {
+      background: #f8fafc;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .recv-table td {
+      padding: 12px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: top;
+    }
+    .item-main { display: flex; gap: 12px; }
+    .btn-remove-item {
+      color: #ef4444;
+      background: none;
+      border: none;
+      font-size: 16px;
+    }
+    .empty-cart-msg {
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+    .empty-cart-msg span { color: #22c55e; }
+    .item-details { font-size: 11px; color: #64748b; margin-top: 4px; }
+    .item-details div { display: flex; margin-bottom: 2px; }
+    .item-details span:first-child { width: 80px; font-weight: 600; color: #1e293b; }
+
+    /* Right Side */
+    .summary-card {
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      position: sticky;
+      top: var(--topbar-height);
+      overflow: hidden;
+    }
+    .summary-top-btns {
+      display: grid;
+      grid-template-columns: 40px 1fr 1fr;
+      gap: 8px;
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .btn-summary-sm {
+      height: 32px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: none;
+    }
+    .btn-more-recv { background: #f1f5f9; color: #64748b; }
+    .btn-suspend { background: #fff7ed; color: #9a3412; border: 1px solid #ffedd5; }
+    .btn-cancel-recv { background: #fef2f2; color: #991b1b; border: 1px solid #fee2e2; }
+
+    .supplier-info {
+      padding: 16px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .supplier-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .supplier-name { font-size: 14px; font-weight: 700; color: #1e293b; }
+    .supplier-email { font-size: 12px; color: #64748b; }
+
+    .discount-section {
+      padding: 16px;
+      background: #fff;
+      border-top: 1px solid var(--gray-100);
+    }
+    .discount-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .discount-val { color: var(--primary); font-weight: 700; cursor: pointer; }
+
+    .totals-section {
+      padding: 12px 16px;
+      background: #fee2e2;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: #991b1b;
+      margin-bottom: 4px;
+    }
+    .total-row:last-child { margin-bottom: 0; }
+
+    .payment-section {
+      padding: 16px;
+      border-top: 1px solid var(--gray-100);
+    }
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .btn-pay-method {
+      height: 32px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 10px;
+      font-weight: 600;
+      border: none;
+    }
+    .btn-pay-method.active { background: var(--primary); color: #fff; }
+
+    .pay-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .pay-input {
+      flex: 1;
+      height: 40px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 14px;
+      outline: none;
+    }
+    .btn-finish {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0 20px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .supplier-search-recv {
+      display: flex;
+      background: #f8fafc;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      margin: 16px;
+      overflow: hidden;
+    }
+    .btn-add-supplier {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+    .supplier-search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 0 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .set-discount-link {
+      color: #ef4444;
+      text-decoration: none;
+      border-bottom: 1px dashed #ef4444;
+      cursor: pointer;
+    }
+
+    .discount-input-group {
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .discount-mini-input {
+      width: 60px;
+      height: 28px;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 0 6px;
+      font-size: 12px;
+      outline: none;
+    }
+    .btn-set-mini {
+      height: 28px;
+      padding: 0 10px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Sidebar Dropdown */
+    .sidebar-options-menu {
+      border: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 8px;
+      min-width: 280px;
+    }
+    .sidebar-options-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1e293b;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    .sidebar-options-item:hover { background: #f1f5f9; color: var(--primary); }
+    .sidebar-options-item i { font-size: 16px; color: #64748b; }
+    .sidebar-options-item:hover i { color: var(--primary); }
+
+    .date-change {
+      padding: 12px 16px;
+      border-top: 1px solid var(--gray-100);
+      font-size: 12px;
+      color: #64748b;
+    }
+    .recv-comment {
+      padding: 16px;
+      border-top: 1px solid var(--gray-100);
+    }
+    .comment-label { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+    .comment-box {
+      width: 100%;
+      height: 60px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+    }
+
+    @media (max-width: 1100px) {
+      .receiving-grid { grid-template-columns: 1fr; }
+      .summary-card { position: static; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-  <!-- â”€â”€ SIDEBAR â”€â”€ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
@@ -29,11 +464,7 @@
     </div>
 
     <nav class="sidebar-nav">
-      <div class="nav-item">
-        <a href="../index.html" class="nav-link">
-          <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
-        </a>
-      </div>
+      <div class="nav-item"><a href="../index.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></div>
       <div class="nav-item">
         <a href="#" class="nav-link" data-toggle="submenu">
           <i class="bi bi-people-fill"></i><span>Contacts</span>
@@ -61,7 +492,7 @@
         </div>
       </div>
       <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
-      <div class="nav-item"><a href="receiving.html" class="nav-link"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
+      <div class="nav-item"><a href="receiving.html" class="nav-link active"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
       <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
       <div class="nav-item">
         <a href="#" class="nav-link" data-toggle="submenu">
@@ -79,67 +510,315 @@
       <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
       <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
     </nav>
-
-    <div class="sidebar-footer">
-      <div class="sidebar-logout">
-        <i class="bi bi-box-arrow-left"></i><span>Logout</span>
-      </div>
-    </div>
   </aside>
 
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- â”€â”€ MAIN CONTENT â”€â”€ -->
+  <!-- MAIN CONTENT -->
   <div class="main-content">
-
-    <!-- TOPBAR -->
     <header class="topbar">
-      <button class="sidebar-toggle" id="sidebarToggle">
-        <i class="bi bi-list"></i>
-      </button>
-      <span class="topbar-title">PAGE TITLE</span>
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Receiving</span>
       <div class="topbar-actions">
         <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
-        <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
+        <div class="topbar-icon-btn"><i class="bi bi-arrows-fullscreen"></i></div>
+        <div class="topbar-icon-btn"><i class="bi bi-basket"></i><span class="badge-dot"></span></div>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
+          <ul class="dropdown-menu"><li><a class="dropdown-item" href="#">Chittagong</a></li></ul>
+        </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
             <div class="topbar-user-role">Admin</div>
           </div>
-          <div class="topbar-avatar">SM</div>
+          <div class="topbar-avatar" style="overflow: hidden;">
+            <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- PAGE CONTENT -->
-    <main class="page-content">
+    <main class="page-content page-content-recv">
+      <div class="receiving-grid">
+        
+        <!-- LEFT COLUMN -->
+        <div class="recv-left">
+          
+          <!-- Filters Card -->
+          <div class="recv-card" id="filtersCard">
+            <div class="recv-filters">
+              <button class="btn-filter active" onclick="switchFilter(this, 'viewCategories')">Categories</button>
+              <button class="btn-filter" onclick="switchFilter(this, 'viewTags')">Tags</button>
+              <button class="btn-filter" onclick="switchFilter(this, 'viewSuppliers')">Suppliers</button>
+              <button class="btn-filter" onclick="switchFilter(this, 'viewFavorites')">Favorites</button>
+            </div>
+            
+            <div id="viewCategories" class="filter-view">
+              <div class="breadcrumb-recv">
+                <span>All</span> <i class="bi bi-chevron-double-right"></i> <span style="color: #3b82f6;">Fruits</span>
+              </div>
+              <div class="category-grid">
+                <div class="category-item">
+                  <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=150&q=80" alt="Fruits" class="category-img">
+                  <div class="category-name-box">Fruits</div>
+                </div>
+                <div class="category-item">
+                  <img src="https://images.unsplash.com/photo-1592489637182-8c172d6d7826?auto=format&fit=crop&w=150&q=80" alt="Vegetables" class="category-img">
+                  <div class="category-name-box">Vegetables</div>
+                </div>
+              </div>
+            </div>
 
-      <div class="page-header">
-        <h1>PAGE TITLE</h1>
-        <p>Page description here</p>
+            <div id="viewTags" class="filter-view" style="display: none;">
+              <div class="d-flex flex-wrap gap-2">
+                <div class="tag-item active">Favorites</div>
+                <div class="tag-item">Favorites</div>
+                <div class="tag-item">Favorites</div>
+                <div class="tag-item">Favorites</div>
+              </div>
+            </div>
+
+            <div id="viewSuppliers" class="filter-view" style="display: none;">
+              <div class="category-grid">
+                <div class="category-item">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Hakim" class="category-img">
+                  <div class="category-name-box">Hakim Group</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="viewFavorites" class="filter-view" style="display: none;">
+              <div class="d-flex flex-wrap gap-2">
+                <div class="tag-item active">Favorites</div>
+                <div class="tag-item">Favorites</div>
+                <div class="tag-item">Favorites</div>
+                <div class="tag-item">Favorites</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search & Table Card -->
+          <div class="recv-card">
+            <div class="recv-search-row">
+              <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
+              <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
+              <div class="dropdown">
+                <button class="btn-recv-action btn-recv-mode dropdown-toggle" type="button" data-bs-toggle="dropdown" id="currentMode">
+                  <i class="bi bi-cart"></i> Receive
+                </button>
+                <ul class="dropdown-menu recv-dropdown-menu">
+                  <li><a class="dropdown-item recv-dropdown-item mode-receive" href="javascript:void(0)" onclick="setMode('Receive', 'bi-cart')"><i class="bi bi-cart"></i> Receive</a></li>
+                  <li><a class="dropdown-item recv-dropdown-item mode-return" href="javascript:void(0)" onclick="setMode('Return', 'bi-download')"><i class="bi bi-download"></i> Return</a></li>
+                  <li><a class="dropdown-item recv-dropdown-item mode-po" href="javascript:void(0)" onclick="setMode('Purchase Order', 'bi-cart-check')"><i class="bi bi-cart-check"></i> Purchase Order</a></li>
+                  <li><a class="dropdown-item recv-dropdown-item mode-transfer" href="javascript:void(0)" onclick="setMode('Transfer', 'bi-person-badge')"><i class="bi bi-person-badge"></i> Transfer</a></li>
+                </ul>
+              </div>
+              <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="recv-table" id="recvTable">
+                <thead>
+                  <tr>
+                    <th style="width: 40px;">-</th>
+                    <th style="text-align: left;">Item Name</th>
+                    <th>Cost</th>
+                    <th>Qty.</th>
+                    <th>Disc %</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody id="cartItems" style="display: none;">
+                  <tr>
+                    <td class="text-center"><button class="btn-remove-item"><i class="bi bi-dash-circle-fill"></i></button></td>
+                    <td>
+                      <div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div>
+                      <div class="item-details">
+                        <div><span>Serial</span><span style="color: #94a3b8; font-style: italic;">Empty</span></div>
+                        <div><span>Stock</span><span>40</span></div>
+                        <div><span>Selling Price</span><span>15.00</span></div>
+                        <div><span>Description</span><span>green honey</span></div>
+                        <div><span>UPC/EAN/ISBN</span><span>7714</span></div>
+                      </div>
+                    </td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">$15.00</td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">20</td>
+                    <td class="text-center">0%</td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">-$300.00</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="emptyCart" class="empty-cart-msg">
+                There are no items in the cart <span>[Receiving]</span>
+              </div>
+              <div style="height: 10px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 5%22%3E%3Cpath d=%22M0 5h20V0L10 5 0 0z%22 fill=%22%23f1f5f9%22/%3E%3C/svg%3E') repeat-x; opacity: 0.5;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="recv-right">
+          <div class="summary-card">
+            <div class="d-flex justify-content-center py-2 border-bottom">
+              <div class="dropdown">
+                <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
+                <ul class="dropdown-menu sidebar-options-menu">
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings And Purchase orders</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-arrow-left-right"></i> Transfer Requests</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-box-arrow-in-down"></i> Incoming Transfers</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-cart-plus"></i> Create Purchase Order</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-clock-history"></i> Show Last Receiving</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch receiving</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-wrench"></i> Custom Field Configuration</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="d-flex border-bottom">
+              <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size: 12px;"><i class="bi bi-pencil-square"></i> Edit</button>
+              <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size: 12px;"><i class="bi bi-x-circle"></i> Detach</button>
+            </div>
+
+            <div class="supplier-search-recv">
+              <button class="btn-add-supplier"><i class="bi bi-plus"></i></button>
+              <input type="text" class="supplier-search-input" placeholder="Type supplier's name........">
+            </div>
+
+            <div class="discount-section">
+              <div class="discount-row">
+                <span>Discount all Items by Percent:</span>
+                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
+                <div class="discount-input-group">
+                  <input type="text" class="discount-mini-input" placeholder="0%">
+                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                </div>
+              </div>
+              <div class="discount-row">
+                <span>Discount Entire Receiving:</span>
+                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
+                <div class="discount-input-group">
+                  <input type="text" class="discount-mini-input" placeholder="0.00">
+                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="totals-section">
+              <div class="total-row"><span>Sub Total:</span><span style="color: #3b82f6; text-decoration: underline dashed;">-$0.00</span></div>
+              <div class="total-row" style="color: #166534; margin-top: 8px;"><span>Total</span><span>Amount Due</span></div>
+              <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$300.00</span><span style="color: #ea580c;">-$300.00</span></div>
+            </div>
+
+            <div class="payment-section">
+              <div class="comment-label mb-2">Add Payment</div>
+              <div class="payment-methods">
+                <button class="btn-pay-method active" onclick="switchPayment(this)">Cash</button>
+                <button class="btn-pay-method" onclick="switchPayment(this)">Check</button>
+                <button class="btn-pay-method" onclick="switchPayment(this)">Debit card</button>
+                <button class="btn-pay-method" onclick="switchPayment(this)">Credit card</button>
+              </div>
+              <div class="pay-input-row">
+                <input type="text" class="pay-input" value="142.50">
+                <button class="btn-finish" onclick="location.href='receiving-receipt.html'">Finish</button>
+              </div>
+            </div>
+
+            <div class="date-change">
+              <label class="d-flex align-items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked> Change receiving date
+              </label>
+              <div class="mt-2 position-relative">
+                <input type="text" class="pay-input w-100" value="04/12/2026 06:05 am" style="height: 32px; font-size: 12px;">
+                <i class="bi bi-calendar-event position-absolute" style="right: 10px; top: 8px;"></i>
+              </div>
+            </div>
+
+            <div class="recv-comment">
+              <div class="comment-label">Comments :</div>
+              <textarea class="comment-box"></textarea>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-           YOUR PAGE CONTENT GOES HERE
-           â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-
-
-      <!-- /PAGE CONTENT -->
-
     </main>
-
   </div>
 </div>
 
-<!-- Bootstrap Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Chart.js (remove if not needed) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<!-- Custom JS -->
 <script src="../assets/js/main.js"></script>
-<!-- Page-specific JS (optional) -->
-<!-- <script src="../assets/js/pages/PAGE_NAME.js"></script> -->
+<script>
+  function switchFilter(el, viewId) {
+    // Update active button
+    document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+    el.classList.add('active');
+
+    // Show corresponding view
+    document.querySelectorAll('.filter-view').forEach(view => view.style.display = 'none');
+    document.getElementById(viewId).style.display = 'block';
+  }
+
+  function toggleGrid() {
+    const grid = document.getElementById('filtersCard');
+    if (grid.style.display === 'none') {
+      grid.style.display = 'block';
+    } else {
+      grid.style.display = 'none';
+    }
+  }
+
+  function setMode(mode, icon) {
+    const btn = document.getElementById('currentMode');
+    btn.innerHTML = `<i class="bi ${icon}"></i> ${mode}`;
+    
+    // Optional: Change button color based on mode
+    if (mode === 'Return') {
+      btn.style.background = '#fffbeb';
+      btn.style.color = '#d97706';
+      btn.style.borderColor = '#fde68a';
+    } else if (mode === 'Transfer') {
+      btn.style.background = '#eff6ff';
+      btn.style.color = '#2563eb';
+      btn.style.borderColor = '#bfdbfe';
+    } else {
+      btn.style.background = '#fee2e2';
+      btn.style.color = '#ef4444';
+      btn.style.borderColor = '#fecaca';
+    }
+  }
+
+  function switchPayment(el) {
+    document.querySelectorAll('.btn-pay-method').forEach(btn => btn.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function showDiscountForm(el) {
+    el.style.display = 'none';
+    el.nextElementSibling.style.display = 'flex';
+    el.nextElementSibling.querySelector('input').focus();
+  }
+
+  function hideDiscountForm(btn) {
+    const group = btn.closest('.discount-input-group');
+    const link = group.previousElementSibling;
+    const val = group.querySelector('input').value;
+    
+    if (val) {
+      link.innerText = val + (link.innerText.includes('Percent') ? '%' : '');
+      link.style.color = 'var(--primary)';
+      link.style.borderBottom = 'none';
+    }
+    
+    group.style.display = 'none';
+    link.style.display = 'inline';
+  }
+</script>
 </body>
 </html>
-
-

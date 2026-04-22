@@ -243,6 +243,7 @@
             <button class="btn-tab" id="btnShelf">Shelf</button>
           </div>
           <button class="btn-add-logo" id="btnAddLogo" style="display: none;"><i class="bi bi-plus-lg"></i> Add Background Logo</button>
+          <input type="file" id="logoInput" accept="image/*" style="display: none;" />
         </div>
 
         <!-- Barcode Content -->
@@ -282,7 +283,7 @@
             <div>
               <label class="form-label">Logo Preview</label>
               <div class="logo-preview-card">
-                <img src="../assets/images/logo.png" alt="Store Logo">
+                <img src="../assets/images/logo.png" alt="Store Logo" id="logoPreview">
               </div>
             </div>
           </div>
@@ -342,6 +343,33 @@
     shelfContent.style.display = 'block';
     btnAddLogo.style.display = 'block';
     labelsCard.style.maxWidth = '1000px';
+  });
+
+  // Logo upload logic
+  const logoInput = document.getElementById('logoInput');
+  const logoPreview = document.getElementById('logoPreview');
+
+  // Load saved logo from localStorage
+  const savedLogo = localStorage.getItem('labelBackgroundLogo');
+  if (savedLogo) {
+    logoPreview.src = savedLogo;
+  }
+
+  btnAddLogo.addEventListener('click', () => {
+    logoInput.click();
+  });
+
+  logoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        logoPreview.src = dataUrl;
+        localStorage.setItem('labelBackgroundLogo', dataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   });
 </script>
 </body>
