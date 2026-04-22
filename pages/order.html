@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -83,6 +83,85 @@
     @media (max-width: 768px) {
       .customers-toolbar { flex-direction: column; align-items: stretch; gap: 16px; }
       .search-wrap { max-width: 100%; }
+    }
+
+    /* Supplier Selection Modal Styles */
+    .modal-content-custom {
+      border-radius: 20px;
+      border: none;
+      overflow: hidden;
+    }
+    .modal-header-custom {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title-custom {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .btn-close-custom {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: var(--gray-500);
+    }
+    .supplier-search-input {
+      background: #f8fafc;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      width: 100%;
+      margin-bottom: 15px;
+      outline: none;
+    }
+    .supplier-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .supplier-item:hover {
+      background: #f8fafc;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 8px;
+    }
+    .supplier-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      display: block;
+    }
+    .supplier-email {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .supplier-arrow {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+    .btn-cancel-custom {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .btn-cancel-custom:hover {
+      background: var(--primary-dark);
     }
   </style>
 </head>
@@ -199,7 +278,7 @@
           <input type="text" class="search-input" placeholder="Search orders by supplier / order #" />
           <button class="btn-search"><i class="bi bi-search"></i> Search</button>
         </div>
-        <button class="btn-new-order"><i class="bi bi-plus-lg"></i> New Order</button>
+        <button class="btn-new-order" data-bs-toggle="modal" data-bs-target="#newOrderModal"><i class="bi bi-plus-lg"></i> New Order</button>
       </div>
 
       <!-- Tabs -->
@@ -285,6 +364,49 @@
 
     </main>
 
+  </div>
+</div>
+
+<!-- New Order Modal -->
+<div class="modal fade" id="newOrderModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-content-custom">
+      <div class="modal-header-custom">
+        <h5 class="modal-title-custom">New Order - Select Supplier</h5>
+        <button type="button" class="btn-close-custom" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="modal-body p-4">
+        <input type="text" class="supplier-search-input" placeholder="Search Supplier....">
+        
+        <div class="supplier-list">
+          <a href="#" class="supplier-item">
+            <div class="supplier-info">
+              <span class="supplier-name">Global Tech Supplies</span>
+              <span class="supplier-email">sales@globaltech.com</span>
+            </div>
+            <i class="bi bi-chevron-right supplier-arrow"></i>
+          </a>
+          <a href="#" class="supplier-item">
+            <div class="supplier-info">
+              <span class="supplier-name">Office Depot</span>
+              <span class="supplier-email">support@offcedepot.com</span>
+            </div>
+            <i class="bi bi-chevron-right supplier-arrow"></i>
+          </a>
+          <a href="#" class="supplier-item">
+            <div class="supplier-info">
+              <span class="supplier-name">Eco Build Solutions</span>
+              <span class="supplier-email">info@ecobuild.com</span>
+            </div>
+            <i class="bi bi-chevron-right supplier-arrow"></i>
+          </a>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn-cancel-custom" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
