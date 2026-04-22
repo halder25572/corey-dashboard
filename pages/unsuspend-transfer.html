@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sales | POS System</title>
+  <title>Unsuspend Transfer | POS System</title>
 
   <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -91,29 +91,6 @@
       color: #1e293b;
     }
 
-    .breadcrumb-recv {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .breadcrumb-recv span { color: #3b82f6; cursor: pointer; }
-    .breadcrumb-recv i { color: #64748b; font-size: 12px; }
-
-    .tag-item {
-      padding: 8px 16px;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #1e293b;
-      cursor: pointer;
-    }
-    .tag-item.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
-
     .recv-search-row {
       display: flex;
       gap: 12px;
@@ -151,29 +128,7 @@
       transition: var(--transition);
     }
     .btn-recv-mode { background: #eff6ff; color: #1e293b; border: 1px solid #dbeafe; }
-    .btn-recv-mode:hover { background: #dbeafe; }
     .btn-blue { background: var(--primary); color: #fff; }
-
-    .recv-dropdown-menu {
-      border: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      padding: 8px;
-      min-width: 180px;
-    }
-    .recv-dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 6px;
-      color: #475569;
-      transition: var(--transition);
-    }
-    .recv-dropdown-item:hover { background: #f1f5f9; color: var(--primary); }
-    .recv-dropdown-item i { font-size: 16px; }
 
     /* Recv Table */
     .recv-table { width: 100%; border-collapse: collapse; }
@@ -198,14 +153,6 @@
       border: none;
       font-size: 16px;
     }
-    .empty-cart-msg {
-      padding: 30px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: #f59e0b;
-    }
-    .empty-cart-msg span { color: #22c55e; }
     .item-details { font-size: 11px; color: #64748b; margin-top: 4px; }
     .item-details div { display: flex; margin-bottom: 2px; }
     .item-details span:first-child { width: 80px; font-weight: 600; color: #1e293b; }
@@ -230,7 +177,7 @@
     .btn-summary-sm {
       height: 32px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -242,212 +189,62 @@
     .btn-suspend-sale { background: #fffbeb; color: #f59e0b; border: 1px solid #fde68a; }
     .btn-cancel-sale { background: #fef2f2; color: #ef4444; border: 1px solid #fecaca; }
 
-    .customer-profile {
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--gray-100);
-      background: #fff;
-    }
-    .customer-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    .customer-info { flex: 1; }
-    .customer-name { font-size: 13px; font-weight: 700; color: #1e293b; }
-    .customer-email { font-size: 11px; color: #64748b; }
-    .btn-edit-cust { color: #3b82f6; font-size: 12px; cursor: pointer; }
-
-    .sidebar-mini-btns {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 16px;
-      font-size: 11px;
-      font-weight: 600;
-      border-bottom: 1px solid var(--gray-100);
-    }
-    .btn-mini-link { cursor: pointer; display: flex; align-items: center; gap: 4px; }
-
-    /* Sidebar Dropdown */
-    .sidebar-options-menu {
-      border: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      border-radius: 8px;
-      padding: 8px;
-      min-width: 280px;
-    }
-    .sidebar-options-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #1e293b;
-      border-radius: 6px;
-      transition: var(--transition);
-    }
-    .sidebar-options-item:hover { background: #f1f5f9; color: var(--primary); }
-    .sidebar-options-item i { font-size: 16px; color: #64748b; }
-    .sidebar-options-item:hover i { color: var(--primary); }
-
-    .payment-section {
+    .location-info-row {
       padding: 16px;
-      border-top: 1px solid var(--gray-100);
+      background: #fff;
+      border-bottom: 1px solid var(--gray-100);
     }
-    .payment-methods {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      margin-bottom: 12px;
-    }
-    .btn-pay-method {
-      height: 32px;
-      border-radius: 4px;
-      background: #f1f5f9;
-      color: #64748b;
-      font-size: 10px;
-      font-weight: 600;
-      border: none;
-    }
-    .btn-pay-method.active { background: var(--primary); color: #fff; }
+    .location-label { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 8px; text-align: center; }
+    .location-btns { display: flex; border: 1px solid var(--gray-100); border-radius: 4px; overflow: hidden; }
+    .btn-loc-action { flex: 1; padding: 8px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; }
+    .btn-loc-edit { color: #3b82f6; border-right: 1px solid var(--gray-100); }
+    .btn-loc-detach { color: #ef4444; }
 
-    .pay-input-row {
-      display: flex;
-      gap: 8px;
-    }
-    .pay-input {
-      flex: 1;
-      height: 40px;
-      border: 1px solid var(--gray-200);
-      border-radius: 6px;
-      padding: 0 12px;
-      font-size: 14px;
-      outline: none;
-    }
-    .btn-finish {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 0 16px;
-      font-weight: 600;
-      font-size: 13px;
-      flex: 1;
-    }
+    .discount-section { padding: 16px; background: #fff; border-bottom: 1px solid var(--gray-100); }
+    .discount-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-bottom: 8px; }
+    .set-discount-link { color: #ef4444; text-decoration: none; border-bottom: 1px dashed #ef4444; cursor: pointer; }
 
-    .supplier-search-recv {
-      display: flex;
+    .totals-section { padding: 12px 16px; background: #fee2e2; }
+    .total-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #991b1b; margin-bottom: 4px; }
+
+    .action-btns-recv { padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #fff; }
+    .btn-primary-action { background: var(--primary); color: #fff; border: none; border-radius: 6px; padding: 12px; font-weight: 700; font-size: 13px; }
+    .btn-secondary-action { background: #ef4444; color: #fff; border: none; border-radius: 6px; padding: 12px; font-weight: 700; font-size: 13px; }
+
+    .comment-section { padding: 16px; background: #fff; border-top: 1px solid var(--gray-100); }
+    .comment-box { width: 100%; height: 60px; border: 1px solid var(--gray-200); border-radius: 6px; padding: 8px; font-size: 12px; resize: none; outline: none; }
+
+    /* Location Modal Styles */
+    .modal-content-loc {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+    .modal-header-loc {
       background: #f8fafc;
-      border: 1px solid var(--gray-200);
-      border-radius: 6px;
-      margin: 16px;
-      overflow: hidden;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .btn-add-supplier {
-      background: var(--primary);
-      color: #fff;
+    .btn-close-loc {
+      background: none;
       border: none;
-      width: 40px;
-      height: 40px;
       font-size: 18px;
-    }
-    .supplier-search-input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      padding: 0 12px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .set-discount-link {
-      color: #ef4444;
-      text-decoration: none;
-      border-bottom: 1px dashed #ef4444;
-      cursor: pointer;
-    }
-
-    .discount-input-group {
-      display: none;
-      align-items: center;
-      gap: 6px;
-    }
-    .discount-mini-input {
-      width: 60px;
-      height: 28px;
-      border: 1px solid var(--gray-200);
-      border-radius: 4px;
-      padding: 0 6px;
-      font-size: 12px;
-      outline: none;
-    }
-    .btn-set-mini {
-      height: 28px;
-      padding: 0 10px;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .discount-section {
-      padding: 16px;
-      background: #fff;
-      border-top: 1px solid var(--gray-100);
-    }
-    .discount-row {
+      color: #94a3b8;
+      transition: var(--transition);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      margin-bottom: 8px;
+      justify-content: center;
     }
-
-    .totals-section {
-      padding: 12px 16px;
-      background: #fee2e2;
-    }
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      font-weight: 700;
-      color: #991b1b;
-      margin-bottom: 4px;
-    }
-
-    .date-change {
-      padding: 12px 16px;
-      border-top: 1px solid var(--gray-100);
-      font-size: 12px;
-      color: #64748b;
-    }
-    .recv-comment {
-      padding: 16px;
-      border-top: 1px solid var(--gray-100);
-    }
-    .comment-label { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
-    .comment-box {
-      width: 100%;
-      height: 60px;
-      border: 1px solid var(--gray-200);
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: 13px;
-      resize: none;
-      outline: none;
-    }
-
-    @media (max-width: 1100px) {
-      .receiving-grid { grid-template-columns: 1fr; }
-      .summary-card { position: static; }
-    }
+    .btn-close-loc:hover { color: #ef4444; transform: rotate(90deg); }
+    .modal-body-loc { padding: 24px 32px; }
+    .loc-form-row { display: flex; margin-bottom: 20px; align-items: center; }
+    .loc-form-label { width: 120px; font-size: 13.5px; font-weight: 600; color: #475569; padding-right: 20px; text-align: right; }
+    .loc-form-select { flex: 1; border: 1px solid var(--gray-200); border-radius: 6px; padding: 8px 12px; font-size: 14px; outline: none; }
+    .modal-footer-loc { padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--gray-200); }
+    .btn-loc-save { background: #22c55e; color: #fff; border: none; border-radius: 6px; padding: 8px 25px; font-weight: 700; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -494,15 +291,15 @@
       </div>
       <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
       <div class="nav-item"><a href="receiving.html" class="nav-link"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
-      <div class="nav-item"><a href="sales.html" class="nav-link active"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
-      <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
+      <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
+      <div class="nav-item open">
+        <a href="#" class="nav-link active" data-toggle="submenu">
           <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
           <i class="bi bi-chevron-right nav-arrow"></i>
         </a>
-        <div class="nav-submenu">
-          <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer Out</a></div>
-          <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a></div>
+        <div class="nav-submenu" style="display: block;">
+          <div class="nav-item"><a href="transfer-out.html" class="nav-link active"><i class="bi bi-arrow-up-right"></i> Transfer Outs</a></div>
+          <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-arrow-down-left"></i> Transfer Ins</a></div>
         </div>
       </div>
       <div class="nav-item"><a href="employees.html" class="nav-link"><i class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
@@ -524,13 +321,13 @@
   <div class="main-content">
     <header class="topbar">
       <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
-      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Sales</span>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Transfer / Transfer Outs</span>
       <div class="topbar-actions">
         <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
         <div class="topbar-icon-btn"><i class="bi bi-arrows-fullscreen"></i></div>
-        <div class="topbar-icon-btn"><i class="bi bi-basket"></i><span class="badge-dot"></span></div>
+        <div class="topbar-icon-btn"><i class="bi bi-basket"></i></div>
         <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
+          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button">Dhaka</button>
         </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
@@ -561,40 +358,26 @@
             
             <div id="viewCategories" class="filter-view">
               <div class="breadcrumb-recv">
-                <span>All</span> <i class="bi bi-chevron-double-right"></i> <span style="color: #3b82f6;">Fruits</span>
+                <span style="color: #3b82f6; font-weight: 700; font-size: 15px;">All</span>
               </div>
               <div class="category-grid">
                 <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=150&q=80" alt="Fruits" class="category-img">
-                  <div class="category-name-box">Fruits</div>
-                </div>
-                <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1592489637182-8c172d6d7826?auto=format&fit=crop&w=150&q=80" alt="Vegetables" class="category-img">
-                  <div class="category-name-box">Vegetables</div>
+                  <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=150&q=80" alt="Food" class="category-img">
+                  <div class="category-name-box">Food</div>
                 </div>
               </div>
             </div>
 
             <div id="viewTags" class="filter-view" style="display: none;">
-              <div class="d-flex flex-wrap gap-2">
-                <div class="tag-item active">Favorites</div>
-                <div class="tag-item">Favorites</div>
-              </div>
+              <div class="p-3 text-center text-secondary">No tags available</div>
             </div>
 
             <div id="viewSuppliers" class="filter-view" style="display: none;">
-              <div class="category-grid">
-                <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Hakim" class="category-img">
-                  <div class="category-name-box">Hakim Group</div>
-                </div>
-              </div>
+              <div class="p-3 text-center text-secondary">No suppliers available</div>
             </div>
 
             <div id="viewFavorites" class="filter-view" style="display: none;">
-              <div class="d-flex flex-wrap gap-2">
-                <div class="tag-item active">Favorites</div>
-              </div>
+              <div class="p-3 text-center text-secondary">No favorites available</div>
             </div>
           </div>
 
@@ -603,20 +386,12 @@
             <div class="recv-search-row">
               <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
               <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
-              <div class="dropdown">
-                <button class="btn-recv-action btn-recv-mode dropdown-toggle" type="button" data-bs-toggle="dropdown" id="currentMode">
-                  <i class="bi bi-cart"></i> Sales
-                </button>
-                <ul class="dropdown-menu recv-dropdown-menu">
-                  <li><a class="dropdown-item recv-dropdown-item" href="#">Sales</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item" href="#">Return</a></li>
-                </ul>
-              </div>
+              <button class="btn-recv-action btn-recv-mode"><i class="bi bi-arrow-left-right"></i> Transfer</button>
               <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
             </div>
 
             <div class="table-responsive">
-              <table class="recv-table" id="recvTable">
+              <table class="recv-table">
                 <thead>
                   <tr>
                     <th style="width: 40px;">-</th>
@@ -627,20 +402,26 @@
                     <th>Total</th>
                   </tr>
                 </thead>
-                <tbody id="cartItems" style="display: none;">
+                <tbody>
                   <tr>
-                    <td class="text-center"><button class="btn-remove-item"><i class="bi bi-dash-circle-fill"></i></button></td>
-                    <td><div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div></td>
+                    <td class="text-center"><button class="btn-remove-item"><i class="bi bi-x-circle-fill"></i></button></td>
+                    <td>
+                      <div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div>
+                      <div class="item-details">
+                        <div><span>Serial</span><span style="color: #94a3b8; font-style: italic;">Empty</span></div>
+                        <div><span>Stock</span><span>40</span></div>
+                        <div><span>Selling Price</span><span>15.00</span></div>
+                        <div><span>Description</span><span>ghbnfadvv</span></div>
+                        <div><span>UPC/EAN/ISBN</span><span>7F9K</span></div>
+                      </div>
+                    </td>
                     <td class="text-center" style="color: var(--primary); font-weight: 700;">$15.00</td>
                     <td class="text-center" style="color: var(--primary); font-weight: 700;">20</td>
-                    <td class="text-center">0%</td>
-                    <td class="text-center" style="color: var(--primary); font-weight: 700;">$300.00</td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">0%</td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">-$300.00</td>
                   </tr>
                 </tbody>
               </table>
-              <div id="emptyCart" class="empty-cart-msg">
-                There are no items in the cart <span>[Sales]</span>
-              </div>
               <div style="height: 10px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 5%22%3E%3Cpath d=%22M0 5h20V0L10 5 0 0z%22 fill=%22%23f1f5f9%22/%3E%3C/svg%3E') repeat-x; opacity: 0.5;"></div>
             </div>
           </div>
@@ -649,111 +430,104 @@
         <!-- RIGHT COLUMN -->
         <div class="recv-right">
           <div class="summary-card">
-            <div class="summary-top-btns" style="grid-template-columns: 40px 1fr 1fr;">
-              <div class="dropdown">
-                <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
-                <ul class="dropdown-menu sidebar-options-menu">
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Sales</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
-                </ul>
+            <div class="summary-top-btns">
+              <button class="btn-summary-sm btn-more-recv px-3">...</button>
+              <button class="btn-summary-sm btn-suspend-sale"><i class="bi bi-pause-fill"></i> Suspend</button>
+              <button class="btn-summary-sm btn-cancel-sale"><i class="bi bi-x-circle"></i> Cancel Recv.</button>
+            </div>
+
+            <div class="location-info-row">
+              <div class="location-label">Transfer From: Dhaka</div>
+              <div class="location-btns">
+                <div class="btn-loc-action btn-loc-edit" data-bs-toggle="modal" data-bs-target="#editLocationModal" onclick="prepareLocModal('From', 'Dhaka')"><i class="bi bi-pencil-square"></i> Edit</div>
+                <div class="btn-loc-action btn-loc-detach"><i class="bi bi-trash"></i> Detach</div>
               </div>
-              <button class="btn-summary-sm btn-suspend-sale"><i class="bi bi-pause-fill"></i> Suspend Sale</button>
-              <button class="btn-summary-sm btn-cancel-sale"><i class="bi bi-x-circle"></i> Cancel Sale</button>
             </div>
 
-            <div class="customer-profile">
-              <div class="customer-avatar">
-                <img src="https://ui-avatars.com/api/?name=Amir+Khan&background=3b82f6&color=fff" alt="Amir" style="width: 100%; height: 100%;">
+            <div class="location-info-row">
+              <div class="location-label">Transfer To: Comilla</div>
+              <div class="location-btns">
+                <div class="btn-loc-action btn-loc-edit" data-bs-toggle="modal" data-bs-target="#editLocationModal" onclick="prepareLocModal('To', 'Comilla')"><i class="bi bi-pencil-square"></i> Edit</div>
+                <div class="btn-loc-action btn-loc-detach"><i class="bi bi-trash"></i> Detach</div>
               </div>
-              <div class="customer-info">
-                <div class="customer-name">Amir Khan</div>
-                <div class="customer-email">admin@admin.com</div>
-              </div>
-              <div class="btn-edit-cust"><i class="bi bi-pencil-square"></i> Edit</div>
-            </div>
-
-            <div class="sidebar-mini-btns">
-              <span class="btn-mini-link text-primary"><i class="bi bi-envelope"></i> Email Receipt?</span>
-              <span class="btn-mini-link text-danger"><i class="bi bi-trash"></i> Detach</span>
-            </div>
-
-            <div class="d-flex border-bottom">
-              <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size: 12px;"><i class="bi bi-pencil-square"></i> Edit</button>
-              <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size: 12px;"><i class="bi bi-x-circle"></i> Detach</button>
-            </div>
-
-            <div class="supplier-search-recv">
-              <button class="btn-add-supplier"><i class="bi bi-plus"></i></button>
-              <input type="text" class="supplier-search-input" placeholder="Type customer name........">
             </div>
 
             <div class="discount-section">
               <div class="discount-row">
                 <span>Discount all Items by Percent:</span>
                 <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
-                  <input type="text" class="discount-mini-input" placeholder="0%">
-                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                <div class="discount-input-group" style="display: none; align-items: center; gap: 6px;">
+                  <input type="text" class="form-control form-control-sm" style="width: 60px;" placeholder="0%">
+                  <button class="btn btn-sm btn-primary" onclick="hideDiscountForm(this)">Set</button>
                 </div>
               </div>
               <div class="discount-row">
                 <span>Discount Entire Receiving:</span>
                 <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
-                  <input type="text" class="discount-mini-input" placeholder="0.00">
-                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                <div class="discount-input-group" style="display: none; align-items: center; gap: 6px;">
+                  <input type="text" class="form-control form-control-sm" style="width: 60px;" placeholder="0.00">
+                  <button class="btn btn-sm btn-primary" onclick="hideDiscountForm(this)">Set</button>
                 </div>
               </div>
             </div>
 
             <div class="totals-section">
-              <div class="total-row"><span>Sub Total: <a href="#" style="color: #3b82f6; font-size: 11px; text-decoration: none;">[Edit Taxes]</a></span><span style="color: #3b82f6; text-decoration: underline dashed;">-$0.00</span></div>
+              <div class="total-row"><span>Sub Total:</span><span style="color: #3b82f6; text-decoration: underline dashed;">-$300.00</span></div>
               <div class="total-row" style="color: #166534; margin-top: 8px;"><span>Total</span><span>Amount Due</span></div>
-              <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$0.00</span><span style="color: #ea580c;">-$0.00</span></div>
+              <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$300.00</span><span style="color: #ea580c;">-$300.00</span></div>
             </div>
 
-            <div class="payment-section">
-              <div class="comment-label mb-2">Add Payment</div>
-              <div class="payment-methods">
-                <button class="btn-pay-method active" onclick="switchPayment(this)">Cash</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Check</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Debit card</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Credit card</button>
-              </div>
-              <div class="pay-input-row">
-                <input type="text" class="pay-input" value="1.00">
-                <button class="btn-finish" onclick="location.href='sales-receipt.html'">Complete Sale</button>
-              </div>
-            </div>
-
-            <div class="px-3 py-2 border-top">
-              <div class="d-flex align-items-center justify-content-between border rounded p-2 bg-white">
-                <span class="text-secondary" style="font-size: 13px;">04/12/2026 06:05 am</span>
-                <i class="bi bi-calendar3 text-secondary"></i>
-              </div>
+            <div class="action-btns-recv">
+              <button class="btn-primary-action">Send Transfer Request</button>
+              <div class="text-center" style="font-size: 11px; font-weight: 700; color: #64748b;">OR</div>
+              <button class="btn-secondary-action">Complete Transfer</button>
             </div>
 
             <div class="date-change">
               <label class="d-flex align-items-center gap-2 cursor-pointer">
-                <input type="checkbox"> Change sale date
+                <input type="checkbox" checked> Change receiving date
               </label>
+              <div class="mt-2 border rounded p-2 bg-white d-flex justify-content-between">
+                <span>04/12/2026 06:05 am</span>
+                <i class="bi bi-calendar3"></i>
+              </div>
             </div>
 
-            <div class="recv-comment">
+            <div class="comment-section">
               <div class="comment-label">Comments :</div>
               <textarea class="comment-box"></textarea>
-              <div class="mt-2">
-                <label class="d-flex align-items-center gap-2 cursor-pointer" style="font-size: 12px; color: #475569;">
-                  <input type="checkbox" checked> Show comments on receipt
-                </label>
-              </div>
             </div>
           </div>
         </div>
 
       </div>
     </main>
+  </div>
+</div>
+
+<!-- Edit Location Modal -->
+<div class="modal fade" id="editLocationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-content-loc">
+      <div class="modal-header-loc">
+        <h5 class="m-0 fw-bold" id="locModalTitle" style="font-size: 16px; color: #334155;">Edit Transfer From</h5>
+        <button type="button" class="btn-close-loc" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="modal-body modal-body-loc">
+        <div class="loc-form-row">
+          <label class="loc-form-label">Location:</label>
+          <select class="loc-form-select" id="locSelect">
+            <option value="Dhaka">Dhaka</option>
+            <option value="Comilla">Comilla</option>
+            <option value="Chittagong">Chittagong</option>
+            <option value="Sylhet">Sylhet</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer-loc">
+        <button type="button" class="btn-loc-save" data-bs-dismiss="modal">Save Changes</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -770,11 +544,6 @@
   function toggleGrid() {
     const grid = document.getElementById('filtersCard');
     grid.style.display = (grid.style.display === 'none') ? 'block' : 'none';
-  }
-
-  function switchPayment(el) {
-    document.querySelectorAll('.btn-pay-method').forEach(btn => btn.classList.remove('active'));
-    el.classList.add('active');
   }
 
   function showDiscountForm(el) {
@@ -794,6 +563,11 @@
     }
     group.style.display = 'none';
     link.style.display = 'inline';
+  }
+
+  function prepareLocModal(type, current) {
+    document.getElementById('locModalTitle').innerText = 'Edit Transfer ' + type;
+    document.getElementById('locSelect').value = current;
   }
 </script>
 </body>

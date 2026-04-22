@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Employee | POS System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* PAGE CONTENT OVERRIDES */
+    .page-content { padding: 0; flex: 1; }
+    .page-content-inner { max-width: 1600px; margin: 0 auto; padding: 20px 20px 80px; }
+
+    /* BACK LINK */
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover { color: #3b82f6; }
+
+    /* SECTION CARD */
+    .section-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 12.5px; font-weight: 700; color: #334155;
+    }
+    .section-header i { font-size: 13px; color: #64748b; }
+    .section-body { padding: 0; }
+
+    /* FORM ROWS */
+    .form-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+      min-height: 36px;
+    }
+    .form-row:last-child { border-bottom: none; }
+    .form-row-label {
+      width: 220px;
+      min-width: 220px;
+      text-align: right;
+      padding: 6px 16px 6px 0;
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 500;
+      padding-left: 16px;
+    }
+    .form-row-label.req { color: #ef4444; font-weight: 600; }
+    .form-row-value {
+      flex: 1;
+      padding: 5px 16px 5px 0;
+    }
+    .form-input {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 12.5px;
+      width: 100%;
+      max-width: 380px;
+      outline: none;
+      color: #1e293b;
+    }
+    .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.1); }
+    .form-select {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 12.5px;
+      width: 140px;
+      outline: none;
+      color: #1e293b;
+      background: #fff;
+    }
+    .form-textarea {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 12.5px;
+      width: 100%;
+      max-width: 380px;
+      outline: none;
+      resize: none;
+      color: #1e293b;
+    }
+    .form-date {
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 12.5px;
+      width: 200px;
+      outline: none;
+      color: #1e293b;
+    }
+
+    /* Avatar box */
+    .avatar-box {
+      width: 110px; height: 80px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: #94a3b8; font-size: 11px; gap: 4px;
+      cursor: pointer;
+    }
+    .avatar-box i { font-size: 20px; }
+    .avatar-box.has-image { border: 2px solid #3b82f6; }
+
+    /* Color Swatch */
+    .color-swatch {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px #e2e8f0;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .color-swatch:hover { transform: scale(1.1); }
+
+
+    /* Choose Color button */
+    .btn-choose-color {
+      background: #3b82f6; color: #fff; border: none;
+      border-radius: 4px; padding: 5px 12px; font-size: 11.5px;
+      font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px;
+    }
+
+    /* Files section */
+    .file-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .file-label { width: 50px; text-align: right; font-size: 12px; color: #64748b; }
+    .btn-choose-file {
+      background: #fff; border: 1px solid #e2e8f0;
+      border-radius: 4px; padding: 4px 10px; font-size: 11px;
+      cursor: pointer; color: #334155;
+    }
+    .btn-choose-file:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .no-file { font-size: 11px; color: #94a3b8; }
+
+    /* Permissions */
+    .perm-info {
+      background: #eff6ff; color: #3b82f6;
+      border: none; border-radius: 4px;
+      padding: 8px 14px; font-size: 12px;
+      display: flex; align-items: center; gap: 6px;
+      margin: 12px 16px;
+    }
+    .perm-preset-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 12.5px; color: #475569;
+    }
+    .perm-preset-input {
+      border: 1px solid #e2e8f0; border-radius: 4px;
+      padding: 4px 8px; font-size: 12px; width: 120px; outline: none;
+    }
+    .perm-module {
+      padding: 10px 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .perm-module:last-child { border-bottom: none; }
+    .perm-module-title {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700; color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .perm-module-title.enabled { color: #3b82f6; }
+    .perm-module-title .perm-check-blue {
+      width: 14px; height: 14px; accent-color: #3b82f6;
+    }
+    .perm-sub { font-size: 11px; color: #64748b; margin-left: 4px; }
+    .perm-items { padding-left: 20px; }
+    .perm-item {
+      font-size: 12px; color: #475569;
+      padding: 2px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .perm-item:hover { color: #1e293b; }
+    .perm-item input[type="checkbox"] {
+      width: 13px; height: 13px;
+      margin: 0;
+    }
+
+    /* Footer */
+    .form-footer {
+      position: fixed; bottom: 0;
+      left: 200px; right: 0;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      padding: 12px 30px;
+      display: flex; justify-content: flex-end;
+      z-index: 100;
+    }
+    .btn-save {
+      background: #22c55e; color: #fff; border: none;
+      border-radius: 5px; padding: 8px 30px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .btn-save:hover { background: #16a34a; }
+
+    /* Checkbox styling */
+    input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; accent-color: #3b82f6; }
+
+    /* Commission % row */
+    .input-with-suffix {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .input-suffix {
+      border: 1px solid #e2e8f0; border-left: none;
+      border-radius: 0 4px 4px 0; padding: 5px 8px;
+      background: #f8fafc; font-size: 12px; color: #64748b;
+    }
+    .input-prefix-group .form-input {
+      border-radius: 4px 0 0 4px;
+      max-width: 80px;
+    }
+  </style>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
+      <div class="sidebar-brand-info">
+        <div class="sidebar-brand-name">Main Branch</div>
+        <div class="sidebar-brand-role">Administrator</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item"><a href="../index.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-toggle="submenu">
+          <i class="bi bi-people-fill"></i><span>Contacts</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="customers.html" class="nav-link"><i class="bi bi-dot"></i> Customers</a></div>
+          <div class="nav-item"><a href="suppliers.html" class="nav-link"><i class="bi bi-dot"></i> Suppliers</a></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-toggle="submenu">
+          <i class="bi bi-box-seam-fill"></i><span>Inventory</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
+          <div class="nav-item"><a href="item-kits.html" class="nav-link"><i class="bi bi-dot"></i> Item Kits</a></div>
+          <div class="nav-item"><a href="labels.html" class="nav-link"><i class="bi bi-dot"></i> Labels</a></div>
+          <div class="nav-item"><a href="order.html" class="nav-link"><i class="bi bi-dot"></i> Order</a></div>
+          <div class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-dot"></i> Categories</a></div>
+          <div class="nav-item"><a href="tags.html" class="nav-link"><i class="bi bi-dot"></i> Tags</a></div>
+          <div class="nav-item"><a href="attributes.html" class="nav-link"><i class="bi bi-dot"></i> Attributes</a></div>
+          <div class="nav-item"><a href="price-rules.html" class="nav-link"><i class="bi bi-dot"></i> Price Rules</a></div>
+        </div>
+      </div>
+      <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
+      <div class="nav-item"><a href="receiving.html" class="nav-link"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
+      <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-toggle="submenu">
+          <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer Out</a></div>
+          <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a></div>
+        </div>
+      </div>
+      <div class="nav-item"><a href="employees.html" class="nav-link active"><i class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
+      <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
+      <div class="nav-item"><a href="store-config.html" class="nav-link"><i class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
+      <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
+      <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-logout">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Logout</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Employees / New</span>
+      <div class="topbar-actions">
+        <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
+        <div class="topbar-icon-btn"><i class="bi bi-arrows-fullscreen"></i></div>
+        <div class="topbar-icon-btn"><i class="bi bi-basket"></i></div>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button">Dhaka</button>
+        </div>
+        <div class="topbar-user">
+          <div class="topbar-user-info">
+            <div class="topbar-user-name">Shaun Marphy</div>
+            <div class="topbar-user-role">Admin</div>
+          </div>
+          <div class="topbar-avatar" style="overflow: hidden;">
+            <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="page-content-inner">
+
+        <a class="back-link" href="employees.html">
+          <i class="bi bi-arrow-left"></i> Back to Employees
+        </a>
+
+        <!-- Employee Basic Information -->
+        <div class="section-card">
+          <div class="section-header">
+            <i class="bi bi-circle-fill" style="font-size:8px;color:#3b82f6;"></i>
+            Employee Basic Information <span style="font-size:11px;color:#ef4444;font-weight:400;margin-left:4px;">(Fields in red are required)</span>
+          </div>
+          <div class="section-body">
+
+            <div class="form-row">
+              <div class="form-row-label req">First Name *</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label req">Last Name *</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label req">Email *</div>
+              <div class="form-row-value"><input type="email" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Phone Number</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Color/Theme</div>
+              <div class="form-row-value">
+                <div class="d-flex align-items-center gap-3">
+                  <input type="color" id="employeeColor" value="#3b82f6" style="display:none;" oninput="updateColorSwatch(this.value)">
+                  <button type="button" class="btn-choose-color" onclick="document.getElementById('employeeColor').click()">
+                    <i class="bi bi-palette-fill"></i> Choose Color
+                  </button>
+                  <div class="color-swatch" id="colorSwatch" onclick="document.getElementById('employeeColor').click()"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row" style="align-items:flex-start;">
+              <div class="form-row-label" style="padding-top:10px;"></div>
+              <div class="form-row-value" style="padding-top:8px;">
+                <input type="file" id="employeeAvatar" accept="image/*" style="display:none;" onchange="previewAvatar(this)">
+                <div class="avatar-box" id="avatarPreview" onclick="document.getElementById('employeeAvatar').click()">
+                  <i class="bi bi-person"></i>
+                  <span>Choose</span>
+                  <span>avatar</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Address 1</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Address 2</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">City</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">State/Province</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Zip</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Country</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row" style="align-items:flex-start;">
+              <div class="form-row-label" style="padding-top:6px;">Comments</div>
+              <div class="form-row-value"><textarea class="form-textarea" rows="3"></textarea></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Allowed To Log In Start Date</div>
+              <div class="form-row-value">
+                <input type="date" class="form-date">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Allowed To Log In End Date</div>
+              <div class="form-row-value">
+                <input type="date" class="form-date">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Current Timeclock Operation</div>
+              <div class="form-row-value"><span style="font-size:12px;color:#94a3b8;"></span></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Commission Default Rate</div>
+              <div class="form-row-value">
+                <div class="input-with-suffix input-prefix-group">
+                  <input type="text" class="form-input" value="0" style="max-width:70px;border-radius:4px 0 0 4px;">
+                  <span class="input-suffix">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Commission Percent Calculation Method</div>
+              <div class="form-row-value">
+                <select class="form-select" style="width:150px;">
+                  <option>Selling Price</option>
+                  <option>Cost Price</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Hire Date</div>
+              <div class="form-row-value"><input type="date" class="form-date"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Birth Date</div>
+              <div class="form-row-value"><input type="date" class="form-date"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Employee Number</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Language</div>
+              <div class="form-row-value">
+                <select class="form-select">
+                  <option>English</option>
+                  <option>Spanish</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Default Register</div>
+              <div class="form-row-value">
+                <select class="form-select">
+                  <option>None</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Files -->
+        <div class="section-card">
+          <div class="section-header">
+            <i class="bi bi-circle-fill" style="font-size:8px;color:#64748b;"></i>
+            Files
+          </div>
+          <div class="section-body" style="padding:14px 16px;">
+            <div class="form-row" style="border:none; align-items:flex-start;">
+              <div class="form-row-label" style="padding-top:4px;">Add Files</div>
+              <div class="form-row-value">
+                <div class="file-row">
+                  <div class="file-label">File 1:</div>
+                  <input type="file" id="file1" style="display:none;">
+                  <button class="btn-choose-file" onclick="document.getElementById('file1').click()">Choose File</button>
+                  <span class="no-file">No file chosen</span>
+                </div>
+                <div class="file-row">
+                  <div class="file-label">File 2:</div>
+                  <input type="file" id="file2" style="display:none;">
+                  <button class="btn-choose-file" onclick="document.getElementById('file2').click()">Choose File</button>
+                  <span class="no-file">No file chosen</span>
+                </div>
+                <div class="file-row">
+                  <div class="file-label">File 3:</div>
+                  <input type="file" id="file3" style="display:none;">
+                  <button class="btn-choose-file" onclick="document.getElementById('file3').click()">Choose File</button>
+                  <span class="no-file">No file chosen</span>
+                </div>
+                <div class="file-row">
+                  <div class="file-label">File 4:</div>
+                  <input type="file" id="file4" style="display:none;">
+                  <button class="btn-choose-file" onclick="document.getElementById('file4').click()">Choose File</button>
+                  <span class="no-file">No file chosen</span>
+                </div>
+                <div class="file-row">
+                  <div class="file-label">File 5:</div>
+                  <input type="file" id="file5" style="display:none;">
+                  <button class="btn-choose-file" onclick="document.getElementById('file5').click()">Choose File</button>
+                  <span class="no-file">No file chosen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employee Login Info -->
+        <div class="section-card">
+          <div class="section-header">
+            <i class="bi bi-circle-fill" style="font-size:8px;color:#64748b;"></i>
+            Employee Login Info
+          </div>
+          <div class="section-body">
+
+            <div class="form-row">
+              <div class="form-row-label req">Username *</div>
+              <div class="form-row-value"><input type="text" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Password</div>
+              <div class="form-row-value"><input type="password" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Password Again</div>
+              <div class="form-row-value"><input type="password" class="form-input"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Force Password Change Upon Login</div>
+              <div class="form-row-value"><input type="checkbox"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Always Require Password When Checking In/Out</div>
+              <div class="form-row-value"><input type="checkbox"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Dark Mode</div>
+              <div class="form-row-value"><input type="checkbox"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Inactive</div>
+              <div class="form-row-value"><input type="checkbox"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-row-label">Display warnings for products out of stock</div>
+              <div class="form-row-value"><input type="checkbox"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Employee Module Access and Permissions -->
+        <div class="section-card">
+          <div class="section-header">
+            <i class="bi bi-circle-fill" style="font-size:8px;color:#64748b;"></i>
+            Employee Module Access and Permissions
+          </div>
+          <div class="section-body">
+
+            <div class="perm-info">
+              <i class="bi bi-info-circle-fill"></i>
+              Please note that you must also grant access to the module to be able to use the permissions below.
+            </div>
+
+            <div class="perm-preset-row">
+              <span>Preset Permissions</span>
+              <input type="text" class="perm-preset-input" value="None">
+            </div>
+
+            <!-- Customers -->
+            <div class="perm-module">
+              <div class="perm-module-title enabled">
+                <input type="checkbox" class="perm-check-blue" checked>
+                <span style="color:#2563eb;">Customers</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search customers)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add customer</label>
+                <label class="perm-item"><input type="checkbox"> Delete</label>
+                <label class="perm-item"><input type="checkbox" checked> Search customers</label>
+                <label class="perm-item"><input type="checkbox"> Add Store Account Balance</label>
+                <label class="perm-item"><input type="checkbox"> Sell customers (purchases under cost or item with discount)</label>
+                <label class="perm-item"><input type="checkbox"> Email Receipt</label>
+                <label class="perm-item"><input type="checkbox"> Edit Tier</label>
+                <label class="perm-item"><input type="checkbox"> Remove Account</label>
+              </div>
+            </div>
+
+            <!-- Items -->
+            <div class="perm-module">
+              <div class="perm-module-title enabled">
+                <input type="checkbox" class="perm-check-blue" checked>
+                <span style="color:#2563eb;">Items</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search items)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Item</label>
+                <label class="perm-item"><input type="checkbox"> Delete</label>
+                <label class="perm-item"><input type="checkbox" checked> Search Items</label>
+                <label class="perm-item"><input type="checkbox"> See Cost Price</label>
+                <label class="perm-item"><input type="checkbox"> Edit Inventory</label>
+                <label class="perm-item"><input type="checkbox"> View Inventory Counts</label>
+                <label class="perm-item"><input type="checkbox"> Count Inventory</label>
+                <label class="perm-item"><input type="checkbox"> See cost price under store account in purchase</label>
+                <label class="perm-item"><input type="checkbox"> Manage Categories</label>
+                <label class="perm-item"><input type="checkbox"> Manage Tags</label>
+                <label class="perm-item"><input type="checkbox"> Manage Manufacturers</label>
+                <label class="perm-item"><input type="checkbox"> Excel Export</label>
+                <label class="perm-item"><input type="checkbox"> View Items Not In Receipt</label>
+                <label class="perm-item"><input type="checkbox"> View Items Out Of Inventory</label>
+                <label class="perm-item"><input type="checkbox"> Edit/Delete Inventory Comments</label>
+                <label class="perm-item"><input type="checkbox"> Record Waste</label>
+              </div>
+            </div>
+
+            <!-- Item Kits -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Item Kits</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search Item Kits)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Item Kit</label>
+                <label class="perm-item"><input type="checkbox"> Delete</label>
+                <label class="perm-item"><input type="checkbox"> Search Item Kits</label>
+                <label class="perm-item"><input type="checkbox"> See Cost Price</label>
+                <label class="perm-item"><input type="checkbox"> Excel Export</label>
+                <label class="perm-item"><input type="checkbox"> Edit Prices</label>
+                <label class="perm-item"><input type="checkbox"> See Kit Price Rules</label>
+              </div>
+            </div>
+
+            <!-- Item Families -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Item Families</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search Pricing Rules)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Family</label>
+                <label class="perm-item"><input type="checkbox"> Delete</label>
+                <label class="perm-item"><input type="checkbox"> Search Price Rules</label>
+              </div>
+            </div>
+
+            <!-- Sales -->
+            <div class="perm-module">
+              <div class="perm-module-title enabled">
+                <input type="checkbox" class="perm-check-blue" checked>
+                <span style="color:#2563eb;">Sales</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search sales)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox" checked> Add Sale</label>
+                <label class="perm-item"><input type="checkbox"> Delete Sale</label>
+                <label class="perm-item"><input type="checkbox" checked> Search Sales</label>
+                <label class="perm-item"><input type="checkbox"> Edit Store Account Balance</label>
+                <label class="perm-item"><input type="checkbox"> Sell Giftcard</label>
+                <label class="perm-item"><input type="checkbox"> Issue Store Credit</label>
+                <label class="perm-item"><input type="checkbox"> Process Sales and Returns</label>
+                <label class="perm-item"><input type="checkbox"> Edit Sale Price</label>
+                <label class="perm-item"><input type="checkbox"> Edit Sale Discount</label>
+                <label class="perm-item"><input type="checkbox"> View Cost Price</label>
+                <label class="perm-item"><input type="checkbox"> Edit Customer In Sale</label>
+                <label class="perm-item"><input type="checkbox"> Create Quotes</label>
+              </div>
+            </div>
+
+            <!-- Deliveries -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Deliveries</span>
+                <span class="perm-sub">(View and process deliveries)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Delivery</label>
+                <label class="perm-item"><input type="checkbox"> Update Delivery</label>
+                <label class="perm-item"><input type="checkbox"> Delete Delivery</label>
+              </div>
+            </div>
+
+            <!-- Work Orders -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Work Orders</span>
+                <span class="perm-sub">(View Work Orders)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Work Order</label>
+                <label class="perm-item"><input type="checkbox"> Update Work Order</label>
+                <label class="perm-item"><input type="checkbox"> Delete Work Order</label>
+              </div>
+            </div>
+
+            <!-- Expenses -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Expenses</span>
+                <span class="perm-sub">(Add, Delete, and Search expenses)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Expense</label>
+                <label class="perm-item"><input type="checkbox"> Update Expense</label>
+                <label class="perm-item"><input type="checkbox"> Delete Expense</label>
+              </div>
+            </div>
+
+            <!-- Appointments -->
+            <div class="perm-module">
+              <div class="perm-module-title">
+                <input type="checkbox" class="perm-check-blue">
+                <span>Appointments</span>
+                <span class="perm-sub">(Manage Appointments)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Appointment</label>
+                <label class="perm-item"><input type="checkbox"> Update Appointment</label>
+                <label class="perm-item"><input type="checkbox"> Delete Appointment</label>
+              </div>
+            </div>
+
+            <!-- Employees -->
+            <div class="perm-module">
+              <div class="perm-module-title enabled">
+                <input type="checkbox" class="perm-check-blue" checked>
+                <span style="color:#2563eb;">Employees</span>
+                <span class="perm-sub">(Add, Update, Delete, and Search employees)</span>
+              </div>
+              <div class="perm-items">
+                <label class="perm-item"><input type="checkbox"> Add Employee</label>
+                <label class="perm-item"><input type="checkbox"> Update Employee</label>
+                <label class="perm-item"><input type="checkbox"> Delete Employee</label>
+                <label class="perm-item"><input type="checkbox" checked> Search Employees</label>
+                <label class="perm-item"><input type="checkbox"> Change Employee Passwords</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="form-footer">
+        <button class="btn-save">Save</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  function updateColorSwatch(color) {
+    document.getElementById('colorSwatch').style.backgroundColor = color;
+  }
+
+  function previewAvatar(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('avatarPreview');
+        preview.style.backgroundImage = `url(${e.target.result})`;
+        preview.style.backgroundSize = 'cover';
+        preview.style.backgroundPosition = 'center';
+        preview.innerHTML = ''; // Clear icon and text
+        preview.classList.add('has-image');
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+</body>
+</html>

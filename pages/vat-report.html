@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE TITLE | POS System</title>
+  <title>VAT Returns | POS System</title>
 
   <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -11,14 +11,187 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <!-- Page-specific CSS (optional) -->
-  <!-- <link rel="stylesheet" href="../assets/css/pages/PAGE_NAME.css" /> -->
+  <style>
+    /* VAT Report Specific Styles */
+    .customers-toolbar {
+      background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; box-shadow: var(--shadow-xs);
+    }
+    .search-wrap { display: flex; gap: 12px; flex: 1; max-width: 600px; }
+    .search-input {
+      flex: 1; max-width: 280px; background: #f1f5f9; border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm); padding: 8px 16px; font-size: 13.5px;
+      outline: none; transition: var(--transition);
+    }
+    .search-input:focus { border-color: var(--primary); background: #fff; }
+    .btn-search {
+      background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+      padding: 8px 24px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-search:hover { background: var(--primary-dark); }
+
+    .toolbar-actions { display: flex; gap: 12px; }
+    .btn-add-vat {
+      background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+      padding: 8px 16px; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      transition: var(--transition);
+    }
+    .btn-add-vat:hover { background: var(--primary-dark); }
+
+    /* Table Card */
+    .table-card {
+      background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-xs); overflow: hidden;
+    }
+    
+    /* Table */
+    .custom-table { width: 100%; border-collapse: collapse; }
+    .custom-table th {
+      background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+      color: var(--gray-800); font-size: 12px; font-weight: 700;
+      padding: 14px 20px; text-align: left; white-space: nowrap;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .custom-table td {
+      padding: 14px 20px; border-bottom: 1px solid var(--gray-100); font-size: 13.5px;
+      color: var(--gray-700); vertical-align: middle; font-weight: 500;
+    }
+    .custom-table tr:last-child td { border-bottom: none; }
+    .custom-table tr:hover { background: var(--gray-50); }
+
+    .action-btns { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
+    .action-icon { cursor: pointer; transition: transform 0.2s; font-size: 16px; }
+    .action-icon:hover { transform: scale(1.1); }
+    .text-view { color: #3b82f6; }
+    .text-edit { color: #64748b; }
+    .text-delete { color: #ef4444; }
+
+    /* Modal Styles */
+    .modal-content {
+      border-radius: var(--radius-lg);
+      border: none;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-header {
+      border-bottom: 1px solid var(--gray-100);
+      padding: 18px 24px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .modal-body {
+      padding: 24px;
+    }
+    .modal-footer {
+      border-top: 1px solid var(--gray-100);
+      padding: 16px 24px;
+    }
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    .btn-primary {
+      background: var(--primary);
+      border: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      font-size: 13.5px;
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      font-size: 13.5px;
+    }
+    .btn-secondary:hover { background: var(--gray-200); }
+
+    /* Custom Month Picker Styling */
+    .month-picker-wrap { position: relative; }
+    .month-picker-input {
+      padding: 12px 16px; 
+      padding-right: 40px; 
+      border-radius: 8px; 
+      border: 1px solid #E2E8F0; 
+      font-size: 14px;
+      width: 100%;
+      outline: none;
+      transition: var(--transition);
+      background: #fff;
+    }
+    .month-picker-input:focus { border-color: var(--primary); }
+    .month-picker-input::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      opacity: 0; /* Hide native icon but keep clickable */
+      width: 20px;
+      height: 20px;
+      z-index: 10;
+    }
+    .month-picker-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748B;
+      font-size: 16px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .view-vat-title { font-size: 24px; font-weight: 700; color: #1E293B; text-align: center; margin-bottom: 30px; margin-top: 10px; }
+    .view-vat-section-title { font-size: 15px; font-weight: 700; color: #1E293B; margin-bottom: 20px; margin-top: 35px; }
+    
+    .vat-detail-row { display: grid; grid-template-columns: 1fr 140px 140px; gap: 30px; align-items: center; margin-bottom: 15px; }
+    .vat-detail-label { font-size: 14px; color: #475569; line-height: 1.4; }
+    .vat-detail-input { 
+      border: 1px solid #E2E8F0; 
+      border-radius: 6px; 
+      padding: 10px 12px; 
+      font-size: 13px; 
+      text-align: center; 
+      background: #fff;
+      height: 40px;
+    }
+    .vat-detail-header-row { display: grid; grid-template-columns: 1fr 140px 140px; gap: 30px; margin-bottom: 15px; }
+    .vat-detail-header-label { font-size: 15px; font-weight: 700; color: #1E293B; text-align: center; }
+
+    .vat-top-info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .vat-top-info-item { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 12px; }
+    .vat-top-info-label { font-size: 14px; color: #475569; margin-right: 20px; text-align: right; }
+    .vat-top-info-input-wrap { width: 130px; }
+    .vat-top-info-input-wrap .input-group-text { background: #f8fafc !important; border-color: #E2E8F0; color: #94a3b8; font-size: 12px; }
+    .vat-top-info-input-wrap .form-control { border-color: #E2E8F0; font-size: 13px; color: #1e293b; text-align: center; }
+
+    .vat-detail-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-soft); }
+    .btn-print-vat { background: #fff; border: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; padding: 10px 24px; border-radius: 8px; transition: var(--transition); }
+    .btn-print-vat:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .btn-save-vat { background: #4ADE80; border: none; color: #fff; font-weight: 600; padding: 10px 32px; border-radius: 8px; transition: var(--transition); }
+    .btn-save-vat:hover { background: #22c55e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2); }
+
+    .table-responsive { overflow-x: auto; }
+  </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-  <!-- â”€â”€ SIDEBAR â”€â”€ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
@@ -29,11 +202,7 @@
     </div>
 
     <nav class="sidebar-nav">
-      <div class="nav-item">
-        <a href="../index.html" class="nav-link">
-          <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
-        </a>
-      </div>
+      <div class="nav-item"><a href="../index.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></div>
       <div class="nav-item">
         <a href="#" class="nav-link" data-toggle="submenu">
           <i class="bi bi-people-fill"></i><span>Contacts</span>
@@ -74,7 +243,7 @@
         </div>
       </div>
       <div class="nav-item"><a href="employees.html" class="nav-link"><i class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
-      <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
+      <div class="nav-item"><a href="vat-report.html" class="nav-link active"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
       <div class="nav-item"><a href="store-config.html" class="nav-link"><i class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
       <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
       <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
@@ -89,15 +258,13 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- â”€â”€ MAIN CONTENT â”€â”€ -->
+  <!-- MAIN CONTENT -->
   <div class="main-content">
 
     <!-- TOPBAR -->
     <header class="topbar">
-      <button class="sidebar-toggle" id="sidebarToggle">
-        <i class="bi bi-list"></i>
-      </button>
-      <span class="topbar-title">PAGE TITLE</span>
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">VAT Returns</span>
       <div class="topbar-actions">
         <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
         <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
@@ -106,40 +273,428 @@
             <div class="topbar-user-name">Shaun Marphy</div>
             <div class="topbar-user-role">Admin</div>
           </div>
-          <div class="topbar-avatar">SM</div>
+          <div class="topbar-avatar" style="overflow: hidden;">
+            <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
       </div>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="page-content">
+      
+      <!-- TABLE VIEW SECTION -->
+      <div id="tableViewSection">
+        <!-- Toolbar -->
+        <div class="customers-toolbar">
+          <div class="search-wrap">
+            <div class="position-relative d-flex align-items-center">
+              <i class="bi bi-calendar3 position-absolute ms-3 text-muted" style="z-index: 5;"></i>
+              <input type="text" class="search-input" placeholder="Search VAT returns..." style="padding-left: 40px; min-width: 280px;" />
+            </div>
+            <button class="btn-search"><i class="bi bi-search"></i> Search</button>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn-add-vat" data-bs-toggle="modal" data-bs-target="#addVatModal"><i class="bi bi-plus-lg"></i> Add VAT Returns</button>
+          </div>
+        </div>
 
-      <div class="page-header">
-        <h1>PAGE TITLE</h1>
-        <p>Page description here</p>
+        <!-- Table Card -->
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th style="width: 40%;">Period</th>
+                  <th style="width: 40%;">Total Tax Payable / Excess Credit</th>
+                  <th style="text-align: right; width: 20%;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>January 2026</td>
+                  <td>$0.00</td>
+                  <td>
+                    <div class="action-btns">
+                      <i class="bi bi-eye action-icon text-view" title="View" onclick="showReportView()"></i>
+                      <i class="bi bi-pencil-square action-icon text-edit" title="Edit" onclick="showReportView()"></i>
+                      <i class="bi bi-trash action-icon text-delete" title="Delete"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>June 2026</td>
+                  <td>$0.00</td>
+                  <td>
+                    <div class="action-btns">
+                      <i class="bi bi-eye action-icon text-view" title="View" onclick="showReportView()"></i>
+                      <i class="bi bi-pencil-square action-icon text-edit" title="Edit" onclick="showReportView()"></i>
+                      <i class="bi bi-trash action-icon text-delete" title="Delete"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>October 2026</td>
+                  <td>$0.00</td>
+                  <td>
+                    <div class="action-btns">
+                      <i class="bi bi-eye action-icon text-view" title="View" onclick="showReportView()"></i>
+                      <i class="bi bi-pencil-square action-icon text-edit" title="Edit" onclick="showReportView()"></i>
+                      <i class="bi bi-trash action-icon text-delete" title="Delete"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>December 2026</td>
+                  <td>$0.00</td>
+                  <td>
+                    <div class="action-btns">
+                      <i class="bi bi-eye action-icon text-view" title="View" onclick="showReportView()"></i>
+                      <i class="bi bi-pencil-square action-icon text-edit" title="Edit" onclick="showReportView()"></i>
+                      <i class="bi bi-trash action-icon text-delete" title="Delete"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-           YOUR PAGE CONTENT GOES HERE
-           â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- REPORT VIEW SECTION (HIDDEN BY DEFAULT) -->
+      <div id="reportViewSection" style="display: none; background: #F8FAFC; min-height: 100vh; padding: 20px;">
+        <div class="bg-white shadow-sm" style="border-radius: 12px; max-width: 1000px; margin: 0 auto; padding: 40px 60px;">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <button type="button" class="btn border-0 p-0 text-muted d-flex align-items-center" onclick="showTableView()" style="font-size: 14px; font-weight: 500;">
+              <i class="bi bi-arrow-left me-2"></i> Return
+            </button>
+          </div>
+          
+          <div id="vatPrintArea">
+            <div class="view-vat-title" style="font-size: 28px; letter-spacing: -0.5px;">Springs FoodMart</div>
+            
+            <div class="vat-top-info-row">
+              <div class="ps-2">
+                <div class="fw-bold text-dark mb-1" style="font-size: 14px;">VAT Returns for</div>
+                <div class="text-muted" style="font-size: 14px;">October, 2028</div>
+                <!-- Hidden input for functionality while maintaining text look in display -->
+                <input type="month" class="d-none" id="vatPeriodInput" value="2028-10">
+              </div>
+              <div>
+                <div class="vat-top-info-item">
+                  <span class="vat-top-info-label">Claimable %</span>
+                  <div class="input-group input-group-sm vat-top-info-input-wrap">
+                    <span class="input-group-text px-2">$</span>
+                    <input type="text" class="form-control" value="">
+                  </div>
+                </div>
+                <div class="vat-top-info-item">
+                  <span class="vat-top-info-label">VAT on Non-Inventory</span>
+                  <div class="input-group input-group-sm vat-top-info-input-wrap">
+                    <span class="input-group-text px-2">$</span>
+                    <input type="text" class="form-control" value="25.00">
+                  </div>
+                </div>
+                <div class="vat-top-info-item">
+                  <span class="vat-top-info-label">VAT on Electricity</span>
+                  <div class="input-group input-group-sm vat-top-info-input-wrap">
+                    <span class="input-group-text px-2">$</span>
+                    <input type="text" class="form-control" value="33.00">
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="view-vat-section-title">Output Tax</div>
+            <div class="vat-detail-header-row pe-3">
+              <div></div>
+              <div class="vat-detail-header-label">Value</div>
+              <div class="vat-detail-header-label">Tax</div>
+            </div>
+            
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Standard Rated Supplies (Sales) - VAT Incl</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Zero Rated Supplies (Sales) -VAT Incl</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Exempt Supplies (Sales) -VAT Incl</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Reduced Rate - VAT Incl 10%</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Electricity Supplies/Services (Sales)</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Aerated Beverages (Sales)</span>
+              <input type="text" class="vat-detail-input" value="">
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Total Supplies</span>
+              <input type="text" class="vat-detail-input" value="" style="grid-column: span 1;">
+              <div></div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label fw-bold">Total Output Tax</span>
+              <input type="text" class="vat-detail-input" value="" style="grid-column: span 2;">
+            </div>
 
-      <!-- /PAGE CONTENT -->
+            <div class="view-vat-section-title">Input Tax</div>
+            <div class="vat-detail-header-row pe-3">
+              <div></div>
+              <div class="vat-detail-header-label">Value</div>
+              <div class="vat-detail-header-label">Tax</div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Value of Imports (Goods & Services)</span>
+              <input type="text" class="vat-detail-input" value="">
+              <div></div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">VAT Paid to Comptroller of Customs on Imports</span>
+              <div></div>
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Value of Domestic Purchases on which VAT was paid</span>
+              <input type="text" class="vat-detail-input" value="">
+              <div></div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">VAT Paid, Payable or Claimable on Local Taxable Supplies (Purchases)</span>
+              <div></div>
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Value of Electricity Consumption on which VAT was paid</span>
+              <input type="text" class="vat-detail-input" value="">
+              <div></div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">VAT Paid, Payable or claimable on Electricity Consumption</span>
+              <div></div>
+              <input type="text" class="vat-detail-input" value="">
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label">Total Imports & Local Purchases</span>
+              <input type="text" class="vat-detail-input" value="">
+              <div></div>
+            </div>
+            <div class="vat-detail-row">
+              <span class="vat-detail-label fw-bold">Total Input Tax</span>
+              <input type="text" class="vat-detail-input" value="" style="grid-column: span 2;">
+            </div>
+
+            <div class="vat-detail-row mt-4 pt-4 border-top">
+              <span class="vat-detail-label fw-bold" style="font-size: 15px; color: #1e293b;">Total Tax Payable / Excess Credit</span>
+              <input type="text" class="vat-detail-input" value="" style="grid-column: span 2; padding: 12px; font-size: 15px; font-weight: 700;">
+            </div>
+          </div>
+          <div class="d-flex justify-content-center gap-3 mt-5 mb-2">
+             <button type="button" class="btn btn-print-vat d-flex align-items-center" onclick="printVatReturn()">
+                <i class="bi bi-printer me-2"></i> Print
+             </button>
+             <button type="button" class="btn btn-save-vat d-flex align-items-center">
+                <i class="bi bi-check-lg me-2"></i> Save
+             </button>
+          </div>
+        </div>
+      </div>
 
     </main>
 
   </div>
 </div>
 
-<!-- Bootstrap Bundle JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Chart.js (remove if not needed) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<!-- Add Modal -->
+<div class="modal fade" id="addVatModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 24px; padding: 10px; border: none;">
+      <div class="modal-header border-bottom-0 pb-0 pt-4 px-4">
+        <h5 class="modal-title fw-bold" style="font-size: 20px; color: #1E293B; letter-spacing: -0.5px;">VAT Report Inputs</h5>
+      </div>
+      <div class="modal-body px-4 pt-4">
+        <div class="mb-4">
+          <div class="month-picker-wrap">
+            <input type="month" class="month-picker-input" value="2026-07" style="padding: 14px 16px; border-radius: 12px; border: 1.5px solid #E2E8F0; font-size: 15px; color: #1E293B; width: 100%;">
+            <i class="bi bi-calendar3 month-picker-icon" style="right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #64748B;"></i>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label mb-2" style="font-size: 14px; color: #64748B; font-weight: 500;">VAT on Non-Inventory</label>
+          <input type="text" class="form-control" placeholder="Springs FoodMart" style="padding: 14px 16px; border-radius: 12px; border: 1.5px solid #E2E8F0; font-size: 15px;">
+        </div>
+        <div class="mb-2">
+          <label class="form-label mb-2" style="font-size: 14px; color: #64748B; font-weight: 500;">VAT on Electricity</label>
+          <input type="text" class="form-control" placeholder="Springs FoodMart" style="padding: 14px 16px; border-radius: 12px; border: 1.5px solid #E2E8F0; font-size: 15px;">
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 pt-3 pb-4 px-4 gap-3 justify-content-end">
+        <button type="button" class="btn" data-bs-dismiss="modal" style="background: #F0F4FF; color: #6366F1; border-radius: 10px; font-weight: 600; padding: 12px 30px; font-size: 15px;">Cancel</button>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#existingVatModal" data-bs-dismiss="modal" style="background: #2563EB; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 35px; font-size: 15px;">Run</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Existing VAT Modal -->
+<div class="modal fade" id="existingVatModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+    <div class="modal-content" style="border-radius: 24px; padding: 15px; border: none;">
+      <div class="modal-header border-bottom-0 pb-0 pt-4 px-4">
+        <h5 class="modal-title fw-bold" style="font-size: 20px; color: #1E293B;">Existing VAT Returns</h5>
+      </div>
+      <div class="modal-body px-4 pt-4">
+        <hr class="w-100 mb-4 mt-0" style="color: #E2E8F0; opacity: 0.8;">
+        <p class="mb-2" style="font-size: 15px; color: #475569;">VAT Returns for <span id="existingVatMonth" class="fw-bold" style="color: #2563EB;">July 2026</span> already exists.</p>
+        <p style="font-size: 15px; color: #475569;">What would you like to do?</p>
+      </div>
+      <div class="modal-footer border-top-0 pt-4 pb-4 px-4 gap-3 justify-content-end flex-nowrap">
+        <hr class="w-100 mb-4 mt-0 position-absolute" style="color: #E2E8F0; opacity: 0.8; top: 0;">
+        <button type="button" class="btn px-4" data-bs-dismiss="modal" style="background: #F0F4FF; color: #6366F1; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">Cancel</button>
+        <button type="button" class="btn px-4 text-nowrap" onclick="showReportView()" style="background: #F59E0B; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">Run anyway</button>
+        <button type="button" class="btn px-4 text-nowrap" onclick="showReportView()" style="background: #2563EB; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">View existing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Custom JS -->
 <script src="../assets/js/main.js"></script>
-<!-- Page-specific JS (optional) -->
-<!-- <script src="../assets/js/pages/PAGE_NAME.js"></script> -->
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function showReportView() {
+    // Programmatically hide the verification modal first
+    const existingModalEl = document.getElementById('existingVatModal');
+    if (existingModalEl) {
+      const modalInstance = bootstrap.Modal.getOrCreateInstance(existingModalEl);
+      if (modalInstance) modalInstance.hide();
+    }
+
+    const tableSection = document.getElementById('tableViewSection');
+    const reportSection = document.getElementById('reportViewSection');
+    if (tableSection && reportSection) {
+      tableSection.style.setProperty('display', 'none', 'important');
+      reportSection.style.setProperty('display', 'block', 'important');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function showTableView() {
+    const tableSection = document.getElementById('tableViewSection');
+    const reportSection = document.getElementById('reportViewSection');
+    if (tableSection && reportSection) {
+      tableSection.style.display = 'block';
+      reportSection.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Use Bootstrap event listener to update the month text dynamically
+  document.addEventListener('DOMContentLoaded', function() {
+    const existingModalEl = document.getElementById('existingVatModal');
+    if (existingModalEl) {
+      existingModalEl.addEventListener('show.bs.modal', function() {
+        const monthInput = document.querySelector('#addVatModal .month-picker-input');
+        const displaySpan = document.getElementById('existingVatMonth');
+        
+        if (monthInput && displaySpan && monthInput.value) {
+          const [year, month] = monthInput.value.split('-');
+          if (year && month) {
+            const dateObj = new Date(year, month - 1);
+            const formatted = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+            displaySpan.innerText = formatted;
+          }
+        }
+      });
+    }
+  });
+
+  function printVatReturn() {
+    const printArea = document.getElementById('vatPrintArea');
+    if (!printArea) {
+      alert("Print area not found!");
+      return;
+    }
+    
+    // Synchronize input values to 'value' attributes so they appear in print
+    const inputs = printArea.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.setAttribute('value', input.value);
+    });
+
+    // Use a hidden iframe for more robust printing (avoids popup blockers)
+    let iframe = document.getElementById('vatPrintIframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'vatPrintIframe';
+      iframe.style.position = 'absolute';
+      iframe.style.top = '-10000px';
+      document.body.appendChild(iframe);
+    }
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head>
+          <title>VAT Return - Print</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+            body { 
+              padding: 40px; 
+              font-family: 'Plus Jakarta Sans', sans-serif; 
+              color: #1E293B;
+              background: #fff !important;
+            }
+            .view-vat-title { font-size: 26px; font-weight: 700; color: #1E293B; text-align: center; margin-bottom: 30px; }
+            .view-vat-section-title { 
+              font-size: 16px; font-weight: 700; color: #1E293B; 
+              margin-bottom: 15px; margin-top: 30px; 
+              border-bottom: 1px solid #E2E8F0; padding-bottom: 5px;
+            }
+            .vat-detail-row { display: grid; grid-template-columns: 1fr 120px 120px; gap: 20px; align-items: center; margin-bottom: 12px; }
+            .vat-detail-label { font-size: 14px; color: #475569; }
+            .vat-detail-input { border: 1px solid #E2E8F0; border-radius: 4px; padding: 6px 10px; font-size: 13px; text-align: right; background: #fff; }
+            .vat-detail-header-row { display: grid; grid-template-columns: 1fr 120px 120px; gap: 20px; margin-bottom: 10px; }
+            .vat-detail-header-label { font-size: 13px; font-weight: 700; color: #1E293B; text-align: center; }
+            .vat-top-info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 20px; }
+            .vat-top-info-item { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 8px; }
+            .vat-top-info-label { font-size: 13px; color: #475569; margin-right: 15px; }
+            .input-group-text { font-size: 10px; background: #fff; }
+            .text-primary { color: #2563EB !important; }
+            .fw-bold { font-weight: 700 !important; }
+            @media print {
+              body { padding: 0; }
+              .container { width: 100%; max-width: none; }
+            }
+          </style>
+        </head>
+        <body onload="setTimeout(() => { window.print(); }, 800)">
+          <div class="container">
+            ${printArea.innerHTML}
+          </div>
+        </body>
+      </html>
+    `);
+    doc.close();
+  }
+</script>
 </body>
 </html>
-
-
