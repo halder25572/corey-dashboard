@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE TITLE | POS System</title>
+  <title>Messages | POS System</title>
 
   <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -11,14 +11,131 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <!-- Page-specific CSS (optional) -->
-  <!-- <link rel="stylesheet" href="../assets/css/pages/PAGE_NAME.css" /> -->
+  <style>
+    .page-content-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .messages-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .btn-inbox {
+      background: #22c55e;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn-inbox:hover { background: #16a34a; color: #fff; }
+
+    .btn-new-message {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn-new-message:hover { background: var(--primary-dark); color: #fff; }
+
+    .messages-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-100);
+      transition: background 0.2s;
+    }
+    .message-item:last-child {
+      border-bottom: none;
+    }
+    .message-item:hover {
+      background: #f8fafc;
+    }
+
+    .message-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .message-avatar-wrap {
+      position: relative;
+      width: 44px;
+      height: 44px;
+    }
+    .message-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .message-status-dot {
+      position: absolute;
+      top: 0;
+      left: -2px;
+      width: 12px;
+      height: 12px;
+      background: #ef4444;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+
+    .message-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .message-sender {
+      font-weight: 700;
+      color: var(--gray-800);
+      font-size: 13.5px;
+      margin-bottom: 2px;
+    }
+    .message-date {
+      font-size: 11.5px;
+      color: var(--gray-500);
+    }
+
+    .action-delete {
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.2s;
+      padding: 8px;
+    }
+    .action-delete:hover {
+      color: #dc2626;
+    }
+  </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-  <!-- â”€â”€ SIDEBAR â”€â”€ -->
+  <!-- ── SIDEBAR ── -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
@@ -77,7 +194,7 @@
       <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
       <div class="nav-item"><a href="store-config.html" class="nav-link"><i class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
       <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
-      <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
+      <div class="nav-item"><a href="messages.html" class="nav-link active" style="color: var(--primary); background: var(--primary-soft);"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
     </nav>
 
     <div class="sidebar-footer">
@@ -89,7 +206,7 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- â”€â”€ MAIN CONTENT â”€â”€ -->
+  <!-- ── MAIN CONTENT ── -->
   <div class="main-content">
 
     <!-- TOPBAR -->
@@ -97,35 +214,121 @@
       <button class="sidebar-toggle" id="sidebarToggle">
         <i class="bi bi-list"></i>
       </button>
-      <span class="topbar-title">PAGE TITLE</span>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Messages</span>
       <div class="topbar-actions">
-        <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
+        <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" style="font-weight: 600; padding: 6px 14px;"><i class="bi bi-plus-lg"></i> Add</button>
         <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
             <div class="topbar-user-role">Admin</div>
           </div>
-          <div class="topbar-avatar">SM</div>
+          <div class="topbar-avatar" style="overflow: hidden;">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=150&auto=format&fit=crop" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
       </div>
     </header>
 
     <!-- PAGE CONTENT -->
     <main class="page-content">
+      <div class="page-content-inner">
 
-      <div class="page-header">
-        <h1>PAGE TITLE</h1>
-        <p>Page description here</p>
+        <!-- Top Actions -->
+        <div class="messages-actions">
+          <button class="btn-inbox" id="btn-inbox"><i class="bi bi-inbox-fill"></i> Inbox</button>
+          <button class="btn-new-message" id="btn-new-message"><i class="bi bi-pencil-square"></i> New Message</button>
+        </div>
+
+        <!-- Messages List -->
+        <div class="messages-card" id="messages-list-view">
+          
+          <div class="message-item">
+            <div class="message-info">
+              <div class="message-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" class="message-avatar" alt="Admin User">
+                <div class="message-status-dot"></div>
+              </div>
+              <div class="message-details">
+                <div class="message-sender">Admin User</div>
+                <div class="message-date">04/16/2026 03:45 pm</div>
+              </div>
+            </div>
+            <i class="bi bi-trash3 action-delete"></i>
+          </div>
+
+          <div class="message-item">
+            <div class="message-info">
+              <div class="message-avatar-wrap">
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" class="message-avatar" alt="Admin User">
+              </div>
+              <div class="message-details">
+                <div class="message-sender">Admin User</div>
+                <div class="message-date">04/16/2026 03:45 pm</div>
+              </div>
+            </div>
+            <i class="bi bi-trash3 action-delete"></i>
+          </div>
+
+        </div>
+
+        <!-- New Message Form (Hidden by default) -->
+        <div class="messages-card" id="new-message-view" style="display: none; padding: 40px; flex-direction: column;">
+          <div style="display: flex; align-items: center; margin-bottom: 24px;">
+            <div style="width: 120px; text-align: right; color: #ef4444; font-weight: 500; font-size: 14px; margin-right: 15px;">Locations :</div>
+            <div style="flex: 1; border: 1px solid var(--gray-200); border-radius: 4px; display: flex; height: 38px;">
+              <label style="background: #3b82f6; color: #fff; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; cursor: pointer; margin: 0; font-size: 13.5px;">
+                <input type="checkbox" style="width: 15px; height: 15px; cursor: pointer; accent-color: #2563eb;" checked> All
+              </label>
+              <div style="flex: 1; background: #fff; border-top-right-radius: 3px; border-bottom-right-radius: 3px; padding: 0 12px; display: flex; align-items: center;"></div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 24px;">
+            <div style="width: 120px; text-align: right; color: #ef4444; font-weight: 500; font-size: 14px; margin-right: 15px;">Employees :</div>
+            <div style="flex: 1; border: 1px solid var(--gray-200); border-radius: 4px; display: flex; height: 38px;">
+              <label style="background: #3b82f6; color: #fff; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; cursor: pointer; margin: 0; font-size: 13.5px;">
+                <input type="checkbox" style="width: 15px; height: 15px; cursor: pointer; accent-color: #2563eb;" checked> All
+              </label>
+              <div style="flex: 1; background: #fff; border-top-right-radius: 3px; border-bottom-right-radius: 3px; padding: 0 12px; display: flex; align-items: center;"></div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; margin-bottom: 24px;">
+            <div style="width: 120px; text-align: right; color: #ef4444; font-weight: 500; font-size: 14px; margin-right: 15px; padding-top: 10px;">Message:</div>
+            <div style="flex: 1;">
+              <textarea style="width: 100%; height: 120px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 12px; font-size: 14px; outline: none; resize: vertical;"></textarea>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <button style="background: #3b82f6; color: #fff; border: none; border-radius: 4px; padding: 9px 24px; font-size: 14px; font-weight: 500; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">Send</button>
+          </div>
+        </div>
+
+        <!-- Message Detail View (Hidden by default) -->
+        <div class="messages-card" id="message-detail-view" style="display: none; padding: 24px; background: #fff;">
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+            <button class="btn-new-message"><i class="bi bi-pencil-square"></i> Send Message</button>
+          </div>
+
+          <div style="border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; background: #fff;">
+            <div style="display: flex; border-bottom: 1px solid var(--gray-200);">
+              <div style="width: 50px; display: flex; align-items: center; justify-content: center; border-right: 2px solid var(--primary); cursor: pointer; transition: background 0.2s;" id="btn-back-to-inbox" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                <i class="bi bi-arrow-left-short" style="color: var(--primary); font-size: 24px;"></i>
+              </div>
+              <div style="padding: 16px 20px; display: flex; align-items: center; gap: 16px;">
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;" alt="Admin User">
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-weight: 700; color: var(--gray-800); font-size: 14px; margin-bottom: 2px;">Admin User</span>
+                  <span style="font-size: 12px; color: var(--gray-500);">04/16/2026 03:45 pm</span>
+                </div>
+              </div>
+            </div>
+            <div style="padding: 24px; font-size: 14px; color: var(--gray-800); min-height: 120px;">
+              Hi
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-           YOUR PAGE CONTENT GOES HERE
-           â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-
-
-      <!-- /PAGE CONTENT -->
-
     </main>
 
   </div>
@@ -133,12 +336,46 @@
 
 <!-- Bootstrap Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Chart.js (remove if not needed) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <!-- Custom JS -->
 <script src="../assets/js/main.js"></script>
-<!-- Page-specific JS (optional) -->
-<!-- <script src="../assets/js/pages/PAGE_NAME.js"></script> -->
+<script>
+  // Elements
+  const listView = document.getElementById('messages-list-view');
+  const newView = document.getElementById('new-message-view');
+  const detailView = document.getElementById('message-detail-view');
+
+  // Top Buttons
+  document.querySelectorAll('.btn-new-message').forEach(btn => {
+    btn.addEventListener('click', function() {
+      listView.style.display = 'none';
+      detailView.style.display = 'none';
+      newView.style.display = 'flex';
+    });
+  });
+  
+  document.getElementById('btn-inbox').addEventListener('click', function() {
+    newView.style.display = 'none';
+    detailView.style.display = 'none';
+    listView.style.display = 'flex';
+  });
+
+  // Clicking a message item opens the detail view
+  document.querySelectorAll('.message-item').forEach(item => {
+    // Only open if the delete button wasn't clicked
+    item.addEventListener('click', function(e) {
+      if(e.target.classList.contains('action-delete')) return;
+      listView.style.display = 'none';
+      newView.style.display = 'none';
+      detailView.style.display = 'block';
+    });
+  });
+
+  // Back to inbox from detail view
+  document.getElementById('btn-back-to-inbox').addEventListener('click', function() {
+    detailView.style.display = 'none';
+    listView.style.display = 'flex';
+  });
+</script>
 </body>
 </html>
 

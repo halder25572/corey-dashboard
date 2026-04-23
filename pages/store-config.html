@@ -1,145 +1,2315 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE TITLE | POS System</title>
+  <title>Store Config | POS System</title>
 
-  <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <!-- Page-specific CSS (optional) -->
-  <!-- <link rel="stylesheet" href="../assets/css/pages/PAGE_NAME.css" /> -->
+  <style>
+    .sc-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sc-btn-backup {
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      color: #1E293B;
+      font-weight: 600;
+      font-size: 13.5px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.18s, border-color 0.18s;
+      cursor: pointer;
+    }
+
+    .sc-btn-backup:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .sc-btn-check {
+      background: #22c55e;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 13.5px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.18s;
+      cursor: pointer;
+    }
+
+    .sc-btn-check:hover {
+      background: #16a34a;
+    }
+
+    .sc-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .sc-search-input {
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13.5px;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.18s;
+    }
+
+    .sc-search-input:focus {
+      border-color: var(--primary, #2563EB);
+    }
+
+    .sc-btn-search {
+      background: #2563EB;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+
+    .sc-btn-search:hover {
+      background: #1d4ed8;
+    }
+
+    .sc-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+
+    .sc-tab {
+      background: #F1F5F9;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .sc-tab:hover {
+      background: #e2e8f0;
+      color: #1E293B;
+    }
+
+    .sc-tab.active {
+      background: #2563EB;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .sc-form-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1.5px solid #E2E8F0;
+      padding: 32px 36px 28px;
+      max-width: 860px;
+    }
+
+    .sc-form-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .sc-form-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      text-align: right;
+    }
+
+    .sc-form-control {
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 14px;
+      color: #1E293B;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.18s;
+      background: #fff;
+    }
+
+    .sc-form-control:focus {
+      border-color: #2563EB;
+    }
+
+    .sc-file-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sc-file-btn {
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 7px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1E293B;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .sc-file-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .sc-file-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #64748B;
+    }
+
+    .sc-file-check input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: #2563EB;
+    }
+
+    .sc-btn-save {
+      background: #22c55e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 32px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.15s;
+      float: right;
+    }
+
+    .sc-btn-save:hover {
+      background: #16a34a;
+      transform: translateY(-1px);
+    }
+
+    .sc-tab-panel {
+      display: none;
+    }
+
+    .sc-tab-panel.active {
+      display: block;
+    }
+
+    /* Currency tab */
+    .sc-currency-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 18px 18px;
+      max-width: 980px;
+    }
+
+    .sc-currency-grid {
+      display: grid;
+      grid-template-columns: 170px minmax(260px, 1fr);
+      column-gap: 12px;
+      row-gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .sc-currency-label {
+      color: #374151;
+      font-size: 12px;
+      text-align: right;
+      line-height: 1.2;
+    }
+
+    .sc-currency-control {
+      height: 24px;
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+      background: #fff;
+      font-size: 12px;
+      color: #1f2937;
+      padding: 2px 8px;
+      width: 100%;
+      outline: none;
+    }
+
+    .sc-currency-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+    }
+
+    .sc-currency-table-wrap {
+      margin-left: 182px;
+      margin-bottom: 14px;
+      max-width: 700px;
+      overflow-x: auto;
+    }
+
+    .sc-currency-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    .sc-currency-table th {
+      font-size: 11px;
+      color: #374151;
+      font-weight: 500;
+      border: 1px solid #d1d5db;
+      padding: 4px 6px;
+      background: #f9fafb;
+      line-height: 1.15;
+      text-align: left;
+    }
+
+    .sc-currency-table td {
+      border: 1px solid #d1d5db;
+      padding: 4px 6px;
+      vertical-align: middle;
+      font-size: 12px;
+      color: #1f2937;
+      background: #f9fafb;
+    }
+
+    .sc-currency-link {
+      color: #2563eb;
+      font-size: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .sc-currency-link:hover {
+      text-decoration: underline;
+    }
+
+    .sc-currency-denom-wrap {
+      margin-left: 182px;
+      max-width: 560px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    .sc-currency-denom-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .sc-currency-denom-table th {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111827;
+      text-align: left;
+      padding: 0 6px 8px;
+    }
+
+    .sc-currency-denom-table td {
+      padding: 2px 6px;
+      font-size: 12px;
+      color: #1f2937;
+      vertical-align: middle;
+    }
+
+    .sc-currency-denom-input {
+      width: 100%;
+      height: 24px;
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+      padding: 2px 8px;
+      font-size: 12px;
+      background: #fff;
+      outline: none;
+    }
+
+    .sc-currency-denom-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+    }
+
+    .sc-currency-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 980px;
+    }
+
+    /* Payment types tab */
+    .sc-payment-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px 28px 20px;
+      max-width: 980px;
+    }
+
+    .sc-payment-row {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .sc-payment-label {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.3;
+      text-align: right;
+      padding-right: 4px;
+    }
+
+    .sc-payment-control {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #fff;
+      color: #1f2937;
+      font-size: 12.5px;
+      padding: 4px 10px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .sc-payment-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .sc-payment-pills {
+      display: inline-flex;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1.5px solid #1d4ed8;
+      gap: 0;
+    }
+
+    .sc-payment-pill {
+      height: 28px;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+      background: #3b82f6;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0 18px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .sc-payment-pill:last-child {
+      border-right: none;
+    }
+
+    .sc-payment-pill:hover,
+    .sc-payment-pill.is-active {
+      background: #1d4ed8;
+      font-weight: 600;
+    }
+
+    .sc-payment-select {
+      height: 32px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #e5e7eb;
+      color: #6b7280;
+      font-size: 12.5px;
+      padding: 4px 10px;
+      width: 100%;
+      outline: none;
+      appearance: none;
+      cursor: not-allowed;
+    }
+
+    .sc-payment-check {
+      width: 13px;
+      height: 13px;
+      accent-color: #2563eb;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .sc-payment-divider {
+      border: 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 18px 0 14px;
+    }
+
+    .sc-payment-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Price rules tab */
+    .sc-price-rules-card {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 14px 18px;
+      max-width: 980px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sc-price-rules-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #374151;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 4px 2px;
+    }
+
+    .sc-price-rules-check {
+      width: 15px;
+      height: 15px;
+      accent-color: #2563eb;
+    }
+
+    .sc-price-rules-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Profit calculation tab */
+    .sc-profit-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px 28px 20px;
+      max-width: 980px;
+    }
+
+    .sc-profit-grid {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 0 18px;
+    }
+
+    .sc-profit-row {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      align-items: stretch;
+      min-height: 48px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .sc-profit-row:last-child {
+      border-bottom: none;
+    }
+
+    .sc-profit-label {
+      color: #374151;
+      font-size: 13.5px;
+      font-weight: 400;
+      text-align: right;
+      padding: 10px 16px;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .sc-profit-cell {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px 16px;
+    }
+
+    .sc-profit-input {
+      width: 100%;
+      max-width: 320px;
+      height: 32px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #fff;
+      color: #374151;
+      font-size: 13px;
+      padding: 0 10px;
+      outline: none;
+    }
+
+    .sc-profit-input:focus {
+      border-color: #2563eb;
+    }
+
+    .sc-profit-check {
+      width: 14px;
+      height: 14px;
+      accent-color: #2563eb;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .sc-profit-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 900px) {
+      .sc-profit-row {
+        grid-template-columns: 1fr;
+      }
+
+      .sc-profit-label {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .sc-profit-row:last-child .sc-profit-label {
+        border-bottom: 1px solid #e2e8f0;
+      }
+    }
+
+    /* Orders & Deliveries */
+    .sc-od-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px 28px 20px;
+      max-width: 980px;
+    }
+
+    .sc-od-row {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .sc-od-label {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.3;
+      text-align: right;
+      padding-right: 4px;
+      padding-top: 6px;
+    }
+
+    .sc-od-select {
+      height: 32px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #e5e7eb;
+      color: #374151;
+      font-size: 12.5px;
+      padding: 4px 10px;
+      width: 260px;
+      outline: none;
+      appearance: none;
+    }
+
+    .sc-od-check {
+      width: 13px;
+      height: 13px;
+      accent-color: #2563eb;
+      margin-top: 7px;
+      cursor: pointer;
+    }
+
+    .sc-od-providers-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    .sc-od-providers-table th {
+      font-weight: 600;
+      color: #374151;
+      padding: 4px 10px 6px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .sc-od-providers-table td {
+      padding: 4px 10px;
+    }
+
+    .sc-od-link {
+      color: #2563eb;
+      font-size: 12.5px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    .sc-od-link:hover {
+      text-decoration: underline;
+    }
+
+    .sc-od-zone-box {
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #fff;
+      padding: 10px 12px;
+      width: 360px;
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.5;
+      min-height: 72px;
+    }
+
+    .sc-od-zone-header {
+      font-weight: 600;
+      font-size: 12.5px;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+
+    .sc-od-zones-cols {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .sc-od-zones-right {
+      display: flex;
+      gap: 30px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #374151;
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+
+    .sc-od-divider {
+      border: 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 18px 0 14px;
+    }
+
+    .sc-od-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Sales / Receipt Tab */
+    .sc-receipt-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 24px 28px 20px;
+      max-width: 980px;
+    }
+
+    .sc-receipt-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .sc-receipt-label {
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.3;
+      text-align: right;
+      padding-right: 4px;
+    }
+
+    .sc-receipt-label.link-style {
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    .sc-receipt-check {
+      width: 13px;
+      height: 13px;
+      accent-color: #2563eb;
+      cursor: pointer;
+    }
+
+    .sc-receipt-input {
+      height: 26px;
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+      background: #fff;
+      font-size: 12px;
+      color: #1f2937;
+      padding: 2px 8px;
+      width: 130px;
+      outline: none;
+    }
+
+    .sc-receipt-input:focus {
+      border-color: #2563eb;
+    }
+
+    .sc-receipt-select {
+      height: 26px;
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+      background: #e5e7eb;
+      color: #374151;
+      font-size: 12px;
+      padding: 2px 8px;
+      width: 160px;
+      outline: none;
+    }
+
+    .sc-receipt-divider {
+      border: 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 18px 0 14px;
+    }
+
+    .sc-receipt-save-wrap {
+      display: flex;
+      justify-content: flex-end;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="app-wrapper">
+  <div class="app-wrapper">
 
-  <!-- â”€â”€ SIDEBAR â”€â”€ -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
-      <div class="sidebar-brand-info">
-        <div class="sidebar-brand-name">Main Branch</div>
-        <div class="sidebar-brand-role">Administrator</div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-item">
-        <a href="../index.html" class="nav-link">
-          <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
-        </a>
-      </div>
-      <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-people-fill"></i><span>Contacts</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
-        <div class="nav-submenu">
-          <div class="nav-item"><a href="customers.html" class="nav-link"><i class="bi bi-dot"></i> Customers</a></div>
-          <div class="nav-item"><a href="suppliers.html" class="nav-link"><i class="bi bi-dot"></i> Suppliers</a></div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
+        <div class="sidebar-brand-info">
+          <div class="sidebar-brand-name">Main Branch</div>
+          <div class="sidebar-brand-role">Administrator</div>
         </div>
       </div>
-      <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-box-seam-fill"></i><span>Inventory</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
-        <div class="nav-submenu">
-          <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
-          <div class="nav-item"><a href="item-kits.html" class="nav-link"><i class="bi bi-dot"></i> Item Kits</a></div>
-          <div class="nav-item"><a href="labels.html" class="nav-link"><i class="bi bi-dot"></i> Labels</a></div>
-          <div class="nav-item"><a href="order.html" class="nav-link"><i class="bi bi-dot"></i> Order</a></div>
-          <div class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-dot"></i> Categories</a></div>
-          <div class="nav-item"><a href="tags.html" class="nav-link"><i class="bi bi-dot"></i> Tags</a></div>
-          <div class="nav-item"><a href="attributes.html" class="nav-link"><i class="bi bi-dot"></i> Attributes</a></div>
-          <div class="nav-item"><a href="price-rules.html" class="nav-link"><i class="bi bi-dot"></i> Price Rules</a></div>
-        </div>
-      </div>
-      <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
-      <div class="nav-item"><a href="receiving.html" class="nav-link"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
-      <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
-      <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
-        <div class="nav-submenu">
-          <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer Out</a></div>
-          <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a></div>
-        </div>
-      </div>
-      <div class="nav-item"><a href="employees.html" class="nav-link"><i class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
-      <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
-      <div class="nav-item"><a href="store-config.html" class="nav-link"><i class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
-      <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
-      <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="sidebar-logout">
-        <i class="bi bi-box-arrow-left"></i><span>Logout</span>
-      </div>
-    </div>
-  </aside>
-
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- â”€â”€ MAIN CONTENT â”€â”€ -->
-  <div class="main-content">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <button class="sidebar-toggle" id="sidebarToggle">
-        <i class="bi bi-list"></i>
-      </button>
-      <span class="topbar-title">PAGE TITLE</span>
-      <div class="topbar-actions">
-        <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
-        <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
-        <div class="topbar-user">
-          <div class="topbar-user-info">
-            <div class="topbar-user-name">Shaun Marphy</div>
-            <div class="topbar-user-role">Admin</div>
+      <nav class="sidebar-nav">
+        <div class="nav-item"><a href="../index.html" class="nav-link"><i
+              class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" data-toggle="submenu">
+            <i class="bi bi-people-fill"></i><span>Contacts</span>
+            <i class="bi bi-chevron-right nav-arrow"></i>
+          </a>
+          <div class="nav-submenu">
+            <div class="nav-item"><a href="customers.html" class="nav-link"><i class="bi bi-dot"></i> Customers</a>
+            </div>
+            <div class="nav-item"><a href="suppliers.html" class="nav-link"><i class="bi bi-dot"></i> Suppliers</a>
+            </div>
           </div>
-          <div class="topbar-avatar">SM</div>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" data-toggle="submenu">
+            <i class="bi bi-box-seam-fill"></i><span>Inventory</span>
+            <i class="bi bi-chevron-right nav-arrow"></i>
+          </a>
+          <div class="nav-submenu">
+            <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
+            <div class="nav-item"><a href="item-kits.html" class="nav-link"><i class="bi bi-dot"></i> Item Kits</a>
+            </div>
+            <div class="nav-item"><a href="labels.html" class="nav-link"><i class="bi bi-dot"></i> Labels</a></div>
+            <div class="nav-item"><a href="order.html" class="nav-link"><i class="bi bi-dot"></i> Order</a></div>
+            <div class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-dot"></i> Categories</a>
+            </div>
+            <div class="nav-item"><a href="tags.html" class="nav-link"><i class="bi bi-dot"></i> Tags</a></div>
+            <div class="nav-item"><a href="attributes.html" class="nav-link"><i class="bi bi-dot"></i> Attributes</a>
+            </div>
+            <div class="nav-item"><a href="price-rules.html" class="nav-link"><i class="bi bi-dot"></i> Price Rules</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item"><a href="reports.html" class="nav-link"><i
+              class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
+        <div class="nav-item"><a href="receiving.html" class="nav-link"><i
+              class="bi bi-truck"></i><span>Receiving</span></a></div>
+        <div class="nav-item"><a href="sales.html" class="nav-link"><i
+              class="bi bi-cart-fill"></i><span>Sales</span></a></div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" data-toggle="submenu">
+            <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
+            <i class="bi bi-chevron-right nav-arrow"></i>
+          </a>
+          <div class="nav-submenu">
+            <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer
+                Out</a></div>
+            <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item"><a href="employees.html" class="nav-link"><i
+              class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
+        <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT
+              Report</span></a></div>
+        <div class="nav-item"><a href="store-config.html" class="nav-link active"><i
+              class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
+        <div class="nav-item"><a href="locations.html" class="nav-link"><i
+              class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
+        <div class="nav-item"><a href="messages.html" class="nav-link"><i
+              class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-logout">
+          <i class="bi bi-box-arrow-left"></i><span>Logout</span>
         </div>
       </div>
-    </header>
+    </aside>
 
-    <!-- PAGE CONTENT -->
-    <main class="page-content">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-      <div class="page-header">
-        <h1>PAGE TITLE</h1>
-        <p>Page description here</p>
-      </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <header class="topbar">
+        <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+        <span class="topbar-title" style="color: var(--primary, #2563EB); font-weight: 700;">Store Config</span>
+        <div class="topbar-actions">
+          <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
+          <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
+          <div class="topbar-user">
+            <div class="topbar-user-info">
+              <div class="topbar-user-name">Shaun Marphy</div>
+              <div class="topbar-user-role">Admin</div>
+            </div>
+            <div class="topbar-avatar" style="overflow: hidden;">
+              <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User"
+                style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+        </div>
+      </header>
 
-      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-           YOUR PAGE CONTENT GOES HERE
-           â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <main class="page-content">
 
+        <!-- Toolbar -->
+        <div class="sc-search-wrap" style="justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="text" class="sc-search-input" placeholder="Search......" id="scSearchInput" />
+            <button class="sc-btn-search" id="scSearchBtn"><i class="bi bi-search"></i> Search</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="sc-btn-backup bg-primary text-white" id="btnBackupDb">
+              <i class="bi bi-database-fill-up"></i> Backup Database
+            </button>
+            <button class="sc-btn-check" id="btnCheckUpdate">
+              <i class="bi bi-arrow-repeat"></i> Check for update
+            </button>
+          </div>
+        </div>
 
-      <!-- /PAGE CONTENT -->
+        <!-- Tab Bar -->
+        <div class="sc-tabs" id="scTabs">
+          <button class="sc-tab active" data-tab="company">Company Information</button>
+          <button class="sc-tab" data-tab="taxes">Taxes</button>
+          <button class="sc-tab" data-tab="currency">Currency</button>
+          <button class="sc-tab" data-tab="payment-types">Payment Types</button>
+          <button class="sc-tab" data-tab="price-rules">Price Rules</button>
+          <button class="sc-tab" data-tab="orders-deliveries">Orders And Deliveries</button>
+          <button class="sc-tab" data-tab="sales">Sales</button>
+          <button class="sc-tab" data-tab="suspended">Suspended Sales/Layaways</button>
+          <button class="sc-tab" data-tab="receipt">Receipt</button>
+          <button class="sc-tab" data-tab="profit">Profit Calculation</button>
+          <button class="sc-tab" data-tab="barcodes">Barcodes</button>
+          <button class="sc-tab" data-tab="loyalty">Customer Loyalty</button>
+          <button class="sc-tab" data-tab="price-tiers">Price Tiers</button>
+          <button class="sc-tab" data-tab="id-numbers">ID Numbers</button>
+          <button class="sc-tab" data-tab="items">Items</button>
+          <button class="sc-tab" data-tab="employee">Employee</button>
+          <button class="sc-tab" data-tab="store-accounts">Store Accounts</button>
+          <button class="sc-tab" data-tab="disable-modules">Disable Modules</button>
+          <button class="sc-tab" data-tab="app-settings">Application Settings</button>
+          <button class="sc-tab" data-tab="email-settings">Email Settings</button>
+          <button class="sc-tab" data-tab="quickbooks">Quickbooks Settings</button>
+          <button class="sc-tab" data-tab="ecommerce">Ecommerce Platform</button>
+          <button class="sc-tab" data-tab="api-settings">API Settings</button>
+          <button class="sc-tab" data-tab="webhooks">Web Hooks</button>
+          <button class="sc-tab" data-tab="lookup-api">Lookup API Integration</button>
+        </div>
 
-    </main>
+        <!-- ── Company Information Tab ── -->
+        <div class="sc-tab-panel active" id="tab-company">
+          <div class="sc-form-card">
+            <div class="sc-form-row">
+              <label class="sc-form-label" for="companyName">Company Name</label>
+              <input type="text" class="sc-form-control" id="companyName" value="Php POS" />
+            </div>
+            <div class="sc-form-row">
+              <label class="sc-form-label">Company Logo</label>
+              <div class="sc-file-wrap">
+                <button class="sc-file-btn" onclick="document.getElementById('logoUpload').click()">Choose File</button>
+                <input type="file" id="logoUpload" accept="image/*" style="display:none;">
+                <label class="sc-file-check"><input type="checkbox" id="deleteLogo"> Delete Logo</label>
+              </div>
+            </div>
+            <div class="sc-form-row">
+              <label class="sc-form-label">Label Background Logo</label>
+              <div class="sc-file-wrap">
+                <button class="sc-file-btn" onclick="document.getElementById('bgLogoUpload').click()">Choose
+                  File</button>
+                <input type="file" id="bgLogoUpload" accept="image/*" style="display:none;">
+                <label class="sc-file-check"><input type="checkbox" id="deleteBgLogo"> Delete Logo</label>
+              </div>
+            </div>
+            <div class="sc-form-row">
+              <label class="sc-form-label" for="taxId">Tax ID</label>
+              <input type="text" class="sc-form-control" id="taxId" value="" />
+            </div>
+            <div class="sc-form-row">
+              <label class="sc-form-label" for="website">Website</label>
+              <input type="text" class="sc-form-control" id="website" value="" />
+            </div>
+            <div style="margin-top: 12px; overflow: hidden;">
+              <button class="sc-btn-save" id="btnSaveCompany">Save</button>
+            </div>
+          </div>
+        </div>
 
+        <!-- ── Taxes Tab ── -->
+        <div class="sc-tab-panel" id="tab-taxes">
+          <div class="sc-form-card" style="max-width: 100%;">
+            <div class="sc-form-row" style="grid-template-columns: 260px 1fr; max-width: 700px;">
+              <label class="sc-form-label">TaxJar API Key (US Only):</label>
+              <input type="text" class="sc-form-control" id="taxjarApiKey" value="" />
+            </div>
+            <div style="margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; max-width: 700px;">
+              <div class="sc-form-row"
+                style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
+                <label class="sc-form-label">Use TaxJar Location API To Pull Taxes:</label>
+                <input type="checkbox" id="chkTaxJarLocation" style="width:16px;height:16px;accent-color:#2563EB;">
+              </div>
+              <div class="sc-form-row"
+                style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
+                <label class="sc-form-label">Flat Discount Also Discounts Tax:</label>
+                <input type="checkbox" id="chkFlatDiscount" style="width:16px;height:16px;accent-color:#2563EB;">
+              </div>
+              <div class="sc-form-row"
+                style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
+                <label class="sc-form-label">Prices Include Tax:</label>
+                <input type="checkbox" id="chkPricesIncludeTax" style="width:16px;height:16px;accent-color:#2563EB;">
+              </div>
+              <div class="sc-form-row"
+                style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
+                <label class="sc-form-label">Charge Tax On Receivings:</label>
+                <input type="checkbox" id="chkChargeTaxReceivings" style="width:16px;height:16px;accent-color:#2563EB;">
+              </div>
+              <div class="sc-form-row"
+                style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
+                <label class="sc-form-label">Use Tax Values At ALL Locations:</label>
+                <input type="checkbox" id="chkTaxAllLocations" style="width:16px;height:16px;accent-color:#2563EB;">
+              </div>
+            </div>
+            <div style="margin-top: 24px; overflow-x: auto;">
+              <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
+                <thead>
+                  <tr style="border-bottom: 1.5px solid #E2E8F0;">
+                    <th style="text-align:left;font-weight:600;color:#475569;padding:8px 6px 10px;white-space:nowrap;">
+                      Tax Groups:&nbsp;&nbsp; Name</th>
+                    <th style="text-align:left;font-weight:600;color:#475569;padding:8px 6px 10px;">Tax Name</th>
+                    <th style="text-align:left;font-weight:600;color:#475569;padding:8px 6px 10px;">Tax Percent</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">Cumulative</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">Default</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">Delete</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">Add</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">ID</th>
+                    <th style="text-align:center;font-weight:600;color:#475569;padding:8px 6px 10px;">Sort</th>
+                  </tr>
+                </thead>
+                <tbody id="taxGroupsBody">
+                  <tr>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value="Taxes"
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_0"
+                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="0"
+                        checked style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
+                        style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
+                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;color:#475569;">1</td>
+                    <td style="text-align:center;padding:8px 6px;"><button
+                        style="background:none;border:none;font-size:16px;cursor:pointer;color:#64748b;">⇅</button></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_1"
+                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="1"
+                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
+                        style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
+                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;color:#475569;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><button
+                        style="background:none;border:none;font-size:16px;cursor:pointer;color:#64748b;">⇅</button></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
+                        style="min-width:120px;padding:7px 10px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_2"
+                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="2"
+                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
+                        style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
+                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                    </td>
+                    <td style="text-align:center;padding:8px 6px;color:#475569;"></td>
+                    <td style="text-align:center;padding:8px 6px;"><button
+                        style="background:none;border:none;font-size:16px;cursor:pointer;color:#64748b;">⇅</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="margin-top:14px;margin-bottom:8px;padding-bottom:16px;border-bottom:1.5px solid #E2E8F0;">
+                <button onclick="addTaxGroup()"
+                  style="background:none;border:none;color:#2563EB;font-size:13.5px;font-weight:600;cursor:pointer;padding:0;">Add
+                  Tax Group</button>
+              </div>
+            </div>
+            <div style="margin-top:12px;overflow:hidden;">
+              <button class="sc-btn-save" id="btnSaveTaxes">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Currency Tab ── -->
+        <div class="sc-tab-panel" id="tab-currency">
+          <div class="sc-currency-card">
+            <div class="sc-currency-grid">
+              <label class="sc-currency-label" for="currencySymbol">Currency Symbol:</label>
+              <input type="text" class="sc-currency-control" id="currencySymbol" value="$" />
+              <label class="sc-currency-label" for="currencyCode">Currency Code:</label>
+              <input type="text" class="sc-currency-control" id="currencyCode" value="" />
+            </div>
+            <div class="sc-currency-table-wrap">
+              <table class="sc-currency-table">
+                <thead>
+                  <tr>
+                    <th>Payment Currency</th>
+                    <th>Currency Symbol</th>
+                    <th>Currency Symbol Location</th>
+                    <th>Number of decimals</th>
+                    <th>Thousands Separator</th>
+                    <th>Decimal Point</th>
+                    <th>Exchange Rate</th>
+                    <th>Delete Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td><input type="text" class="sc-currency-control" value="" /></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <a class="sc-currency-link" href="#" onclick="return false;">Add Currency Exchange Rate</a>
+            </div>
+            <div class="sc-currency-grid" style="margin-bottom:10px;">
+              <label class="sc-currency-label" for="currencySymbolLocation">Currency Symbol Location:</label>
+              <input type="text" class="sc-currency-control" id="currencySymbolLocation" value="Before Number" />
+              <label class="sc-currency-label" for="currencyDecimals">Number of decimals:</label>
+              <input type="text" class="sc-currency-control" id="currencyDecimals"
+                value="Let system decide (Recommended)" />
+              <label class="sc-currency-label" for="currencyThousandsSep">Thousands Separator:</label>
+              <input type="text" class="sc-currency-control" id="currencyThousandsSep" value="," />
+              <label class="sc-currency-label" for="currencyDecimalPoint">Decimal Point:</label>
+              <input type="text" class="sc-currency-control" id="currencyDecimalPoint" value="." />
+            </div>
+            <div class="sc-currency-denom-wrap">
+              <table class="sc-currency-denom-table">
+                <thead>
+                  <tr>
+                    <th style="padding-left:0;">Currency Denominations:</th>
+                    <th>Denomination</th>
+                    <th>Currency Value</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="100's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="100.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="50's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="50.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="20's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="20.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="10's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="10.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="5's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="5.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="2's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="2.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="1's" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="1.00" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="Half Dollars" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="0.50" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="Quarters" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="0.25" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="Dimes" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="0.10" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="Nickels" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="0.05" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:0;"></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="Pennies" /></td>
+                    <td><input type="text" class="sc-currency-denom-input" value="0.01" /></td>
+                    <td><a class="sc-currency-link" href="#" onclick="return false;">Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <a class="sc-currency-link" href="#" onclick="return false;">Add currency denomination</a>
+            </div>
+            <div class="sc-currency-save-wrap">
+              <button class="sc-btn-save" id="btnSaveCurrency">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Payment Types Tab ── -->
+        <div class="sc-tab-panel" id="tab-payment-types">
+          <div class="sc-payment-card">
+            <div class="sc-payment-row" style="margin-bottom: 14px;">
+              <label class="sc-payment-label">Payment Types:</label>
+              <div>
+                <div class="sc-payment-pills">
+                  <button class="sc-payment-pill" type="button">Cash</button>
+                  <button class="sc-payment-pill" type="button">Check</button>
+                  <button class="sc-payment-pill" type="button">Debit Card</button>
+                  <button class="sc-payment-pill" type="button">Credit Card</button>
+                </div>
+              </div>
+            </div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="cashMarkup">Cash Markup/Markdown
+                Percentage:</label><input id="cashMarkup" type="text" class="sc-payment-control" value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="checkMarkup">Check Markup/Markdown
+                Percentage:</label><input id="checkMarkup" type="text" class="sc-payment-control" value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="giftCardMarkup">Gift Card Markup/Markdown
+                Percentage:</label><input id="giftCardMarkup" type="text" class="sc-payment-control" value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="debitCardMarkup">Debit Card Markup/Markdown
+                Percentage:</label><input id="debitCardMarkup" type="text" class="sc-payment-control" value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="creditCardMarkup">Credit Card
+                Markup/Markdown Percentage:</label><input id="creditCardMarkup" type="text" class="sc-payment-control"
+                value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="storeAccountMarkup">Store Account
+                Markup/Markdown Percentage:</label><input id="storeAccountMarkup" type="text" class="sc-payment-control"
+                value="" /></div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="pointsMarkup">Points Markup/Markdown
+                Percentage:</label><input id="pointsMarkup" type="text" class="sc-payment-control" value="" /></div>
+            <div class="sc-payment-row" style="margin-top:6px;">
+              <label class="sc-payment-label" for="defaultPaymentType">Default Payment Type:</label>
+              <select id="defaultPaymentType" class="sc-payment-select" disabled>
+                <option>Cash</option>
+              </select>
+            </div>
+            <div class="sc-payment-row">
+              <label class="sc-payment-label" for="defaultReceivingPaymentType">Default Payment Type For
+                Receivings:</label>
+              <select id="defaultReceivingPaymentType" class="sc-payment-select" disabled>
+                <option>Cash</option>
+              </select>
+            </div>
+            <div class="sc-payment-row" style="margin-top:8px;"><label class="sc-payment-label"
+                for="showSellingPriceReceipt">Show Selling Price On Receiving Receipt:</label>
+              <div><input id="showSellingPriceReceipt" class="sc-payment-check" type="checkbox" /></div>
+            </div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="enableEbtPayments">Enable EBT
+                Payments:</label>
+              <div><input id="enableEbtPayments" class="sc-payment-check" type="checkbox" /></div>
+            </div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="enableWic">Enable WIC:</label>
+              <div><input id="enableWic" class="sc-payment-check" type="checkbox" /></div>
+            </div>
+            <div class="sc-payment-row"><label class="sc-payment-label" for="promptForCcv">Prompt For CCV When Swiping
+                Credit Card:</label>
+              <div><input id="promptForCcv" class="sc-payment-check" type="checkbox" /></div>
+            </div>
+            <hr class="sc-payment-divider" />
+            <div class="sc-payment-save-wrap"><button class="sc-btn-save" id="btnSavePaymentTypes">Save</button></div>
+          </div>
+        </div>
+
+        <!-- ── Price Rules Tab ── -->
+        <div class="sc-tab-panel" id="tab-price-rules">
+          <div class="sc-price-rules-card">
+            <label class="sc-price-rules-row" for="disablePriceRulesDialog">
+              <span>Disable Price Rules Dialog:</span>
+              <input id="disablePriceRulesDialog" class="sc-price-rules-check" type="checkbox" />
+            </label>
+            <div class="sc-price-rules-save-wrap">
+              <button class="sc-btn-save" id="btnSavePriceRules">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Orders And Deliveries Tab ── -->
+        <div class="sc-tab-panel" id="tab-orders-deliveries">
+          <div class="sc-od-card">
+            <div class="sc-od-row">
+              <label class="sc-od-label">Do NOT Tax Service Items For Deliveries:</label>
+              <div><input type="checkbox" class="sc-od-check" id="chkNoTaxDelivery" /></div>
+            </div>
+            <div class="sc-od-row">
+              <label class="sc-od-label">Disable Default Value For Tracking Number:</label>
+              <div><input type="checkbox" class="sc-od-check" id="chkDisableTracking" /></div>
+            </div>
+            <div class="sc-od-row" style="align-items:center;">
+              <label class="sc-od-label" style="padding-top:0;">Delivery Color Based On:</label>
+              <select class="sc-od-select" id="deliveryColorBasedOn">
+                <option selected>Status</option>
+                <option>Employee</option>
+                <option>Zone</option>
+              </select>
+            </div>
+            <div class="sc-od-row" style="align-items:start;">
+              <label class="sc-od-label">Shipping Providers:</label>
+              <div>
+                <table class="sc-od-providers-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Rate Name</th>
+                      <th>Rate Fee</th>
+                      <th>Delivery Time In Days</th>
+                      <th>Default</th>
+                      <th>Delete</th>
+                      <th>Add</th>
+                      <th>Sort</th>
+                    </tr>
+                  </thead>
+                  <tbody id="shippingProvidersBody"></tbody>
+                </table>
+                <a class="sc-od-link" href="#" onclick="addShippingProvider(); return false;">Add Shipping Provider</a>
+              </div>
+            </div>
+            <div class="sc-od-row" style="align-items:start;">
+              <label class="sc-od-label">Shipping Zones:</label>
+              <div>
+                <div class="sc-od-zones-cols">
+                  <div class="sc-od-zone-box">
+                    <div class="sc-od-zone-header">Name</div>
+                    <div style="font-size:12px;color:#374151;">Zips (Supports regular expressions. Example: 144.*
+                      matches anything starting with 144)</div>
+                  </div>
+                  <div class="sc-od-zones-right">
+                    <span>Fee</span><span>Tax Group</span><span>Delete</span><span>Sort</span>
+                  </div>
+                </div>
+                <a class="sc-od-link" href="#" onclick="return false;">Add Shipping Zone</a>
+              </div>
+            </div>
+            <div class="sc-od-row" style="align-items:center;">
+              <label class="sc-od-label" style="padding-top:0;">Default Employee For Deliveries:</label>
+              <select class="sc-od-select" id="defaultEmployeeDeliveries">
+                <option selected>Logged in employee</option>
+              </select>
+            </div>
+            <hr class="sc-od-divider" />
+            <div class="sc-od-save-wrap"><button class="sc-btn-save" id="btnSaveOrdersDeliveries">Save</button></div>
+          </div>
+        </div>
+
+        <!-- ── Sales Tab (Receipt content from image) ── -->
+        <div class="sc-tab-panel" id="tab-receipt">
+          <div class="sc-receipt-card">
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Override Receipt Title</label><input type="text"
+                class="sc-receipt-input" value="" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Email Receipt Subject</label><input type="text"
+                class="sc-receipt-input" value="Sales Receipt" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Item Id On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Image On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Max Width Of Item Images On Receipt
+                (Percentage)</label><input type="text" class="sc-receipt-input" value="25%" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Barcode On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Item Tags On Fulfillment Sheet</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Total On Fulfillment Sheet</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Returns And Non-Taxable Summary On
+                Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Tax Details On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Second Language On Receipts</label><select
+                class="sc-receipt-select">
+                <option>None</option>
+              </select></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Uppercase Receipt Text</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Item Kit Items On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Item Discount On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Prices On Fulfillment Sheet</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Points On Receiving</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide ALL Taxes On Receiving</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Number Of Decimals For Quantity On
+                Receipt</label><select class="sc-receipt-select">
+                <option>Lot System Decic</option>
+              </select></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Indicate Taxable On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Indicate Non Taxable On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Tax Per Item On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Description On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Merchant ID From Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Description On E-Mailed Receipts</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Information On Sales And Receivings
+                Interfaces</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Total Discount On Suspended Sales</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Original Price On Receipt If Marked
+                Down</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Receipt After Sale</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Wide Printer Receipt Format</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Print Receipt After Receiving</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Use Signature</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Disable Signature Capture For EMV PIN Pad Credit
+                Card Processing</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Auto Capture Signature</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Remove Customer Name From Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Remove Employee Last Name From Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Remove Employee Name From Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Remove Customer Company Name From
+                Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Remove Customer Contact Info From
+                Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide QrCode On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Sort Receipt Column</label><select
+                class="sc-receipt-select">
+                <option>None</option>
+              </select></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Automatically Email Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Automatically SMS Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Automatically Print Duplicate Receipt For Credit
+                Card Transactions</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Always Print Duplicate Receipt For All
+                Transactions</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Automatically Show Comments On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Receipt On Invoices</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Group All Taxes On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Redirect To Sale Or Receiving Screen After
+                Printing Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Receipt Text Size</label><select
+                class="sc-receipt-select">
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+              </select></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Store Account Balance On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Round To Nearest .05 On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row">
+              <label class="sc-receipt-label link-style">Return Policy</label>
+              <button type="button"
+                style="height:26px;border:1px solid #d1d5db;border-radius:2px;background:#e5e7eb;font-size:12px;color:#374151;padding:0 12px;cursor:pointer;white-space:nowrap;">Change
+                / Item after</button>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Announcements/Specials</label><input type="text"
+                class="sc-receipt-input" value="" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Enable PDF Receipts</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">PDF Receipt Message To Email Body</label><input
+                type="text" class="sc-receipt-input" value="" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Show Signature On Receiving Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Override Signature Text</label><input
+                type="text" class="sc-receipt-input" value="" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Categories On Receivings Grid</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Tags On Receivings Grid</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Supplier On Receivings Grid</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Taxes On Receivings Grid</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Receipt Download Filename Prefix</label><input
+                type="text" class="sc-receipt-input" value="" /></div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Confirm Refund Faster Before Receiving</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Disable Variation Popup In Receiving</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Hide Location Name On Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Allow Reorder On Sales Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <div class="sc-receipt-row"><label class="sc-receipt-label">Allow Reorder On Receiving Receipt</label>
+              <div><input type="checkbox" class="sc-receipt-check" /></div>
+            </div>
+            <hr class="sc-receipt-divider" />
+            <div class="sc-receipt-save-wrap"><button class="sc-btn-save" id="btnSaveSales">Save</button></div>
+          </div>
+        </div>
+
+        <!-- ── Remaining placeholder tabs ── -->
+        <div class="sc-tab-panel" id="tab-suspended">
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 24px; align-items: flex-start;">Additional Suspended Sale Types:</div>
+                <div class="sc-profit-cell" style="flex-direction: column; align-items: stretch; padding-top: 16px; padding-bottom: 20px; padding-right: 24px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #374151;">
+                    <thead>
+                      <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 60px;">Sort</th>
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 60px;">ID</th>
+                        <th style="text-align: left; padding: 8px 10px; font-weight: 600;">Suspended Sale Type</th>
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 260px;">Remove Quantity When Suspending</th>
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 90px;">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="text-align: center; padding: 14px 10px;"><button style="background:none;border:none;font-size:16px;cursor:pointer;color:#374151;padding:0;font-weight:bold;">⇅</button></td>
+                        <td style="text-align: center; padding: 14px 10px;">3</td>
+                        <td style="padding: 14px 10px;"><input type="text" class="sc-profit-input" value="E-Commerce" style="width:100%; max-width: none;" /></td>
+                        <td style="text-align: center; padding: 14px 10px;"><input type="checkbox" class="sc-profit-check" checked /></td>
+                        <td style="text-align: center; padding: 14px 10px;"><button style="background:none;border:none;color:#3b82f6;font-size:13px;cursor:pointer;padding:0;">Delete</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="margin-top: 14px; padding-left: 10px;">
+                    <button style="background:none;border:none;color:#3b82f6;font-size:13px;cursor:pointer;padding:0;">Add Suspended Sale Type</button>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Require Customer For Suspended Sale:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do Not Recalculate Cost Price When Unsuspending Estimates:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Override Layaway Name:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Layaways In Reports:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Change Sale Date When Suspending Sale:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Change Sale Date When Completing Suspended Sale:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Receipt After Suspending Sale:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 20px; align-items: flex-start;">Layaway Statement Message:</div>
+                <div class="sc-profit-cell" style="padding-top: 14px; padding-bottom: 18px; padding-right: 24px;">
+                  <textarea class="sc-profit-input" style="height: 110px; resize: vertical; max-width: 100%; width: 100%; padding: 8px 10px;"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveSuspended">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-sales">
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Sale Prefix:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="POS" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Sale ID/Receipt Number Prefix:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Number On Sales Receipts:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Quantity On Sales Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Allow Scanner Outside Sales:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Always prompt for entering item:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Item Name On Sales Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Custom Item Attributes:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Edit For Completed Sales:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Require Customer For Sale:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Customer In Reports:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Calculate Profit Using Default Cost Price:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Tier:</div>
+                <div class="sc-profit-cell" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+                  <select class="sc-profit-input" style="cursor: pointer; appearance: auto;">
+                    <option>Do Not Show Support Tier</option>
+                  </select>
+                  <a href="#" style="color: #3b82f6; font-size: 12px; text-decoration: none;">Manage Price Tiers</a>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Add Item For Completed Sales:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Always Prompt For Payment:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Store Account:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Payment Type:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input" style="cursor: pointer; appearance: auto;">
+                    <option>Cash</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable EBT Payments:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Require Payment For Suspended Sales:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Allow Selling Of Out Of Stock Items:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do Not Allow Item To Be Out Of Stock:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Sales For Out Of Stock Items:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Round Cash Sales To Nearest .05:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Group All Taxes On Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Redirect To Sale Screen After Printing Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Original Price On Receipt If Marked Down:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Receipt After Sale:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Automatically Email Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Automatically SMS Receipt:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Automatically Print Duplicate Receipt For Credit Card Transactions:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Always Print Duplicate Receipt For All Transactions:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do Not Apply Discount To Overall Sale:</div>
+                <div class="sc-profit-cell" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+                  <input type="checkbox" class="sc-profit-check" />
+                  <a href="#" style="color: #3b82f6; font-size: 12px; text-decoration: none;">Manage Discounts</a>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveSalesSettings">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-profit">
+          <div class="sc-profit-card">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Calculate Profit Cart Model Where</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="profitCalcModel" value="Do Nothing" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Remove Commission From Profit In Reports</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="removeCommissionProfit" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Remove Points Redemption From Profit</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="removePointsProfit" class="sc-profit-check" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveProfit">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-barcodes">
+          <div class="sc-profit-card">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">ID To Show On Barcode</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="barcodeIdToShow" value="Item Id" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Double Item Name Text For Variations On Barcodes</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeDoubleName" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Barcode On Labels</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeHideLabel" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Item Name On Barcodes</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeItemName" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Expire Date On Barcodes</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeHideExpire" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Price On Barcodes</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeHidePrice" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Name On Barcodes</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeHideName" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Double Receiving Number On Labels</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeDoubleReceiving" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Company Name On Barcode</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeShowCompany" class="sc-profit-check" checked />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Use BRL Barcode Library</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeUseBrl" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Empty Scale</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="barcodeEmptyScale" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Scale Barcode Format</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input" id="barcodeScaleFormat" style="cursor: pointer; appearance: auto;">
+                    <option>UPC-12 4 price digits</option>
+                    <option>UPC-12 5 Price Digits</option>
+                    <option>EAN-13 5 price digits</option>
+                    <option>EAN-13 6 price digits</option>
+                    <option>Weight Embedded Barcode</option>
+                    <option>Weight Embedded Barcode EAN 13</option>
+                    <option>Weight Embedded Barcodes EAN 13 4 price digits</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Scale Price Divide By</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="barcodeScaleDivide" value="100" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveBarcodes">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-loyalty">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Customer Loyalty settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-price-tiers">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Price Tiers settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-id-numbers">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">ID Numbers settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-items">
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Number Of Items Per Page</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="20" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Number Of Items For Search Suggestions</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="20" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Number Of Items Per Page In Grid</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="14" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Rewrite Level When Creating Items</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Days To Expire When Creating Items</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default New Items As Service Items</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Highlight Low Inventory Items In Items Module</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Limit Manual Price Adjustments And Discounts</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Max Discount %</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Mark Up Calculator</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Margin Calculator</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Verify Age For Products</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Always Require Item Serial Number Check</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Supplier In Item Search Result</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Supplier From Item Popup</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Reset Item Cost Module</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Use HTML Editor On Items</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveItems">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-employee">
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Allow Employees To Use 2FA (Two-Factor Authentication)</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Time Clock</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Time Clock And Time Off</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Log Out Automatically When Clocking Out</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Pool User Rendering (Approve/ Reject Paycheck)</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Require Employee Login Before Each Sale</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Reset Location When Switching Employee</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveEmployee">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-store-accounts">
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Customize Store Accounts</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Email Invoices For Customer Store Account Changes</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Automatically Email Invoice</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Credit Limit</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" value="" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Supplier Store Accounts</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Create Invoice For Supplier Store Account Changes</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Store Account When Over Credit Limit</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 20px; align-items: flex-start;">Store Account Statement Message</div>
+                <div class="sc-profit-cell" style="padding-top: 14px; padding-bottom: 18px; padding-right: 24px;">
+                  <textarea class="sc-profit-input" style="height: 100px; resize: vertical; max-width: 100%; width: 100%; padding: 8px 10px;"></textarea>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Store Account Payments In Reports</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Store Account Payments From Receipt Totals</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 20px; align-items: flex-start;">Profit And Discounts</div>
+                <div class="sc-profit-cell" style="padding-top: 14px; padding-bottom: 18px; padding-right: 24px;">
+                  <textarea class="sc-profit-input" style="height: 100px; resize: vertical; max-width: 100%; width: 100%; padding: 8px 10px;"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveStoreAccounts">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-disable-modules">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Disable Modules settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-app-settings">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Application Settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-email-settings">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Email Settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-quickbooks">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Quickbooks Settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-ecommerce">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Ecommerce Platform settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-api-settings">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">API Settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-webhooks">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Web Hooks settings coming soon.</p>
+          </div>
+        </div>
+        <div class="sc-tab-panel" id="tab-lookup-api">
+          <div class="sc-form-card">
+            <p class="text-muted mb-0">Lookup API Integration coming soon.</p>
+          </div>
+        </div>
+
+      </main>
+    </div>
   </div>
-</div>
 
-<!-- Bootstrap Bundle JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Chart.js (remove if not needed) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<!-- Custom JS -->
-<script src="../assets/js/main.js"></script>
-<!-- Page-specific JS (optional) -->
-<!-- <script src="../assets/js/pages/PAGE_NAME.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Tab switching
+    document.getElementById('scTabs').addEventListener('click', function (e) {
+      const btn = e.target.closest('.sc-tab');
+      if (!btn) return;
+      document.querySelectorAll('.sc-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.sc-tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = document.getElementById('tab-' + btn.dataset.tab);
+      if (panel) panel.classList.add('active');
+    });
+
+    // Payment type pills
+    function setActivePaymentPill(group, activeButton) {
+      group.querySelectorAll('.sc-payment-pill').forEach(btn => {
+        const isActive = btn === activeButton;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      const selectedLabel = activeButton.textContent.trim();
+      const card = group.closest('.sc-payment-card');
+      if (!card) return;
+      const dp = card.querySelector('#defaultPaymentType');
+      const drp = card.querySelector('#defaultReceivingPaymentType');
+      if (dp && dp.options.length > 0) dp.options[0].textContent = selectedLabel;
+      if (drp && drp.options.length > 0) drp.options[0].textContent = selectedLabel;
+    }
+
+    document.querySelectorAll('.sc-payment-pills').forEach(group => {
+      const buttons = group.querySelectorAll('.sc-payment-pill');
+      if (!buttons.length) return;
+      buttons.forEach(button => {
+        button.addEventListener('click', function () { setActivePaymentPill(group, this); });
+      });
+      setActivePaymentPill(group, buttons[0]);
+    });
+
+    // Add Shipping Provider row
+    function addShippingProvider() {
+      const tbody = document.getElementById('shippingProvidersBody');
+      if (!tbody) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+      <td><input type="text" style="width:90px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
+      <td><input type="text" style="width:90px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
+      <td><input type="text" style="width:70px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
+      <td><input type="text" style="width:70px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
+      <td style="text-align:center;"><input type="radio" name="shippingProviderDefault" style="accent-color:#2563eb;" /></td>
+      <td style="text-align:center;"><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:#ef4444;font-size:12px;font-weight:600;cursor:pointer;">Delete</button></td>
+      <td style="text-align:center;"><button style="background:none;border:none;color:#2563eb;font-size:12px;font-weight:600;cursor:pointer;">Add Rate</button></td>
+      <td style="text-align:center;"><button style="background:none;border:none;font-size:15px;cursor:pointer;color:#64748b;">⇅</button></td>
+    `;
+      tbody.appendChild(tr);
+    }
+
+    // Reusable save feedback
+    function attachSaveFeedback(id) {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        this.textContent = 'Saved!';
+        this.style.background = '#16a34a';
+        setTimeout(() => { this.textContent = 'Save'; this.style.background = ''; }, 1800);
+      });
+    }
+
+    attachSaveFeedback('btnSaveCompany');
+    attachSaveFeedback('btnSaveTaxes');
+    attachSaveFeedback('btnSaveCurrency');
+    attachSaveFeedback('btnSavePaymentTypes');
+    attachSaveFeedback('btnSavePriceRules');
+    attachSaveFeedback('btnSaveOrdersDeliveries');
+    attachSaveFeedback('btnSaveSales');
+    attachSaveFeedback('btnSaveProfit');
+  </script>
 </body>
+
 </html>
-
-

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Item Kit | POS System</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .page-header-kit {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .page-title-kit {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .btn-save-kit {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Tabs */
+    .kit-tabs {
+      display: flex;
+      background: #f8fafc;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .kit-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-decoration: none;
+      border-right: 1px solid var(--gray-200);
+      position: relative;
+      transition: var(--transition);
+    }
+    .kit-tab:last-child { border-right: none; }
+    .kit-tab.active {
+      background: var(--primary);
+      color: #fff;
+    }
+    .kit-tab.active::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 10px solid var(--primary);
+      z-index: 2;
+    }
+
+    /* Form Card */
+    .kit-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 30px;
+    }
+    .kit-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .kit-section-title i { color: var(--primary); }
+
+    .form-row-kit {
+      display: flex;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    .form-label-kit {
+      width: 250px;
+      text-align: right;
+      padding-right: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .label-required { color: #64748b; transition: color 0.2s; }
+    .label-required.error { color: #ef4444; }
+
+    .form-input-kit {
+      flex: 1;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .form-input-kit:focus { border-color: var(--primary); }
+    
+    .form-textarea-kit {
+      flex: 1;
+      height: 80px;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 13.5px;
+      resize: none;
+      outline: none;
+    }
+    .form-textarea-kit:focus { border-color: var(--primary); }
+
+    .checkbox-kit {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .info-text {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .form-row-kit { flex-direction: column; align-items: flex-start; }
+      .form-label-kit { width: 100%; text-align: left; padding-right: 0; margin-bottom: 6px; }
+      .kit-tab { font-size: 11px; padding: 8px 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon"><i class="bi bi-shop"></i></div>
+      <div class="sidebar-brand-info">
+        <div class="sidebar-brand-name">Main Branch</div>
+        <div class="sidebar-brand-role">Administrator</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item">
+        <a href="../index.html" class="nav-link">
+          <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-toggle="submenu">
+          <i class="bi bi-people-fill"></i><span>Contacts</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="customers.html" class="nav-link"><i class="bi bi-dot"></i> Customers</a></div>
+          <div class="nav-item"><a href="suppliers.html" class="nav-link"><i class="bi bi-dot"></i> Suppliers</a></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link active" data-toggle="submenu">
+          <i class="bi bi-box-seam-fill"></i><span>Inventory</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
+          <div class="nav-item"><a href="item-kits.html" class="nav-link active" style="color: var(--primary); background: var(--primary-soft);"><i class="bi bi-dot"></i> Item Kits</a></div>
+          <div class="nav-item"><a href="labels.html" class="nav-link"><i class="bi bi-dot"></i> Labels</a></div>
+          <div class="nav-item"><a href="order.html" class="nav-link"><i class="bi bi-dot"></i> Order</a></div>
+          <div class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-dot"></i> Categories</a></div>
+          <div class="nav-item"><a href="tags.html" class="nav-link"><i class="bi bi-dot"></i> Tags</a></div>
+          <div class="nav-item"><a href="attributes.html" class="nav-link"><i class="bi bi-dot"></i> Attributes</a></div>
+          <div class="nav-item"><a href="price-rules.html" class="nav-link"><i class="bi bi-dot"></i> Price Rules</a></div>
+        </div>
+      </div>
+      <div class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart-fill"></i><span>Reports</span></a></div>
+      <div class="nav-item"><a href="receiving.html" class="nav-link"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
+      <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-toggle="submenu">
+          <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
+          <i class="bi bi-chevron-right nav-arrow"></i>
+        </a>
+        <div class="nav-submenu">
+          <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer Out</a></div>
+          <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a></div>
+        </div>
+      </div>
+      <div class="nav-item"><a href="employees.html" class="nav-link"><i class="bi bi-person-badge-fill"></i><span>Employees</span></a></div>
+      <div class="nav-item"><a href="vat-report.html" class="nav-link"><i class="bi bi-receipt"></i><span>VAT Report</span></a></div>
+      <div class="nav-item"><a href="store-config.html" class="nav-link"><i class="bi bi-gear-fill"></i><span>Store Config</span></a></div>
+      <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
+      <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-logout">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Logout</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Inventory / Item Kits</span>
+      <div class="topbar-actions">
+        <div class="topbar-user">
+          <div class="topbar-user-info">
+            <div class="topbar-user-name">Shaun Marphy</div>
+            <div class="topbar-user-role">Admin</div>
+          </div>
+          <div class="topbar-avatar">SM</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="page-content-inner">
+        
+        <div class="page-header-kit">
+          <div class="page-title-kit">Edit Item Kit</div>
+          <button class="btn-save-kit" onclick="validateForm()">Update</button>
+        </div>
+
+        <div class="kit-tabs">
+          <a href="javascript:void(0)" class="kit-tab active" onclick="switchTab(this, 'tabInfo')">Item Kit Info</a>
+          <a href="javascript:void(0)" class="kit-tab" onclick="switchTab(this, 'tabItems')">Items</a>
+          <a href="javascript:void(0)" class="kit-tab" onclick="switchTab(this, 'tabPricing')">Pricing</a>
+          <a href="javascript:void(0)" class="kit-tab" onclick="switchTab(this, 'tabImages')">Images</a>
+          <a href="javascript:void(0)" class="kit-tab" onclick="switchTab(this, 'tabLocations')">Locations</a>
+        </div>
+
+        <div id="tabInfo" class="kit-tab-content">
+          <div class="kit-card">
+            <div class="kit-section-title">
+              <i class="bi bi-info-circle-fill"></i> Item Kit Information <span style="font-weight: 400; font-size: 11px; color: #94a3b8; margin-left: 8px;">(Fields in red are required)</span>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit label-required">Item Kit Name:</label>
+              <input type="text" class="form-input-kit" placeholder="" value="Summer Fruit Kit">
+            </div>
+            <div class="form-row-kit validation-msg" style="margin-top: -10px; margin-bottom: 20px; display: none;">
+              <div class="form-label-kit"></div>
+              <div class="info-text" style="color: #ef4444; font-size: 11px;">Item Kit Name is a required field.</div>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Barcode Display Name:</label>
+              <input type="text" class="form-input-kit" placeholder="">
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit label-required">Category:</label>
+              <select class="form-input-kit">
+                <option>Fruits</option>
+              </select>
+            </div>
+            <div class="form-row-kit validation-msg" style="margin-top: -10px; margin-bottom: 20px; display: none;">
+              <div class="form-label-kit"></div>
+              <div class="info-text" style="color: #ef4444; font-size: 11px;">Category is a required field.</div>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">UPC/EAN/ISBN:</label>
+              <input type="text" class="form-input-kit" placeholder="">
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Product ID:</label>
+              <input type="text" class="form-input-kit" placeholder="">
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Manufacturer:</label>
+              <div style="flex: 1;">
+                <select class="form-input-kit" style="width: 100%;">
+                  <option>None</option>
+                </select>
+                <a href="#" class="info-text text-decoration-none" style="color: var(--primary);">Manage manufacturers</a>
+              </div>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Tags:</label>
+              <div style="flex: 1;">
+                <input type="text" class="form-input-kit" placeholder="">
+                <a href="#" class="info-text text-decoration-none" style="color: var(--primary);">Manage tags</a>
+              </div>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Item Kit Description:</label>
+              <textarea class="form-textarea-kit"></textarea>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Info to display when adding to Sale:</label>
+              <textarea class="form-textarea-kit"></textarea>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Item Kit Type:</label>
+              <select class="form-input-kit">
+                <option>Standard</option>
+              </select>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Commission:</label>
+              <input type="text" class="form-input-kit" placeholder="">
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Is Item Kit?</label>
+              <input type="checkbox" class="checkbox-kit" checked>
+            </div>
+
+            <div class="form-row-kit">
+              <label class="form-label-kit">Allow Selling When Out Of Stock:</label>
+              <input type="checkbox" class="checkbox-kit">
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-save-kit" onclick="validateForm()" style="padding: 10px 30px; font-size: 14px;">Update</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabItems" class="kit-tab-content" style="display: none;">
+          <div class="kit-card">
+            <div class="kit-section-title"><i class="bi bi-box-fill"></i> Items in Kit</div>
+            <p class="text-muted" style="font-size: 13px;">Manage items that belong to this kit here.</p>
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-save-kit" onclick="validateForm()" style="padding: 10px 30px; font-size: 14px;">Update</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabPricing" class="kit-tab-content" style="display: none;">
+          <div class="kit-card">
+            <div class="kit-section-title"><i class="bi bi-currency-dollar"></i> Pricing Information</div>
+            <p class="text-muted" style="font-size: 13px;">Define cost and selling prices for the kit.</p>
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-save-kit" onclick="validateForm()" style="padding: 10px 30px; font-size: 14px;">Update</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabImages" class="kit-tab-content" style="display: none;">
+          <div class="kit-card">
+            <div class="kit-section-title"><i class="bi bi-image"></i> Kit Images</div>
+            <p class="text-muted" style="font-size: 13px;">Upload and manage images for the kit.</p>
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-save-kit" style="padding: 10px 30px; font-size: 14px;">Update</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabLocations" class="kit-tab-content" style="display: none;">
+          <div class="kit-card">
+            <div class="kit-section-title"><i class="bi bi-geo-alt-fill"></i> Location Availability</div>
+            <p class="text-muted" style="font-size: 13px;">Manage kit stock across different locations.</p>
+            <div class="d-flex justify-content-end mt-4">
+              <button class="btn-save-kit" style="padding: 10px 30px; font-size: 14px;">Update</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Validation Warning Modal -->
+<div class="modal fade" id="validationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 4px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+      <div class="modal-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div style="font-size: 15px; color: #334155;">You must fill out the required fields before making other changes.</div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background: #3b82f6; border: none; padding: 6px 20px; font-size: 14px; border-radius: 4px;">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  function switchTab(el, tabId) {
+    // If not on Info tab and trying to switch, or if on Info tab and trying to switch away
+    // We check validation first
+    const nameInput = document.querySelector('input[placeholder=""]');
+    const categorySelect = document.querySelector('select.form-input-kit');
+    
+    if (tabId !== 'tabInfo') {
+      if (!nameInput.value.trim() || categorySelect.value === 'Select Category') {
+        // Show modal instead of switching
+        const vModal = new bootstrap.Modal(document.getElementById('validationModal'));
+        vModal.show();
+        
+        // Also trigger the red marks for visual feedback
+        validateForm(true); 
+        return;
+      }
+    }
+
+    // Update active tab link
+    document.querySelectorAll('.kit-tab').forEach(tab => tab.classList.remove('active'));
+    el.classList.add('active');
+
+    // Show corresponding content
+    document.querySelectorAll('.kit-tab-content').forEach(content => content.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+  }
+
+  function validateForm(isSilent = false) {
+    const nameInput = document.querySelector('input[placeholder=""]');
+    const categorySelect = document.querySelector('select.form-input-kit');
+    let hasError = false;
+
+    // Reset errors
+    document.querySelectorAll('.label-required').forEach(l => l.classList.remove('error'));
+    document.querySelectorAll('.validation-msg').forEach(m => m.style.display = 'none');
+
+    if (!nameInput.value.trim()) {
+      nameInput.closest('.form-row-kit').querySelector('.label-required').classList.add('error');
+      nameInput.closest('.form-row-kit').nextElementSibling.style.display = 'flex';
+      hasError = true;
+    }
+
+    if (categorySelect.value === 'Select Category') {
+      categorySelect.closest('.form-row-kit').querySelector('.label-required').classList.add('error');
+      categorySelect.closest('.form-row-kit').nextElementSibling.style.display = 'flex';
+      hasError = true;
+    }
+
+    if (!hasError && !isSilent) {
+      alert('Form saved successfully!');
+    }
+  }
+</script>
+</body>
+</html>

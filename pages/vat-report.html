@@ -578,20 +578,33 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   function showReportView() {
-    // Programmatically hide the verification modal first
-    const existingModalEl = document.getElementById('existingVatModal');
-    if (existingModalEl) {
-      const modalInstance = bootstrap.Modal.getOrCreateInstance(existingModalEl);
-      if (modalInstance) modalInstance.hide();
+    // Hide all open modals
+    ['existingVatModal', 'addVatModal'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        const inst = bootstrap.Modal.getInstance(el);
+        if (inst) inst.hide();
+      }
+    });
+
+    // Remove any leftover modal backdrops and body classes
+    function doShow() {
+      document.querySelectorAll('.modal-backdrop').forEach(function(el) { el.remove(); });
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+
+      const tableSection = document.getElementById('tableViewSection');
+      const reportSection = document.getElementById('reportViewSection');
+      if (tableSection && reportSection) {
+        tableSection.style.setProperty('display', 'none', 'important');
+        reportSection.style.setProperty('display', 'block', 'important');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
-    const tableSection = document.getElementById('tableViewSection');
-    const reportSection = document.getElementById('reportViewSection');
-    if (tableSection && reportSection) {
-      tableSection.style.setProperty('display', 'none', 'important');
-      reportSection.style.setProperty('display', 'block', 'important');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Small delay to let Bootstrap finish its hide animation
+    setTimeout(doShow, 300);
   }
 
   function showTableView() {
