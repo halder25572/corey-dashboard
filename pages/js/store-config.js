@@ -71,3 +71,4 @@
     attachSaveFeedback('btnSaveOrdersDeliveries');
     attachSaveFeedback('btnSaveSales');
     attachSaveFeedback('btnSaveProfit');
+    attachSaveFeedback('btnSaveLoyalty');

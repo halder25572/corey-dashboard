@@ -1199,8 +1199,51 @@
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-loyalty">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Customer Loyalty settings coming soon.</p>
+          <div class="sc-profit-card">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Customer Loyalty System:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" id="enableLoyalty" class="sc-profit-check" checked />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Loyalty Points Earned Per Dollar Spent:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="loyaltyPointsPerDollar" value="1" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Minimum Points To Redeem:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="minPointsRedeem" value="100" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Value of Each Loyalty Point:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="pointValue" value="0.01" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Points Earned On:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input" id="pointsEarnedOn">
+                    <option>Net Sales</option>
+                    <option>Gross Sales</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Loyalty Point Expiration Days:</div>
+                <div class="sc-profit-cell">
+                  <input type="text" class="sc-profit-input" id="pointExpiration" value="365" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveLoyalty">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-price-tiers">
