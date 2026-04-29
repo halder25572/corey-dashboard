@@ -16,7 +16,7 @@
       display: flex;
       gap: 12px;
       flex: 1;
-      max-width: 500px;
+      max-width: 100%;
     }
     .search-input {
       background: #f1f5f9;

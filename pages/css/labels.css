@@ -2,7 +2,7 @@
     .labels-card {
       background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
       padding: 24px; box-shadow: var(--shadow-xs);
-      max-width: 500px; margin: 0 auto; transition: max-width 0.3s ease;
+      max-width: 100%; margin: 0 auto; transition: max-width 0.3s ease;
     }
     .labels-tabs { display: flex; gap: 12px; margin-bottom: 24px; }
     .btn-tab {

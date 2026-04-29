@@ -12,7 +12,7 @@
     barcodeContent.style.display = 'block';
     shelfContent.style.display = 'none';
     btnAddLogo.style.display = 'none';
-    labelsCard.style.maxWidth = '500px';
+    labelsCard.style.maxWidth = '100%';
   });
 
   btnShelf.addEventListener('click', () => {
@@ -21,7 +21,7 @@
     barcodeContent.style.display = 'none';
     shelfContent.style.display = 'block';
     btnAddLogo.style.display = 'block';
-    labelsCard.style.maxWidth = '1000px';
+    labelsCard.style.maxWidth = '100%';
   });
 
   // Logo upload logic
