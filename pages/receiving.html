@@ -177,16 +177,14 @@
                   <i class="bi bi-cart"></i> Receive
                 </button>
                 <ul class="dropdown-menu recv-dropdown-menu">
-                  <li><a class="dropdown-item recv-dropdown-item mode-receive" href="javascript:void(0)" onclick="setMode('Receive', 'bi-cart')"><i class="bi bi-cart"></i> Receive</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-return" href="javascript:void(0)" onclick="setMode('Return', 'bi-download')"><i class="bi bi-download"></i> Return</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-po" href="javascript:void(0)" onclick="setMode('Purchase Order', 'bi-cart-check')"><i class="bi bi-cart-check"></i> Purchase Order</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-transfer" href="javascript:void(0)" onclick="setMode('Transfer', 'bi-person-badge')"><i class="bi bi-person-badge"></i> Transfer</a></li>
+                  <li><a class="dropdown-item recv-dropdown-item mode-receive" href="#"><i class="bi bi-cart"></i> Receive</a></li>
+                  <li><a class="dropdown-item recv-dropdown-item mode-return" href="#"><i class="bi bi-download"></i> Return</a></li>
                 </ul>
               </div>
-              <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
+              <button class="btn-recv-action btn-blue-solid" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive receipt-table-wrap">
               <table class="recv-table" id="recvTable">
                 <thead>
                   <tr>
@@ -202,119 +200,139 @@
                   <tr>
                     <td class="text-center"><button class="btn-remove-item"><i class="bi bi-dash-circle-fill"></i></button></td>
                     <td>
-                      <div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div>
-                      <div class="item-details">
-                        <div><span>Serial</span><span style="color: #94a3b8; font-style: italic;">Empty</span></div>
-                        <div><span>Stock</span><span>40</span></div>
-                        <div><span>Selling Price</span><span>15.00</span></div>
-                        <div><span>Description</span><span>green honey</span></div>
-                        <div><span>UPC/EAN/ISBN</span><span>7714</span></div>
+                      <div class="item-info">
+                        <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?auto=format&fit=crop&w=150&q=80" alt="Apple" class="item-img" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px;">
+                        <div>
+                          <div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div>
+                          <div class="item-details">
+                            <div><span>Serial</span><span style="color: #94a3b8; font-style: italic;">Empty</span></div>
+                            <div><span>Stock</span><span>40</span></div>
+                            <div><span>Selling Price</span><span>15.00</span></div>
+                            <div><span>Description</span><span>green honey</span></div>
+                            <div><span>UPC/EAN/ISBN</span><span>7714</span></div>
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td class="text-center" style="color: var(--primary); font-weight: 700;">$15.00</td>
                     <td class="text-center" style="color: var(--primary); font-weight: 700;">20</td>
                     <td class="text-center">0%</td>
-                    <td class="text-center" style="color: var(--primary); font-weight: 700;">-$300.00</td>
+                    <td class="text-center" style="color: var(--primary); font-weight: 700;">$300.00</td>
                   </tr>
                 </tbody>
               </table>
-              <div id="emptyCart" class="empty-cart-msg">
-                There are no items in the cart <span>[Receiving]</span>
+              <div id="emptyCart" class="empty-cart-msg py-5 text-center">
+                <span class="fw-bold" style="color: #f59e0b; font-size: 16px;">There are no items in the cart [Receiving]</span>
               </div>
-              <div style="height: 10px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 5%22%3E%3Cpath d=%22M0 5h20V0L10 5 0 0z%22 fill=%22%23f1f5f9%22/%3E%3C/svg%3E') repeat-x; opacity: 0.5;"></div>
+              <div class="receipt-serrated-bottom"></div>
             </div>
           </div>
         </div>
 
         <!-- RIGHT COLUMN -->
         <div class="recv-right">
-          <div class="summary-card">
-            <div class="d-flex justify-content-center py-2 border-bottom">
-              <div class="dropdown">
-                <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
-                <ul class="dropdown-menu sidebar-options-menu">
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings And Purchase orders</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-arrow-left-right"></i> Transfer Requests</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-box-arrow-in-down"></i> Incoming Transfers</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-cart-plus"></i> Create Purchase Order</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-clock-history"></i> Show Last Receiving</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch receiving</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-wrench"></i> Custom Field Configuration</a></li>
-                </ul>
+          <div class="summary-card-final">
+            <!-- Sidebar Header Actions (Hidden initially) -->
+            <div id="sidebarActions" class="d-flex justify-content-center gap-2 py-3 border-bottom px-3" style="display: none !important;">
+              <button class="btn-summary-outline"><i class="bi bi-three-dots"></i></button>
+              <button class="btn-summary-orange flex-grow-1"><i class="bi bi-pause-fill"></i> Suspend</button>
+              <button class="btn-summary-red flex-grow-1" onclick="location.reload()"><i class="bi bi-x-circle-fill"></i> Cancel Recv.</button>
+            </div>
+
+            <!-- Edit/Detach Buttons -->
+            <div class="d-flex border-bottom">
+              <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size: 12px; border-radius: 0;">
+                <i class="bi bi-pencil-square"></i> Edit
+              </button>
+              <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size: 12px; border-radius: 0;">
+                <i class="bi bi-x-circle"></i> Detach
+              </button>
+            </div>
+
+            <!-- Supplier Search -->
+            <div class="p-3">
+              <div class="input-group">
+                <span class="input-group-text bg-primary text-white border-primary px-3"><i class="bi bi-plus-lg"></i></span>
+                <input type="text" class="form-control bg-light border-0" placeholder="Type supplier's name........" style="font-size: 13px;">
               </div>
             </div>
 
-            <div class="d-flex border-bottom">
-              <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size: 12px;"><i class="bi bi-pencil-square"></i> Edit</button>
-              <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size: 12px;"><i class="bi bi-x-circle"></i> Detach</button>
-            </div>
-
-            <div class="supplier-search-recv">
-              <button class="btn-add-supplier"><i class="bi bi-plus"></i></button>
-              <input type="text" class="supplier-search-input" placeholder="Type supplier's name........">
-            </div>
-
-            <div class="discount-section">
-              <div class="discount-row">
+            <!-- Discounts -->
+            <div class="px-3 pb-3" style="font-size: 12px; color: #475569;">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <span>Discount all Items by Percent:</span>
-                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
+                <span class="text-danger text-decoration-underline" style="border-bottom: 1px dashed; cursor: pointer;" onclick="showDiscountForm(this)">Set Discount</span>
+                <div class="discount-input-group" style="display: none;">
                   <input type="text" class="discount-mini-input" placeholder="0%">
                   <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                  <button class="btn-close-mini" onclick="cancelDiscountForm(this)"><i class="bi bi-x"></i></button>
                 </div>
               </div>
-              <div class="discount-row">
+              <div class="d-flex justify-content-between align-items-center">
                 <span>Discount Entire Receiving:</span>
-                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
+                <span class="text-danger text-decoration-underline" style="border-bottom: 1px dashed; cursor: pointer;" onclick="showDiscountForm(this)">Set Discount</span>
+                <div class="discount-input-group" style="display: none;">
                   <input type="text" class="discount-mini-input" placeholder="0.00">
                   <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                  <button class="btn-close-mini" onclick="cancelDiscountForm(this)"><i class="bi bi-x"></i></button>
                 </div>
               </div>
             </div>
 
-            <div class="totals-section">
-              <div class="total-row"><span>Sub Total:</span><span style="color: #3b82f6; text-decoration: underline dashed;">-$0.00</span></div>
-              <div class="total-row" style="color: #166534; margin-top: 8px;"><span>Total</span><span>Amount Due</span></div>
-              <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$300.00</span><span style="color: #ea580c;">-$300.00</span></div>
+            <!-- Totals Box -->
+            <div id="totalsBox" class="totals-summary-final">
+              <div class="sub-total-row-pink">
+                <span>Sub Total:</span>
+                <span class="sub-total-val">-$0.00</span>
+              </div>
+              <div class="totals-grid-final">
+                <div class="total-col border-end">
+                  <div class="total-lbl text-dark">Total</div>
+                  <div class="total-val text-success">-$0.00</div>
+                </div>
+                <div class="total-col">
+                  <div class="total-lbl text-dark">Amount Due</div>
+                  <div class="total-val text-orange">-$0.00</div>
+                </div>
+              </div>
+              <div class="receipt-serrated-bottom"></div>
             </div>
 
-            <div class="payment-section">
-              <div class="comment-label mb-2">Add Payment</div>
-              <div class="payment-methods">
-                <button class="btn-pay-method active" onclick="switchPayment(this)">Cash</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Check</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Debit card</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Credit card</button>
+            <!-- Add Payment (Hidden initially) -->
+            <div id="paymentArea" class="p-3" style="display: none;">
+              <div class="fw-bold mb-2" style="font-size: 13px; color: #1e293b;">Add Payment</div>
+              <div class="d-flex gap-1 mb-3">
+                <button class="btn btn-primary btn-sm flex-grow-1 btn-pay-item-final" onclick="switchPaymentTab(this)" style="font-size: 11px; font-weight: 600;">Cash</button>
+                <button class="btn btn-light btn-sm flex-grow-1 border-0 btn-pay-item-final" onclick="switchPaymentTab(this)" style="font-size: 11px; background: #f1f5f9; color: #64748b;">Check</button>
+                <button class="btn btn-light btn-sm flex-grow-1 border-0 btn-pay-item-final" onclick="switchPaymentTab(this)" style="font-size: 11px; background: #f1f5f9; color: #64748b;">Debit card</button>
+                <button class="btn btn-light btn-sm flex-grow-1 border-0 btn-pay-item-final" onclick="switchPaymentTab(this)" style="font-size: 11px; background: #f1f5f9; color: #64748b;">Credit card</button>
               </div>
-              <div class="pay-input-row">
-                <input type="text" class="pay-input" value="142.50">
-                <button class="btn-finish" onclick="location.href='receiving-receipt.html'">Finish</button>
+              <div class="input-group mb-4">
+                <input type="text" id="payAmountInput" class="form-control" value="0.00" style="height: 40px; font-size: 14px;">
+                <button class="btn btn-primary px-4 fw-bold btn-pay-finish" style="font-size: 13px;" onclick="location.href='receiving-receipt.html'">Finish</button>
               </div>
-            </div>
+              
+              <!-- Date Change -->
+              <div class="mb-4">
+                <label class="d-flex align-items-center gap-2 cursor-pointer" style="font-size: 12px; color: #64748b;">
+                  <input type="checkbox" id="changeDateCheck" onchange="toggleDatePicker()" class="form-check-input mt-0"> Change receiving date
+                </label>
+                <div id="datePickerGroup" class="position-relative mt-2" style="display: none;">
+                  <input type="datetime-local" class="form-control" value="2026-04-12T06:05" style="font-size: 12px; height: 36px;">
+                </div>
+              </div>
 
-            <div class="date-change">
-              <label class="d-flex align-items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked> Change receiving date
-              </label>
-              <div class="mt-2 position-relative">
-                <input type="text" class="pay-input w-100" value="04/12/2026 06:05 am" style="height: 32px; font-size: 12px;">
-                <i class="bi bi-calendar-event position-absolute" style="right: 10px; top: 8px;"></i>
+              <!-- Comments -->
+              <div class="mb-2">
+                <div class="fw-bold mb-2" style="font-size: 13px; color: #1e293b;">Comments :</div>
+                <textarea class="form-control" style="height: 80px; resize: none; border-radius: 8px;"></textarea>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="recv-comment">
-              <div class="comment-label">Comments :</div>
-              <textarea class="comment-box"></textarea>
-            </div>
+          </div>
+        </div>
           </div>
         </div>
 
@@ -329,5 +347,4 @@
   <script src="js/receiving.js"></script>
 </body>
 </html>
-
 
