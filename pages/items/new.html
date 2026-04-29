@@ -159,12 +159,38 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-label-wrap"><label class="form-label">Supplier:</label></div>
+                  <div class="form-label-wrap"><label class="form-label">Suppliers:</label></div>
                   <div class="form-input-wrap">
-                    <select class="form-select">
-                      <option>Not set</option>
-                    </select>
-                    <a href="#" class="link-action">Add Supplier</a>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm mt-2" style="font-size: 13px;">
+                        <thead class="bg-light">
+                          <tr>
+                            <th class="text-center" style="width: 60px;">Default</th>
+                            <th>Supplier Name</th>
+                            <th>Supplier Item #</th>
+                            <th>Cost Price</th>
+                            <th class="text-center" style="width: 50px;">Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody id="supplierTableBody">
+                          <tr>
+                            <td class="text-center"><input type="radio" name="defaultSupplier" checked></td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option>Office Depot</option>
+                                <option>Global Tech</option>
+                              </select>
+                            </td>
+                            <td><input type="text" class="form-control form-control-sm" placeholder="ID-123"></td>
+                            <td><input type="text" class="form-control form-control-sm" placeholder="0.00"></td>
+                            <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0"><i class="bi bi-trash"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm mt-1" onclick="addSupplierRow()">
+                      <i class="bi bi-plus-lg"></i> Add Supplier
+                    </button>
                   </div>
                 </div>
                 
@@ -551,6 +577,25 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Custom JS -->
 <script src="../../assets/js/main.js"></script>
+<script>
+  function addSupplierRow() {
+    const tbody = document.getElementById('supplierTableBody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td class="text-center"><input type="radio" name="defaultSupplier"></td>
+      <td>
+        <select class="form-select form-select-sm">
+          <option>Office Depot</option>
+          <option>Global Tech</option>
+        </select>
+      </td>
+      <td><input type="text" class="form-control form-control-sm" placeholder="ID-123"></td>
+      <td><input type="text" class="form-control form-control-sm" placeholder="0.00"></td>
+      <td class="text-center"><button class="btn btn-link btn-sm text-danger p-0" onclick="this.closest('tr').remove()"><i class="bi bi-trash"></i></button></td>
+    `;
+    tbody.appendChild(newRow);
+  }
+</script>
 </body>
 </html>
 

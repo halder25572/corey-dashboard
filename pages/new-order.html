@@ -244,6 +244,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Custom JS -->
 <script src="../assets/js/main.js"></script>
+<script>
+  // Simulation: Auto-fill item details based on selected supplier
+  const supplierSpecificData = {
+    'Office Depot': { cost: '12.50', ref: 'OD-APPLE-01' },
+    'Global Tech': { cost: '14.00', ref: 'GT-APPLE-99' }
+  };
+
+  document.querySelector('.item-search-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      const supplierName = document.querySelector('.supplier-name').innerText;
+      const data = supplierSpecificData[supplierName] || { cost: '15.00', ref: 'ID:104' };
+      
+      // Update the first row as a demo
+      const firstRow = document.querySelector('.order-table tbody tr');
+      if (firstRow) {
+        firstRow.querySelector('.item-id').innerText = 'Ref: ' + data.ref;
+        // Assume price is shown somewhere or updated in logic
+        console.log('Auto-filled for ' + supplierName + ': Cost $' + data.cost);
+      }
+    }
+  });
+</script>
 </body>
 </html>
 

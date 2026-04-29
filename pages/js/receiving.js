@@ -48,97 +48,71 @@ function switchFilter(el, viewId) {
     el.nextElementSibling.querySelector('input').focus();
   }
 
-  let baseSubTotal = 0.00;
-  let currentDiscountPercent = 0;
-  let currentDiscountFlat = 0;
-
   function hideDiscountForm(btn) {
     const group = btn.closest('.discount-input-group');
     const link = group.previousElementSibling;
     const val = group.querySelector('input').value;
-    const isPercent = link.innerText.includes('Percent');
     
     if (val) {
-      link.innerText = val + (isPercent ? '%' : '');
+      const parentRow = btn.closest('.discount-row');
+      const labelText = parentRow.querySelector('span:first-child').innerText;
+      const isPercent = labelText.includes('Percent');
+      
+      link.innerText = isPercent ? (val.endsWith('%') ? val : val + '%') : '$' + val;
       link.style.color = 'var(--primary)';
       link.style.borderBottom = 'none';
-      
-      if (isPercent) {
-        currentDiscountPercent = parseFloat(val) || 0;
-      } else {
-        // "Discount Entire Receiving" acts as a flat amount override for this demo
-        baseSubTotal = parseFloat(val) || 0;
-        currentDiscountFlat = 0; 
+
+      // Reveal table items
+      const cartTable = document.getElementById('cartItems');
+      const emptyMsg = document.getElementById('emptyCart');
+      if (cartTable && emptyMsg) {
+        cartTable.style.display = 'table-row-group';
+        emptyMsg.style.display = 'none';
       }
 
-      // Reveal table items and update totals
-      document.getElementById('cartItems').style.display = 'table-row-group';
-      document.getElementById('emptyCart').style.display = 'none';
+      const subTotalEl = document.querySelector('.totals-section .total-row:nth-child(1) span:last-child');
+      const totalEl = document.querySelector('.totals-section .total-row:nth-child(3) span:first-child');
+      const amountDueEl = document.querySelector('.totals-section .total-row:nth-child(3) span:last-child');
       
-      updateCalculations();
+      const firstRow = cartTable.querySelector('tr');
+      const cells = firstRow ? firstRow.cells : null;
 
-      // Show payment area and sidebar actions
-      document.getElementById('paymentArea').style.display = 'block';
-      document.getElementById('sidebarActions').style.setProperty('display', 'flex', 'important');
+      if (!isPercent) {
+        // "Discount Entire Receiving" sets the Sub-Total & Cost
+        const flatVal = parseFloat(val) || 0;
+        window.currentDemoBase = flatVal;
+        window.currentDemoPercent = window.currentDemoPercent || 0;
+
+        if (subTotalEl) subTotalEl.innerText = '-$' + flatVal.toFixed(2);
+        if (totalEl) totalEl.innerText = '-$' + flatVal.toFixed(2);
+        
+        const calculatedDiscount = flatVal * (window.currentDemoPercent / 100);
+        const finalAmount = flatVal - calculatedDiscount;
+        if (amountDueEl) amountDueEl.innerText = '-$' + finalAmount.toFixed(2);
+
+        if (cells && cells.length >= 6) {
+          cells[2].innerText = '$' + flatVal.toFixed(2);
+          cells[3].innerText = '1'; 
+          cells[4].innerText = window.currentDemoPercent + '%';
+          cells[5].innerText = '-$' + finalAmount.toFixed(2);
+        }
+      } else {
+        // "Discount all Items by Percent" calculates based on existing Base
+        const percentVal = parseFloat(val) || 0;
+        window.currentDemoPercent = percentVal;
+        const currentBase = window.currentDemoBase || 0;
+        const calculatedDiscount = currentBase * (percentVal / 100);
+        const finalAmount = currentBase - calculatedDiscount;
+        
+        if (amountDueEl) amountDueEl.innerText = '-$' + finalAmount.toFixed(2);
+
+        if (cells && cells.length >= 6) {
+          cells[4].innerText = percentVal + '%';
+          cells[5].innerText = '-$' + finalAmount.toFixed(2);
+        }
+      }
     }
     
     group.style.display = 'none';
     link.style.display = 'inline';
-  }
-
-  function cancelDiscountForm(btn) {
-    const group = btn.parentElement;
-    const link = group.previousElementSibling;
-    group.style.display = 'none';
-    link.style.display = 'inline';
-  }
-
-  function updateCalculations() {
-    const payVal = parseFloat(document.getElementById('payAmountInput').value) || 0;
-    
-    // Percent calculation: Base - (Base * Percent / 100)
-    let totalAfterPercent = baseSubTotal - (baseSubTotal * (currentDiscountPercent / 100));
-    let finalTotal = totalAfterPercent; 
-    let amountDue = finalTotal - payVal;
-
-    // Update UI
-    document.querySelector('.sub-total-val').innerText = '-$' + baseSubTotal.toFixed(2);
-    document.querySelector('.total-val.text-success').innerText = '-$' + finalTotal.toFixed(2);
-    document.querySelector('.total-val.text-orange').innerText = '-$' + amountDue.toFixed(2);
-
-    // Sync input box with final total
-    const payInput = document.getElementById('payAmountInput');
-    if (payInput) {
-      payInput.value = finalTotal.toFixed(2);
-    }
-
-    // Revert Finish button text
-    const finishBtn = document.querySelector('.btn-pay-finish');
-    if (finishBtn) {
-      finishBtn.innerText = 'Finish';
-    }
-  }
-
-  // Add event listener to payment input
-  document.getElementById('payAmountInput')?.addEventListener('input', updateCalculations);
-
-  function switchPaymentTab(btn) {
-    // Reset all tabs to light style
-    document.querySelectorAll('.btn-pay-item-final').forEach(t => {
-      t.classList.remove('btn-primary');
-      t.classList.add('btn-light', 'border-0');
-      t.style.background = '#f1f5f9';
-      t.style.color = '#64748b';
-    });
-
-    // Set active tab to primary style
-    btn.classList.remove('btn-light', 'border-0');
-    btn.classList.add('btn-primary');
-    btn.style.background = ''; // Revert to primary blue
-    btn.style.color = '#fff';
-  }
-
-  function toggleDatePicker() {
-    const isChecked = document.getElementById('changeDateCheck').checked;
-    document.getElementById('datePickerGroup').style.display = isChecked ? 'block' : 'none';
   }
