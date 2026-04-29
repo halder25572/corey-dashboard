@@ -1,4 +1,67 @@
 // Tab switching
+    // Time Picker Logic
+    function initTimePicker(containerId, initialTime) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const input = container.querySelector('.sc-time-picker-input');
+      const dropdown = container.querySelector('.sc-time-picker-dropdown');
+      const hVal = container.querySelector('.hour-val');
+      const mVal = container.querySelector('.min-val');
+      const ampmBtn = container.querySelector('.sc-time-picker-ampm');
+
+      let [time, period] = initialTime.split(' ');
+      let [h, m] = time.split(':');
+
+      const updateDisplay = () => {
+        hVal.textContent = h.padStart(2, '0');
+        mVal.textContent = m.padStart(2, '0');
+        ampmBtn.textContent = period.toUpperCase();
+        input.value = `${h}:${m.padStart(2, '0')} ${period.toLowerCase()}`;
+      };
+
+      container.querySelector('.h-up').onclick = () => {
+        let val = parseInt(h);
+        h = val >= 12 ? '01' : (val + 1).toString().padStart(2, '0');
+        updateDisplay();
+      };
+      container.querySelector('.h-down').onclick = () => {
+        let val = parseInt(h);
+        h = val <= 1 ? '12' : (val - 1).toString().padStart(2, '0');
+        updateDisplay();
+      };
+      container.querySelector('.m-up').onclick = () => {
+        let val = parseInt(m);
+        m = val >= 59 ? '00' : (val + 1).toString().padStart(2, '0');
+        updateDisplay();
+      };
+      container.querySelector('.m-down').onclick = () => {
+        let val = parseInt(m);
+        m = val <= 0 ? '59' : (val - 1).toString().padStart(2, '0');
+        updateDisplay();
+      };
+      ampmBtn.onclick = () => {
+        period = period.toLowerCase() === 'am' ? 'pm' : 'am';
+        updateDisplay();
+      };
+
+      input.onclick = (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.sc-time-picker-dropdown').forEach(d => {
+          if (d !== dropdown) d.classList.remove('active');
+        });
+        dropdown.classList.toggle('active');
+      };
+
+      document.addEventListener('click', () => dropdown.classList.remove('active'));
+      dropdown.onclick = (e) => e.stopPropagation();
+
+      updateDisplay();
+    }
+
+    initTimePicker('openingTimePicker', '08:00 am');
+    initTimePicker('closingTimePicker', '09:00 pm');
+
     document.getElementById('scTabs').addEventListener('click', function (e) {
       const btn = e.target.closest('.sc-tab');
       if (!btn) return;
@@ -72,3 +135,84 @@
     attachSaveFeedback('btnSaveSales');
     attachSaveFeedback('btnSaveProfit');
     attachSaveFeedback('btnSaveLoyalty');
+    attachSaveFeedback('btnSavePriceTiers');
+    attachSaveFeedback('btnSaveIdNumbers');
+    attachSaveFeedback('btnSaveDisableModules');
+    attachSaveFeedback('btnSaveAppSettings');
+    attachSaveFeedback('btnSaveEmailSettings');
+    attachSaveFeedback('btnSaveQuickbooks');
+    attachSaveFeedback('btnSaveEcommerce');
+    attachSaveFeedback('btnSaveApiSettings');
+    attachSaveFeedback('btnSaveWebHooks');
+    attachSaveFeedback('btnSaveLookupApi');
+
+    // API Key Modal Logic
+    const btnConfirmAddApiKey = document.getElementById('btnConfirmAddApiKey');
+    if (btnConfirmAddApiKey) {
+      btnConfirmAddApiKey.addEventListener('click', function () {
+        const desc = document.getElementById('apiKeyDesc').value;
+        const key = document.getElementById('generatedApiKey').value;
+        const perms = document.getElementById('apiKeyPerms').value;
+
+        if (!desc) {
+          alert('Please enter a description');
+          return;
+        }
+
+        const tbody = document.getElementById('apiKeysBody');
+        const lastFour = key.substring(key.length - 4);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td style="padding: 12px 0;">${desc}</td>
+          <td style="padding: 12px 0;">**********${lastFour}</td>
+          <td style="padding: 12px 0;">${perms}</td>
+          <td style="padding: 12px 0; text-align: right;">
+            <button class="btn btn-link p-0 text-danger" onclick="this.closest('tr').remove()"><i class="bi bi-trash"></i></button>
+          </td>
+        `;
+        tbody.appendChild(row);
+
+        // Reset and Close
+        document.getElementById('apiKeyDesc').value = '';
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addApiKeyModal'));
+        modal.hide();
+      });
+    }
+
+    // Sync Operation Toggles
+    document.addEventListener('click', function (e) {
+      const op = e.target.closest('.sc-sync-op');
+      if (op) {
+        op.classList.toggle('inactive');
+      }
+    });
+
+    // Price Tiers table logic
+    function addPriceTierRow() {
+      const tbody = document.getElementById('priceTiersBody');
+      if (!tbody) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align: center; padding: 14px 10px;"><button style="background:none;border:none;font-size:16px;cursor:pointer;color:#374151;padding:0;font-weight:bold;">⇅</button></td>
+        <td style="padding: 14px 10px;"><input type="text" class="sc-profit-input" value="" style="width:100%; max-width: none;" /></td>
+        <td style="padding: 14px 10px;"><input type="text" class="sc-profit-input" value="" style="width:100%; max-width: none;" /></td>
+        <td style="padding: 14px 10px;"><input type="text" class="sc-profit-input" value="" style="width:100%; max-width: none;" /></td>
+        <td style="padding: 14px 10px;"><input type="text" class="sc-profit-input" value="" style="width:100%; max-width: none;" /></td>
+        <td style="text-align: center; padding: 14px 10px;"><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:#ef4444;font-size:13px;cursor:pointer;padding:0;">Delete</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    // Initialize with one row
+    if (document.getElementById('priceTiersBody')) {
+      addPriceTierRow();
+    }
+
+    // Link "Manage Price Tiers" to the tab
+    document.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A' && e.target.textContent.includes('Manage Price Tiers')) {
+        e.preventDefault();
+        const tabBtn = document.querySelector('.sc-tab[data-tab="price-tiers"]');
+        if (tabBtn) tabBtn.click();
+      }
+    });

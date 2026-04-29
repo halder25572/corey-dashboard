@@ -1247,13 +1247,109 @@
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-price-tiers">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Price Tiers settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 24px; align-items: flex-start;">Price Tiers:</div>
+                <div class="sc-profit-cell" style="flex-direction: column; align-items: stretch; padding-top: 16px; padding-bottom: 20px; padding-right: 24px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #374151;">
+                    <thead>
+                      <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 60px;">Sort</th>
+                        <th style="text-align: left; padding: 8px 10px; font-weight: 600;">Tier Name</th>
+                        <th style="text-align: left; padding: 8px 10px; font-weight: 600;">Default Percent Off</th>
+                        <th style="text-align: left; padding: 8px 10px; font-weight: 600;">Default Cost Plus Percent</th>
+                        <th style="text-align: left; padding: 8px 10px; font-weight: 600;">Default Cost Plus Fixed Amount</th>
+                        <th style="text-align: center; padding: 8px 10px; font-weight: 600; width: 80px;">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody id="priceTiersBody">
+                      <!-- Tiers will be added here -->
+                    </tbody>
+                  </table>
+                  <div style="margin-top: 14px; padding-left: 10px;">
+                    <button onclick="addPriceTierRow()" style="background:none;border:none;color:#3b82f6;font-size:13px;cursor:pointer;padding:0;font-weight:500;">Add tier</button>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Override Tier Name On Receipt:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Tier On Receipt:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Tier Percent Type For Excel Import:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="max-width: 100%; appearance: auto; cursor: pointer;">
+                    <option>Percent Off</option>
+                    <option>Percent Markup</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default Tier Fixed Amount For Excel Import:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="max-width: 100%; appearance: auto; cursor: pointer;">
+                    <option>Fixed Amount</option>
+                    <option>Cost Plus Fixed Amount</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Round Tier Prices To 2 Decimals:</div>
+                <div class="sc-profit-cell">
+                  <input type="checkbox" class="sc-profit-check" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSavePriceTiers">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-id-numbers">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">ID Numbers settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div style="background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 6px; padding: 12px 16px; margin-bottom: 24px; color: #0369a1; font-size: 13px; line-height: 1.5;">
+              <strong>note:</strong> You can only increase Auto Increment values. Updating them will not affect IDs for items, item kits, sales or receivings that already exist.
+            </div>
+            
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Item ID Auto Increment Starting Value:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Item Kit ID Auto Increment Starting Value:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Sale ID Auto Increment Starting Value:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Receiving ID Auto Increment Starting Value:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" style="max-width: 100%;" />
+                </div>
+              </div>
+            </div>
+
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveIdNumbers">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-items">
@@ -1442,47 +1538,958 @@
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-disable-modules">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Disable Modules settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Customers:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Items:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Item Kits:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Price Rules:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Suppliers:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Reports:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Receiving:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Sales:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Deliveries:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Work Orders:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Expenses:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Appointments:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Employees:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Gift Cards:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Invoices:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Locations:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Messages:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hover To Expand Sub-Modules:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveDisableModules">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-app-settings">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Application Settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Language:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input">
+                    <option value="english" selected>English</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="french">French</option>
+                    <option value="german">German</option>
+                    <option value="bengali">Bengali</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="portuguese">Portuguese</option>
+                    <option value="russian">Russian</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="italian">Italian</option>
+                    <option value="turkish">Turkish</option>
+                    <option value="dutch">Dutch</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Date Format:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input">
+                    <option>12/30/2000</option>
+                    <option>30/12/2000</option>
+                    <option>2000/12/30</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Time Format:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input">
+                    <option>1:00 PM</option>
+                    <option>13:00</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #ef4444;">Week Start Day:</div>
+                <div class="sc-profit-cell"><select class="sc-profit-input"><option>Monday</option></select></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Store Opening Time:</div>
+                <div class="sc-profit-cell">
+                  <div class="sc-time-picker-container" id="openingTimePicker">
+                    <div class="sc-time-picker-icon"><i class="bi bi-clock"></i></div>
+                    <input type="text" class="sc-time-picker-input" readonly value="08:00 am" />
+                    <div class="sc-time-picker-dropdown">
+                      <div class="sc-time-picker-grid">
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-btn h-up"><i class="bi bi-chevron-up"></i></button>
+                          <div class="sc-time-picker-val hour-val">08</div>
+                          <button class="sc-time-picker-btn h-down"><i class="bi bi-chevron-down"></i></button>
+                        </div>
+                        <div class="sc-time-picker-sep">:</div>
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-btn m-up"><i class="bi bi-chevron-up"></i></button>
+                          <div class="sc-time-picker-val min-val">00</div>
+                          <button class="sc-time-picker-btn m-down"><i class="bi bi-chevron-down"></i></button>
+                        </div>
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-ampm">AM</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Store Closing Time:</div>
+                <div class="sc-profit-cell">
+                  <div class="sc-time-picker-container" id="closingTimePicker">
+                    <div class="sc-time-picker-icon"><i class="bi bi-clock"></i></div>
+                    <input type="text" class="sc-time-picker-input" readonly value="09:00 pm" />
+                    <div class="sc-time-picker-dropdown">
+                      <div class="sc-time-picker-grid">
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-btn h-up"><i class="bi bi-chevron-up"></i></button>
+                          <div class="sc-time-picker-val hour-val">09</div>
+                          <button class="sc-time-picker-btn h-down"><i class="bi bi-chevron-down"></i></button>
+                        </div>
+                        <div class="sc-time-picker-sep">:</div>
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-btn m-up"><i class="bi bi-chevron-up"></i></button>
+                          <div class="sc-time-picker-val min-val">00</div>
+                          <button class="sc-time-picker-btn m-down"><i class="bi bi-chevron-down"></i></button>
+                        </div>
+                        <div class="sc-time-picker-col">
+                          <button class="sc-time-picker-ampm">PM</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">PayVantage:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Offline Mode:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Auto Sync Offline Sales When Back Online:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Offline Mode Sync Cycle Time (Hours):</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24" selected>24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Reset Offline Data:</div>
+                <div class="sc-profit-cell"><button class="btn btn-primary btn-sm" style="font-size: 12px; background-color: #3b82f6; border: none; padding: 6px 12px;">Reset Offline Data</button></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Dark Mode:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Only Allow Employees To Edit Customers In Their Location:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Default New Customer To Current Location:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Require Https For Programs:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Expiring Items On Dashboard:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do NOT Delete Saved Card After Failure:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do Not Force HTTP When Needed For EMV Credit Card Processing:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Test Mode (Sales NOT Saved):</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Disable Test Mode:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Hide Item Description In Reports:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Sounds For Status Messages:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Language Switcher:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Clock In Header:</div>
+                <div class="sc-profit-cell" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                  <input type="checkbox" class="sc-profit-check" />
+                  <span style="font-size: 12px; color: #94a3b8;">This is visible only on wide screens</span>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Legacy Detailed Report Panel Export:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Overwrite Existing Items On Excel Import:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Report Sort Order:</div>
+                <div class="sc-profit-cell"><select class="sc-profit-input"><option>Oldest first</option></select></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Speed Up Search Queries? (Only Recommend If You Have More Than 10,000 Items Or Customers):</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Allow Partial Match For Customer Search:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Quick Edit On Manage Pages:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Quick Expense Add/Update:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enhanced Search Method:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Include Child Categories When Searching Or Reporting:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Show Full Category Path When Searching:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Spreadsheet Format:</div>
+                <div class="sc-profit-cell"><select class="sc-profit-input"><option>XLSX</option></select></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Mailing Labels Format:</div>
+                <div class="sc-profit-cell"><select class="sc-profit-input"><option>PDF</option></select></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Session Expiration:</div>
+                <div class="sc-profit-cell">
+                  <select class="sc-profit-input">
+                    <option>On Browser Close</option>
+                    <option>10 Minutes</option>
+                    <option>15 Minutes</option>
+                    <option>20 Minutes</option>
+                    <option>25 Minutes</option>
+                    <option>30 Minutes</option>
+                    <option>35 Minutes</option>
+                    <option>40 Minutes</option>
+                    <option>45 Minutes</option>
+                    <option>50 Minutes</option>
+                    <option>55 Minutes</option>
+                    <option>1 Hours</option>
+                    <option>2 Hours</option>
+                    <option>3 Hours</option>
+                    <option>4 Hours</option>
+                    <option>5 Hours</option>
+                    <option>6 Hours</option>
+                    <option>7 Hours</option>
+                    <option>8 Hours</option>
+                    <option>9 Hours</option>
+                    <option>10 Hours</option>
+                    <option>11 Hours</option>
+                    <option>12 Hours</option>
+                    <option>13 Hours</option>
+                    <option>14 Hours</option>
+                    <option>15 Hours</option>
+                    <option>16 Hours</option>
+                    <option>17 Hours</option>
+                    <option>18 Hours</option>
+                    <option>19 Hours</option>
+                    <option>20 Hours</option>
+                    <option>21 Hours</option>
+                    <option>22 Hours</option>
+                    <option>23 Hours</option>
+                    <option>24 Hours</option>
+                    <option>25 Hours</option>
+                    <option>26 Hours</option>
+                    <option>27 Hours</option>
+                    <option>28 Hours</option>
+                    <option>29 Hours</option>
+                    <option>30 Hours</option>
+                    <option>31 Hours</option>
+                    <option>32 Hours</option>
+                    <option>33 Hours</option>
+                    <option>34 Hours</option>
+                    <option>35 Hours</option>
+                    <option>36 Hours</option>
+                    <option>37 Hours</option>
+                    <option>38 Hours</option>
+                    <option>39 Hours</option>
+                    <option>40 Hours</option>
+                    <option>41 Hours</option>
+                    <option>42 Hours</option>
+                    <option>43 Hours</option>
+                    <option>44 Hours</option>
+                    <option>45 Hours</option>
+                    <option>46 Hours</option>
+                    <option>47 Hours</option>
+                    <option>48 Hours</option>
+                    <option>49 Hours</option>
+                    <option>50 Hours</option>
+                    <option>51 Hours</option>
+                    <option>52 Hours</option>
+                    <option>53 Hours</option>
+                    <option>54 Hours</option>
+                    <option>55 Hours</option>
+                    <option>56 Hours</option>
+                    <option>57 Hours</option>
+                    <option>58 Hours</option>
+                    <option>59 Hours</option>
+                    <option>60 Hours</option>
+                    <option>61 Hours</option>
+                    <option>62 Hours</option>
+                    <option>63 Hours</option>
+                    <option>64 Hours</option>
+                    <option>65 Hours</option>
+                    <option>66 Hours</option>
+                    <option>67 Hours</option>
+                    <option>68 Hours</option>
+                    <option>69 Hours</option>
+                    <option>70 Hours</option>
+                    <option>71 Hours</option>
+                    <option>72 Hours</option>
+                    <option>73 Hours</option>
+                    <option>74 Hours</option>
+                    <option>75 Hours</option>
+                    <option>76 Hours</option>
+                    <option>77 Hours</option>
+                    <option>78 Hours</option>
+                    <option>79 Hours</option>
+                    <option>80 Hours</option>
+                    <option>81 Hours</option>
+                    <option>82 Hours</option>
+                    <option>83 Hours</option>
+                    <option>84 Hours</option>
+                    <option>85 Hours</option>
+                    <option>86 Hours</option>
+                    <option>87 Hours</option>
+                    <option>88 Hours</option>
+                    <option>89 Hours</option>
+                    <option>90 Hours</option>
+                    <option>91 Hours</option>
+                    <option>92 Hours</option>
+                    <option>93 Hours</option>
+                    <option>94 Hours</option>
+                    <option>95 Hours</option>
+                    <option>96 Hours</option>
+                    <option>97 Hours</option>
+                    <option>98 Hours</option>
+                    <option>99 Hours</option>
+                    <option>100 Hours</option>
+                    <option>101 Hours</option>
+                    <option>102 Hours</option>
+                    <option>103 Hours</option>
+                    <option>104 Hours</option>
+                    <option>105 Hours</option>
+                    <option>106 Hours</option>
+                    <option>107 Hours</option>
+                    <option>108 Hours</option>
+                    <option>109 Hours</option>
+                    <option>110 Hours</option>
+                    <option>111 Hours</option>
+                    <option>112 Hours</option>
+                    <option>113 Hours</option>
+                    <option>114 Hours</option>
+                    <option>115 Hours</option>
+                    <option>116 Hours</option>
+                    <option>117 Hours</option>
+                    <option>118 Hours</option>
+                    <option>119 Hours</option>
+                    <option>120 Hours</option>
+                    <option>121 Hours</option>
+                    <option>122 Hours</option>
+                    <option>123 Hours</option>
+                    <option>124 Hours</option>
+                    <option>125 Hours</option>
+                    <option>126 Hours</option>
+                    <option>127 Hours</option>
+                    <option>128 Hours</option>
+                    <option>129 Hours</option>
+                    <option>130 Hours</option>
+                    <option>131 Hours</option>
+                    <option>132 Hours</option>
+                    <option>133 Hours</option>
+                    <option>134 Hours</option>
+                    <option>135 Hours</option>
+                    <option>136 Hours</option>
+                    <option>137 Hours</option>
+                    <option>138 Hours</option>
+                    <option>139 Hours</option>
+                    <option>140 Hours</option>
+                    <option>141 Hours</option>
+                    <option>142 Hours</option>
+                    <option>143 Hours</option>
+                    <option>144 Hours</option>
+                    <option>145 Hours</option>
+                    <option>146 Hours</option>
+                    <option>147 Hours</option>
+                    <option>148 Hours</option>
+                    <option>149 Hours</option>
+                    <option>150 Hours</option>
+                    <option>151 Hours</option>
+                    <option>152 Hours</option>
+                    <option>153 Hours</option>
+                    <option>154 Hours</option>
+                    <option>155 Hours</option>
+                    <option>156 Hours</option>
+                    <option>157 Hours</option>
+                    <option>158 Hours</option>
+                    <option>159 Hours</option>
+                    <option>160 Hours</option>
+                    <option>161 Hours</option>
+                    <option>162 Hours</option>
+                    <option>163 Hours</option>
+                    <option>164 Hours</option>
+                    <option>165 Hours</option>
+                    <option>166 Hours</option>
+                    <option>167 Hours</option>
+                    <option>168 Hours</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Always Minimize Left Side Bar Menu:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" checked /></div>
+              </div>
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 24px; align-items: flex-start;">Item Lookup Order:</div>
+                <div class="sc-profit-cell" style="padding-top: 16px; padding-bottom: 20px; padding-right: 24px;">
+                  <div style="width: 100%; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #374151;">
+                      <span>Item Id</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #374151;">
+                      <span>Item Number</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #374151;">
+                      <span>Product Id</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #374151;">
+                      <span>Additional Item Numbers</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #374151;">
+                      <span>Serial Numbers</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #374151;">
+                      <span>Item Variation Item Number</span>
+                      <i class="bi bi-arrow-down-up" style="color: #94a3b8; cursor: pointer;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Allow Scan Of Customer Into Row Field:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Send SMS Via Whatsapp:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Quick Customer Add/Update:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Quick Supplier Add/Update:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Quick Item Add/Update:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row" style="align-items: flex-start;">
+                <div class="sc-profit-label" style="padding-top: 20px; align-items: flex-start;">Add/Edit Appointment Note (Bold "", Italic "", Underline ""):</div>
+                <div class="sc-profit-cell" style="padding-top: 14px; padding-bottom: 18px; padding-right: 24px;">
+                  <textarea class="sc-profit-input" style="height: 100px; resize: vertical; max-width: 100%; width: 100%; padding: 8px 10px;"></textarea>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do Not Delete Serial Number When Selling:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveAppSettings">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-email-settings">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Email Settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Select A Provider:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="width: 100%;">
+                    <option>Use System Default</option>
+                    <option>SMTP</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label"></div>
+                <div class="sc-profit-cell" style="justify-content: flex-end; padding-right: 24px;">
+                  <button class="btn btn-primary" style="background-color: #3b82f6; border: none; font-size: 13px; padding: 8px 16px; display: flex; align-items: center; gap: 8px;">
+                    <i class="bi bi-envelope"></i> Send Test Email
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveEmailSettings">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-quickbooks">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Quickbooks Settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div style="display: flex; justify-content: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9;">
+              <button class="btn btn-primary" style="background-color: #3b82f6; border: none; font-size: 13px; padding: 10px 24px; font-weight: 500;">Connect to quickbooks online</button>
+            </div>
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Quickbooks Sync Operations:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <div style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 13px;">
+                    <i class="bi bi-check2-circle"></i> Export journal entry to quickbooks
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Quickbooks Sync Logs:</div>
+                <div class="sc-profit-cell"></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: #22c55e;">Export Start Date:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="date" class="sc-profit-input" style="width: 100%; border-color: #86efac;" value="2026-04-30" />
+                </div>
+              </div>
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label">Last Sync Date:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <div style="position:relative; width: 100%;">
+                    <input type="text" class="sc-profit-input" style="width: 100%; padding-right: 100px;" placeholder="Last Sync Date" disabled />
+                    <button class="btn btn-warning" style="position:absolute; right: 0; top: 0; height: 100%; border-radius: 0 6px 6px 0; background-color: #f59e0b; border: none; color: white; font-size: 13px; display: flex; align-items: center; gap: 6px; padding: 0 15px;">
+                      <i class="bi bi-arrow-repeat"></i> Sync
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveQuickbooks">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-ecommerce">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Ecommerce Platform settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Select Platform:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="width: 100%;">
+                    <option>None</option>
+                    <option>WooCommerce</option>
+                    <option>Shopify</option>
+                    <option>Magento</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">SKU Field To Sync With:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="width: 100%;">
+                    <option>UPC/EAN/ISBN</option>
+                    <option>Item ID</option>
+                    <option>Item Number</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Do NOT Upload Images To E-Commerce:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Only Sync Completed E-Commerce Orders:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Import E-Commerce Orders Suspended:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">New Items Are E-Commerce By Default:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" checked /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Use Main Image As Default Image In E-Commerce:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Store Location:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <select class="sc-profit-input" style="width: 100%;">
+                    <option>Default</option>
+                    <option>Dhaka</option>
+                    <option>Cumilla</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Sync Inventory From Location Default:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" checked /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Sync Inventory From Location Dhaka:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Sync Inventory From Location Cumilla:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Ecommerce Sync Operations:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px; flex-direction: column; align-items: stretch; gap: 4px; padding-bottom: 12px;">
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Sync inventory changes</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import tags into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import categories into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import attributes into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import Tax Classes into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import Shipping Classes into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import items into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Import orders into PHP POS</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Export tags to ecommerce</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Export categories to ecommerce</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Export Attributes to ecommerce</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Export tax classes to ecommerce</div>
+                  <div class="sc-sync-op" style="width: 100%; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; color: #166534; font-size: 12px;"><i class="bi bi-check2-circle"></i> Export items to ecommerce</div>
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">E-Commerce Sync Logs:</div>
+                <div class="sc-profit-cell"></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Last Sync Date:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <div style="position:relative; width: 100%;">
+                    <input type="text" class="sc-profit-input" style="width: 100%; padding-right: 100px;" placeholder="Last Sync Date" disabled />
+                    <button class="btn btn-warning" style="position:absolute; right: 0; top: 0; height: 100%; border-radius: 0 6px 6px 0; background-color: #f59e0b; border: none; color: white; font-size: 13px; display: flex; align-items: center; gap: 6px; padding: 0 15px;">
+                      <i class="bi bi-arrow-repeat"></i> Sync
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label">Reset E-Commerce:</div>
+                <div class="sc-profit-cell">
+                  <button class="btn btn-danger" style="background-color: #ef4444; border: none; font-size: 13px; padding: 8px 20px;">Reset E-Commerce</button>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveEcommerce">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-api-settings">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">API Settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label">API Keys:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px; flex-direction: column; align-items: flex-start;">
+                  <table class="table" style="font-size: 13px; margin-bottom: 12px; width: 100%;">
+                    <thead>
+                      <tr style="color: #64748b; font-weight: 500;">
+                        <th style="border-bottom: 1px solid #f1f5f9; padding: 12px 0;">Description</th>
+                        <th style="border-bottom: 1px solid #f1f5f9; padding: 12px 0;">API Key Ending In</th>
+                        <th style="border-bottom: 1px solid #f1f5f9; padding: 12px 0;">Permissions</th>
+                        <th style="border-bottom: 1px solid #f1f5f9; padding: 12px 0; text-align: right;">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody id="apiKeysBody">
+                      <!-- Rows will be added here -->
+                    </tbody>
+                  </table>
+                  <button class="btn btn-link p-0" style="color: #3b82f6; text-decoration: none; font-size: 13px; font-weight: 500;" data-bs-toggle="modal" data-bs-target="#addApiKeyModal">Add API Key</button>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveApiSettings">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-webhooks">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Web Hooks settings coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">New Customer Web Hook URL:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">New Sale Web Hook URL:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">New Receiving Web Hook:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Edit Customer Web Hook URL:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Edit Sale Web Hook URL:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label">Edit Receiving Web Hook URL:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" placeholder="http://URL" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveWebHooks">Save</button>
+            </div>
           </div>
         </div>
         <div class="sc-tab-panel" id="tab-lookup-api">
-          <div class="sc-form-card">
-            <p class="text-muted mb-0">Lookup API Integration coming soon.</p>
+          <div class="sc-profit-card" style="max-width: 100%;">
+            <div class="sc-profit-grid">
+              <!-- Injured Gadgets -->
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Injured Gadgets Integration:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Injured Gadgets API Bearer Token:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" />
+                </div>
+              </div>
+              
+              <!-- Wholesale Gadget Parts -->
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Wholesale Gadget Parts Integration:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">WGP Integration Partner Key:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" />
+                </div>
+              </div>
+
+              <!-- Parts4Cells -->
+              <div class="sc-profit-row">
+                <div class="sc-profit-label">Enable Parts4Cells.Com Integration:</div>
+                <div class="sc-profit-cell"><input type="checkbox" class="sc-profit-check" /></div>
+              </div>
+              <div class="sc-profit-row" style="border-bottom: none;">
+                <div class="sc-profit-label">Parts4cells.Com API Bearer Token:</div>
+                <div class="sc-profit-cell" style="padding-right: 24px;">
+                  <input type="text" class="sc-profit-input" />
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-save-wrap">
+              <button class="sc-btn-save" id="btnSaveLookupApi">Save</button>
+            </div>
           </div>
         </div>
 
       </main>
+    </div>
+  </div>
+
+  <!-- Add API Key Modal -->
+  <div class="modal fade" id="addApiKeyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 650px;">
+      <div class="modal-content" style="border: none; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+        <div class="modal-header" style="background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; border-radius: 12px 12px 0 0; padding: 16px 24px;">
+          <h5 class="modal-title" style="font-size: 16px; font-weight: 600; color: #1e293b;">Add API Key</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+        </div>
+        <div class="modal-body" style="padding: 32px 32px;">
+          <div class="sc-profit-grid">
+            <div class="sc-profit-row" style="border-bottom: none; align-items: center; padding: 12px 0; grid-template-columns: 100px 1fr; gap: 10px;">
+              <div class="sc-profit-label" style="width: auto; border-right: none; justify-content: flex-start; padding: 0; font-size: 14px; color: #475569;">Description:</div>
+              <div class="sc-profit-cell">
+                <input type="text" class="sc-profit-input" id="apiKeyDesc" style="width: 100%;" />
+              </div>
+            </div>
+            <div class="sc-profit-row" style="border-bottom: none; align-items: center; padding: 12px 0; grid-template-columns: 100px 1fr; gap: 10px;">
+              <div class="sc-profit-label" style="width: auto; border-right: none; justify-content: flex-start; padding: 0; font-size: 14px; color: #475569;">API Key:</div>
+              <div class="sc-profit-cell">
+                <div style="display: flex; width: 100%;">
+                  <input type="text" class="sc-profit-input" id="generatedApiKey" value="wck0gosgw4ssog448s80ccwoo4ockc8kck0o4kk0" style="flex: 1; border-radius: 6px 0 0 6px; border-right: none;" readonly />
+                  <button class="btn btn-outline-secondary" style="border-radius: 0 6px 6px 0; font-size: 13px; border-color: #e2e8f0; color: #475569; padding: 0 16px; white-space: nowrap;" onclick="navigator.clipboard.writeText(document.getElementById('generatedApiKey').value)">Copy to Clipboard</button>
+                </div>
+              </div>
+            </div>
+            <div class="sc-profit-row" style="border-bottom: none; align-items: center; padding: 12px 0; grid-template-columns: 100px 1fr; gap: 10px;">
+              <div class="sc-profit-label" style="width: auto; border-right: none; justify-content: flex-start; padding: 0; font-size: 14px; color: #475569;">Permissions:</div>
+              <div class="sc-profit-cell">
+                <select class="sc-profit-input" id="apiKeyPerms" style="width: 100%;">
+                  <option>Read</option>
+                  <option>Read/Write</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="border-top: none; padding: 0 32px 32px 32px;">
+          <button type="button" class="btn btn-primary" style="background-color: #3b82f6; border: none; padding: 10px 24px; font-weight: 600; border-radius: 6px; width: auto; margin-left: auto;" id="btnConfirmAddApiKey">Add API Key</button>
+        </div>
+      </div>
     </div>
   </div>
 
