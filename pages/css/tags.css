@@ -138,4 +138,4 @@
       color: #fff;
       transition: background 0.2s;
     }
-    .btn-tag-ok:hover { background: #2563eb; }
+    .btn-tag-ok:hover { background: var(--primary); }

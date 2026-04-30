@@ -94,11 +94,6 @@
       <div class="topbar-actions">
         <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
         <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
-        <!-- Theme Color Picker -->
-        <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
-          <i class="bi bi-palette"></i>
-          <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
-        </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
@@ -375,7 +370,7 @@
       </div>
       <div class="modal-footer border-top-0 pt-3 pb-4 px-4 gap-3 justify-content-end">
         <button type="button" class="btn" data-bs-dismiss="modal" style="background: #F0F4FF; color: #6366F1; border-radius: 10px; font-weight: 600; padding: 12px 30px; font-size: 15px;">Cancel</button>
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#existingVatModal" data-bs-dismiss="modal" style="background: #2563EB; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 35px; font-size: 15px;">Run</button>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#existingVatModal" data-bs-dismiss="modal" style="background: var(--primary); color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 35px; font-size: 15px;">Run</button>
       </div>
     </div>
   </div>
@@ -390,14 +385,14 @@
       </div>
       <div class="modal-body px-4 pt-4">
         <hr class="w-100 mb-4 mt-0" style="color: #E2E8F0; opacity: 0.8;">
-        <p class="mb-2" style="font-size: 15px; color: #475569;">VAT Returns for <span id="existingVatMonth" class="fw-bold" style="color: #2563EB;">July 2026</span> already exists.</p>
+        <p class="mb-2" style="font-size: 15px; color: #475569;">VAT Returns for <span id="existingVatMonth" class="fw-bold" style="color: var(--primary);">July 2026</span> already exists.</p>
         <p style="font-size: 15px; color: #475569;">What would you like to do?</p>
       </div>
       <div class="modal-footer border-top-0 pt-4 pb-4 px-4 gap-3 justify-content-end flex-nowrap">
         <hr class="w-100 mb-4 mt-0 position-absolute" style="color: #E2E8F0; opacity: 0.8; top: 0;">
         <button type="button" class="btn px-4" data-bs-dismiss="modal" style="background: #F0F4FF; color: #6366F1; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">Cancel</button>
         <button type="button" class="btn px-4 text-nowrap" onclick="showReportView()" style="background: #F59E0B; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">Run anyway</button>
-        <button type="button" class="btn px-4 text-nowrap" onclick="showReportView()" style="background: #2563EB; color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">View existing</button>
+        <button type="button" class="btn px-4 text-nowrap" onclick="showReportView()" style="background: var(--primary); color: #fff; border-radius: 10px; font-weight: 600; padding: 12px 25px; font-size: 15px;">View existing</button>
       </div>
     </div>
   </div>

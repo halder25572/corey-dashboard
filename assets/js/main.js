@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   dropdownEls.forEach(el => new bootstrap.Dropdown(el));
 
   /* ── Load Saved Theme Color ── */
-  const savedColor = localStorage.getItem('themeColor') || '#2563EB';
+  const savedColor = localStorage.getItem('themeColor') || 'var(--primary)';
   applyThemeColor(savedColor);
   const picker = document.getElementById('themeColorPicker');
   if (picker) picker.value = savedColor;
@@ -114,9 +114,14 @@ function initSalesChart(canvas) {
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const data   = [120, 145, 130, 155, 140, 170, 165, 180, 160, 175, 185, 190];
 
+  const themeColor = localStorage.getItem('themeColor') || '#2563EB';
+  let r = parseInt(themeColor.slice(1, 3), 16),
+      g = parseInt(themeColor.slice(3, 5), 16),
+      b = parseInt(themeColor.slice(5, 7), 16);
+
   const gradient = canvas.getContext('2d').createLinearGradient(0, 0, 0, 200);
-  gradient.addColorStop(0, 'rgba(37,99,235,.18)');
-  gradient.addColorStop(1, 'rgba(37,99,235,.00)');
+  gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 1)`);
+  gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
 
   new Chart(canvas, {
     type: 'line',
@@ -125,11 +130,11 @@ function initSalesChart(canvas) {
       datasets: [{
         label: 'Total Sales',
         data: data,
-        borderColor: '#2563EB',
+        borderColor: themeColor,
         borderWidth: 2.5,
         pointRadius: 3,
         pointHoverRadius: 6,
-        pointBackgroundColor: '#2563EB',
+        pointBackgroundColor: themeColor,
         fill: true,
         backgroundColor: gradient,
         tension: 0.45,

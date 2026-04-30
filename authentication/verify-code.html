@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" />
 
   <style>
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --primary-soft: #DBEAFE;
+    }
     *, *::before, *::after { box-sizing: border-box; }
 
     body {
@@ -30,7 +36,7 @@
     /* ── LEFT BLUE PANEL ── */
     .login-left {
       width: 42%;
-      background: #2563EB;
+      background: var(--primary);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -173,18 +179,18 @@
       outline: none;
       transition: border-color .2s, box-shadow .2s;
       background: #fff;
-      caret-color: #2563EB;
+      caret-color: var(--primary);
     }
 
     .otp-input:focus {
-      border-color: #2563EB;
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(37,99,235,.12);
     }
 
     .otp-input.filled {
-      border-color: #2563EB;
-      background: #EFF6FF;
-      color: #2563EB;
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
     }
 
     .otp-input.error {
@@ -204,7 +210,7 @@
     .btn-continue {
       width: 100%;
       height: 44px;
-      background: #2563EB;
+      background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -217,7 +223,7 @@
       margin-bottom: 14px;
     }
 
-    .btn-continue:hover { background: #1D4ED8; }
+    .btn-continue:hover { background: var(--primary-dark); }
     .btn-continue:active { transform: scale(.99); }
     .btn-continue:disabled {
       background: #93C5FD;
@@ -465,5 +471,6 @@
   }
 </script>
 
+<script src="../assets/js/main.js"></script>
 </body>
 </html>

@@ -102,15 +102,10 @@
     <div class="main-content">
       <header class="topbar">
         <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
-        <span class="topbar-title" style="color: var(--primary, #2563EB); font-weight: 700;">Store Config</span>
+        <span class="topbar-title" style="color: var(--primary, var(--primary)); font-weight: 700;">Store Config</span>
         <div class="topbar-actions">
           <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
           <div class="topbar-icon-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></div>
-          <!-- Theme Color Picker -->
-        <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
-          <i class="bi bi-palette"></i>
-          <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
-        </div>
         <div class="topbar-user">
             <div class="topbar-user-info">
               <div class="topbar-user-name">Shaun Marphy</div>
@@ -220,27 +215,27 @@
               <div class="sc-form-row"
                 style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
                 <label class="sc-form-label">Use TaxJar Location API To Pull Taxes:</label>
-                <input type="checkbox" id="chkTaxJarLocation" style="width:16px;height:16px;accent-color:#2563EB;">
+                <input type="checkbox" id="chkTaxJarLocation" style="width:16px;height:16px;accent-color:var(--primary);">
               </div>
               <div class="sc-form-row"
                 style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
                 <label class="sc-form-label">Flat Discount Also Discounts Tax:</label>
-                <input type="checkbox" id="chkFlatDiscount" style="width:16px;height:16px;accent-color:#2563EB;">
+                <input type="checkbox" id="chkFlatDiscount" style="width:16px;height:16px;accent-color:var(--primary);">
               </div>
               <div class="sc-form-row"
                 style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
                 <label class="sc-form-label">Prices Include Tax:</label>
-                <input type="checkbox" id="chkPricesIncludeTax" style="width:16px;height:16px;accent-color:#2563EB;">
+                <input type="checkbox" id="chkPricesIncludeTax" style="width:16px;height:16px;accent-color:var(--primary);">
               </div>
               <div class="sc-form-row"
                 style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
                 <label class="sc-form-label">Charge Tax On Receivings:</label>
-                <input type="checkbox" id="chkChargeTaxReceivings" style="width:16px;height:16px;accent-color:#2563EB;">
+                <input type="checkbox" id="chkChargeTaxReceivings" style="width:16px;height:16px;accent-color:var(--primary);">
               </div>
               <div class="sc-form-row"
                 style="grid-template-columns: 260px auto; align-items: center; margin-bottom: 0;">
                 <label class="sc-form-label">Use Tax Values At ALL Locations:</label>
-                <input type="checkbox" id="chkTaxAllLocations" style="width:16px;height:16px;accent-color:#2563EB;">
+                <input type="checkbox" id="chkTaxAllLocations" style="width:16px;height:16px;accent-color:var(--primary);">
               </div>
             </div>
             <div style="margin-top: 24px; overflow-x: auto;">
@@ -268,14 +263,14 @@
                     <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
                         style="min-width:120px;padding:7px 10px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_0"
-                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="0"
-                        checked style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        checked style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
                         style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
-                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                        style="background:none;border:none;color:var(--primary);font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;color:#475569;">1</td>
                     <td style="text-align:center;padding:8px 6px;"><button
@@ -289,14 +284,14 @@
                     <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
                         style="min-width:120px;padding:7px 10px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_1"
-                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="1"
-                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
                         style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
-                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                        style="background:none;border:none;color:var(--primary);font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;color:#475569;"></td>
                     <td style="text-align:center;padding:8px 6px;"><button
@@ -310,14 +305,14 @@
                     <td style="padding:8px 6px;"><input type="text" class="sc-form-control" value=""
                         style="min-width:120px;padding:7px 10px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_cumulative_2"
-                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><input type="radio" name="tax_default" value="2"
-                        style="accent-color:#2563EB;width:16px;height:16px;"></td>
+                        style="accent-color:var(--primary);width:16px;height:16px;"></td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="deleteTaxRow(this)"
                         style="background:none;border:none;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;">Delete</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;"><button onclick="addTaxRate(this)"
-                        style="background:none;border:none;color:#2563EB;font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
+                        style="background:none;border:none;color:var(--primary);font-size:13px;font-weight:600;cursor:pointer;">Add<br>Rate</button>
                     </td>
                     <td style="text-align:center;padding:8px 6px;color:#475569;"></td>
                     <td style="text-align:center;padding:8px 6px;"><button
@@ -327,7 +322,7 @@
               </table>
               <div style="margin-top:14px;margin-bottom:8px;padding-bottom:16px;border-bottom:1.5px solid #E2E8F0;">
                 <button onclick="addTaxGroup()"
-                  style="background:none;border:none;color:#2563EB;font-size:13.5px;font-weight:600;cursor:pointer;padding:0;">Add
+                  style="background:none;border:none;color:var(--primary);font-size:13.5px;font-weight:600;cursor:pointer;padding:0;">Add
                   Tax Group</button>
               </div>
             </div>
@@ -1626,6 +1621,14 @@
         <div class="sc-tab-panel" id="tab-app-settings">
           <div class="sc-profit-card" style="max-width: 100%;">
             <div class="sc-profit-grid">
+              <div class="sc-profit-row">
+                <div class="sc-profit-label" style="color: var(--primary);">Application Theme Color:</div>
+                <div class="sc-profit-cell" style="display: flex; align-items: center; gap: 10px;">
+                  <input type="color" id="themeColorPicker" style="width: 40px; height: 40px; cursor: pointer; border: none; padding: 0; border-radius: 4px;" value="#2563EB" onchange="changeThemeColor(this.value)">
+                  <span style="font-size: 12px; color: #64748b;">(Requires page reload to fully apply in some areas)</span>
+                </div>
+              </div>
+
               <div class="sc-profit-row">
                 <div class="sc-profit-label" style="color: #ef4444;">Language:</div>
                 <div class="sc-profit-cell">

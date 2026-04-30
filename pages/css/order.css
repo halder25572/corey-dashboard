@@ -182,7 +182,7 @@
       font-size: 24px;
       color: #fff;
     }
-    .icon-blue { background: #2563EB; }
+    .icon-blue { background: var(--primary); }
     .icon-green { background: #22C55E; }
     
     .start-mode-title {
@@ -197,8 +197,8 @@
       line-height: 1.5;
     }
     .btn-back-custom {
-      background: #eff6ff;
-      color: #2563eb;
+      background: var(--primary-light);
+      color: var(--primary);
       border: none;
       padding: 10px 24px;
       font-weight: 600;
@@ -207,10 +207,10 @@
       transition: var(--transition);
     }
     .btn-back-custom:hover {
-      background: #dbeafe;
+      background: var(--primary-soft);
     }
     .btn-cancel-blue {
-      background: #2563eb;
+      background: var(--primary);
       color: #fff;
       border: none;
       padding: 10px 32px;
@@ -220,7 +220,7 @@
       transition: var(--transition);
     }
     .btn-cancel-blue:hover {
-      background: #1d4ed8;
+      background: var(--primary-dark);
     }
 
     /* Criteria Modal Styles */
@@ -245,8 +245,8 @@
     }
     .category-tag {
       display: inline-block;
-      background: #eff6ff;
-      color: #2563eb;
+      background: var(--primary-light);
+      color: var(--primary);
       padding: 6px 16px;
       border-radius: 20px;
       font-size: 14px;

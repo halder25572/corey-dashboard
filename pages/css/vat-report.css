@@ -35,7 +35,7 @@
     /* Table */
     .custom-table { width: 100%; border-collapse: collapse; }
     .custom-table th {
-      background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+      background: linear-gradient(180deg, var(--primary-light) 0%, #FFFFFF 100%);
       color: var(--gray-800); font-size: 12px; font-weight: 700;
       padding: 14px 20px; text-align: left; white-space: nowrap;
       border-bottom: 1px solid var(--gray-200);

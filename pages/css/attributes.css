@@ -149,4 +149,4 @@
       color: #fff;
       transition: background 0.2s;
     }
-    .btn-attr-save:hover { background: #2563eb; }
+    .btn-attr-save:hover { background: var(--primary); }

@@ -107,9 +107,9 @@
       <td><input type="text" style="width:90px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
       <td><input type="text" style="width:70px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
       <td><input type="text" style="width:70px;height:26px;border:1px solid #d1d5db;border-radius:2px;padding:2px 6px;font-size:12px;" /></td>
-      <td style="text-align:center;"><input type="radio" name="shippingProviderDefault" style="accent-color:#2563eb;" /></td>
+      <td style="text-align:center;"><input type="radio" name="shippingProviderDefault" style="accent-color:var(--primary);" /></td>
       <td style="text-align:center;"><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:#ef4444;font-size:12px;font-weight:600;cursor:pointer;">Delete</button></td>
-      <td style="text-align:center;"><button style="background:none;border:none;color:#2563eb;font-size:12px;font-weight:600;cursor:pointer;">Add Rate</button></td>
+      <td style="text-align:center;"><button style="background:none;border:none;color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;">Add Rate</button></td>
       <td style="text-align:center;"><button style="background:none;border:none;font-size:15px;cursor:pointer;color:#64748b;">⇅</button></td>
     `;
       tbody.appendChild(tr);

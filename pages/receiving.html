@@ -7,77 +7,108 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
-  <link rel="stylesheet" href="css/receiving.css">
   <style>
-    .recv-mode-toggle {
-      display: flex;
-      background: #f1f5f9;
-      border-radius: 8px;
-      padding: 3px;
-      gap: 2px;
+    :root {
+      --primary: #2563eb;
     }
-    .btn-mode-toggle {
-      padding: 5px 18px;
-      border: none;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      background: transparent;
-      color: #64748b;
-      transition: all 0.2s;
-    }
-    .btn-mode-toggle.active {
-      background: #fff;
-      color: var(--primary, #2563eb);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-    }
-    .btn-mode-toggle#modeReturn.active {
-      color: #d97706;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; }
+
+    /* ── Page ── */
+
+    /* ── Page ── */
+    .page-content { padding: 20px; }
+    .receiving-grid { display: grid; grid-template-columns: 1fr 300px; gap: 16px; align-items: start; }
+    .recv-card { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); padding: 16px; margin-bottom: 14px; }
+
+    /* ── Toggle ── */
+    .recv-mode-toggle { display: flex; background: #f1f5f9; border-radius: 8px; padding: 3px; gap: 2px; }
+    .btn-mode-toggle { padding: 5px 18px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #64748b; transition: all 0.2s; }
+    .btn-mode-toggle.active { background: #fff; color: var(--primary); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+    .btn-mode-toggle#modeReturn.active { color: #d97706; }
+
+    /* ── Filters ── */
+    .recv-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .btn-filter { padding: 5px 14px; border: 1px solid #e2e8f0; border-radius: 20px; font-size: 12px; font-weight: 600; background: #fff; color: #64748b; cursor: pointer; }
+    .btn-filter.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+    .category-item { border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #e2e8f0; }
+    .category-img { width: 100%; height: 60px; object-fit: cover; }
+    .category-name-box { font-size: 11px; font-weight: 700; text-align: center; padding: 5px; background: #f8fafc; color: #1e293b; }
+    .breadcrumb-recv { font-size: 12px; color: #64748b; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+    .tag-item { padding: 4px 12px; border-radius: 20px; font-size: 12px; border: 1px solid #e2e8f0; cursor: pointer; background: #f8fafc; }
+    .tag-item.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* ── Search row ── */
+    .recv-search-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .btn-scan { width: 34px; height: 34px; border: 1px solid #e2e8f0; border-radius: 7px; background: #fff; cursor: pointer; font-size: 15px; color: #475569; }
+    .search-input-recv { flex: 1; min-width: 160px; height: 34px; border: 1px solid #e2e8f0; border-radius: 7px; padding: 0 12px; font-size: 13px; outline: none; }
+    .search-input-recv:focus { border-color: var(--primary); }
+    .btn-recv-action { height: 34px; padding: 0 14px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 5px; }
+    .btn-blue { background: var(--primary-light); color: var(--primary); }
+
+    /* ── Cart table ── */
+    .recv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .recv-table th { padding: 8px 12px; text-align: center; font-weight: 700; color: #475569; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+    .recv-table td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; vertical-align: middle; text-align: center; }
+    .recv-table tbody tr:hover { background: #f8fafc; }
+    .btn-remove-item { background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; }
+    .item-name { font-weight: 700; color: #1e293b; }
+    .item-details { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 4px; }
+    .item-details > div { display: flex; gap: 5px; font-size: 11px; color: #64748b; }
+    .empty-cart-msg { text-align: center; padding: 24px; color: #94a3b8; font-size: 13px; }
+
+    /* ── History section ── */
     #historySection { margin-top: 8px; }
-    .history-title {
-      padding: 12px 4px 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #475569;
-    }
-    .history-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    .history-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 4px 10px; flex-wrap: wrap; gap: 8px; }
+    .history-title { font-size: 13px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 6px; }
+
+    /* Search + criteria bar */
+    .history-search-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 0 4px 10px; }
+    .history-search-input { flex: 1; min-width: 180px; height: 32px; border: 1px solid #e2e8f0; border-radius: 7px; padding: 0 10px; font-size: 12px; outline: none; }
+    .history-search-input:focus { border-color: var(--primary); }
+    .history-criteria-select { height: 32px; border: 1px solid #e2e8f0; border-radius: 7px; padding: 0 8px; font-size: 12px; outline: none; color: #475569; cursor: pointer; background: #fff; }
+    .history-criteria-select:focus { border-color: var(--primary); }
+    .btn-history-search { height: 32px; padding: 0 14px; background: var(--primary); color: #fff; border: none; border-radius: 7px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+
+    /* Add Receiving button */
+    .btn-add-receiving { height: 32px; padding: 0 14px; background: #ecfdf5; color: #166534; border: 1px solid #bbf7d0; border-radius: 7px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .btn-add-receiving:hover { background: #dcfce7; }
+
+    /* History table */
+    .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .history-table thead tr { background: #f8fafc; }
-    .history-table th {
-      padding: 9px 12px;
-      text-align: left;
-      font-weight: 700;
-      color: #475569;
-      border-bottom: 2px solid #e2e8f0;
-      white-space: nowrap;
-    }
-    .history-table td {
-      padding: 9px 12px;
-      border-bottom: 1px solid #f1f5f9;
-      color: #1e293b;
-      vertical-align: middle;
-    }
+    .history-table th { padding: 9px 12px; text-align: left; font-weight: 700; color: #475569; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+    .history-table td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; vertical-align: middle; }
     .history-table tbody tr:hover { background: #f8fafc; cursor: pointer; }
-    .badge-receive {
-      background: #dcfce7; color: #166534;
-      padding: 2px 10px; border-radius: 20px;
-      font-size: 11px; font-weight: 700;
-    }
-    .badge-return {
-      background: #fef3c7; color: #92400e;
-      padding: 2px 10px; border-radius: 20px;
-      font-size: 11px; font-weight: 700;
-    }
-    .history-id {
-      color: var(--primary, #2563eb);
-      font-weight: 700;
-      text-decoration: underline dashed;
-    }
+    .history-id { color: var(--primary); font-weight: 700; text-decoration: underline dashed; }
+    .badge-open { background: #dcfce7; color: #166534; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge-closed { background: #fee2e2; color: #991b1b; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+    /* ── Summary card ── */
+    .summary-card { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); overflow: hidden; position: sticky; top: 72px; }
+    .supplier-search-recv { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; }
+    .btn-add-supplier { width: 28px; height: 28px; border-radius: 6px; background: var(--primary); color: #fff; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .supplier-search-input { flex: 1; border: 1px solid #e2e8f0; border-radius: 7px; padding: 5px 10px; font-size: 12px; outline: none; }
+    .discount-section { padding: 10px 16px; border-bottom: 1px solid #f1f5f9; }
+    .discount-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 6px; gap: 6px; }
+    .set-discount-link { color: var(--primary); font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .discount-input-group { display: none; align-items: center; gap: 4px; }
+    .discount-mini-input { width: 60px; border: 1px solid #e2e8f0; border-radius: 5px; padding: 3px 6px; font-size: 12px; }
+    .btn-set-mini { background: var(--primary); color: #fff; border: none; border-radius: 5px; padding: 3px 8px; font-size: 11px; cursor: pointer; }
+    .totals-section { padding: 10px 16px; border-bottom: 1px solid #f1f5f9; }
+    .total-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+    .btn-finish { background: var(--primary); color: #fff; border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-finish:hover { opacity: 0.9; }
+    .date-change { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; font-size: 12px; }
+    .pay-input { border: 1px solid #e2e8f0; border-radius: 7px; padding: 6px 10px; font-size: 12px; outline: none; }
+    .recv-comment { padding: 12px 16px; }
+    .comment-label { font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 5px; }
+    .comment-box { width: 100%; border: 1px solid #e2e8f0; border-radius: 7px; padding: 8px; font-size: 12px; resize: vertical; min-height: 60px; outline: none; }
+    .btn-summary-sm { background: #f1f5f9; border: none; border-radius: 6px; padding: 5px 12px; font-size: 13px; cursor: pointer; font-weight: 700; color: #475569; }
+    .sidebar-options-menu { font-size: 12px; }
+    .sidebar-options-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .no-caret::after { display: none !important; }
   </style>
 </head>
 <body>
@@ -130,270 +161,302 @@
       <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
       <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
     </nav>
-    <div class="sidebar-footer">
-      <div class="sidebar-logout"><i class="bi bi-box-arrow-left"></i><span>Logout</span></div>
     </div>
   </aside>
+
+  <!-- Overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <!-- MAIN CONTENT -->
   <div class="main-content">
     <header class="topbar">
       <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
-      <span class="topbar-title" style="color: var(--primary); font-weight: 700;">Receiving</span>
+      <span class="topbar-title">Receiving</span>
       <div class="topbar-actions">
-        <button class="btn-add"><i class="bi bi-plus-lg"></i> Add</button>
+        <!-- ✅ "Add Receiving" button - takes user back to add/entry screen -->
+        <button class="btn-add" onclick="showAddReceivingScreen()">
+          <i class="bi bi-plus-lg"></i> Add Receiving
+        </button>
         <div class="topbar-icon-btn"><i class="bi bi-arrows-fullscreen"></i></div>
         <div class="topbar-icon-btn"><i class="bi bi-basket"></i><span class="badge-dot"></span></div>
         <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
+          <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border:none;font-size:13px;font-weight:600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
           <ul class="dropdown-menu"><li><a class="dropdown-item" href="#">Chittagong</a></li></ul>
-        </div>
-        <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
-          <i class="bi bi-palette"></i>
-          <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
         </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
             <div class="topbar-user-role">Admin</div>
           </div>
-          <div class="topbar-avatar" style="overflow: hidden;">
-            <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="topbar-avatar">
+            <img src="https://ui-avatars.com/api/?name=Shaun+Marphy&background=1E293B&color=fff" alt="User">
           </div>
         </div>
       </div>
     </header>
 
-    <main class="page-content page-content-recv">
-      <div class="receiving-grid">
+    <main class="page-content">
 
-        <!-- LEFT COLUMN -->
-        <div class="recv-left">
+      <!-- ════════════════════════════════════════
+           VIEW A: Recent Receivings Table (default)
+           Shown when user clicks Receiving in sidebar
+      ═════════════════════════════════════════ -->
+      <div id="viewReceivingsList">
+        <div class="recv-card">
 
-          <!-- Filters Card -->
-          <div class="recv-card" id="filtersCard">
-            <div class="recv-filters">
-              <button class="btn-filter active" onclick="switchFilter(this, 'viewCategories')">Categories</button>
-              <button class="btn-filter" onclick="switchFilter(this, 'viewTags')">Tags</button>
-              <button class="btn-filter" onclick="switchFilter(this, 'viewSuppliers')">Suppliers</button>
-              <button class="btn-filter" onclick="switchFilter(this, 'viewFavorites')">Favorites</button>
+          <!-- Header row: title + Add Receiving button -->
+          <div class="history-header">
+            <div class="history-title">
+              <i class="bi bi-clock-history"></i>
+              <span id="historyTitle">Recent Receivings</span>
             </div>
-            <div id="viewCategories" class="filter-view">
-              <div class="breadcrumb-recv">
-                <span>All</span> <i class="bi bi-chevron-double-right"></i> <span style="color: #3b82f6;">Fruits</span>
-              </div>
-              <div class="category-grid">
-                <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=150&q=80" alt="Fruits" class="category-img">
-                  <div class="category-name-box">Fruits</div>
-                </div>
-                <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1592489637182-8c172d6d7826?auto=format&fit=crop&w=150&q=80" alt="Vegetables" class="category-img">
-                  <div class="category-name-box">Vegetables</div>
-                </div>
-              </div>
-            </div>
-            <div id="viewTags" class="filter-view" style="display: none;">
-              <div class="d-flex flex-wrap gap-2">
-                <div class="tag-item active">Favorites</div>
-                <div class="tag-item">Favorites</div>
-                <div class="tag-item">Favorites</div>
-                <div class="tag-item">Favorites</div>
-              </div>
-            </div>
-            <div id="viewSuppliers" class="filter-view" style="display: none;">
-              <div class="category-grid">
-                <div class="category-item">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Hakim" class="category-img">
-                  <div class="category-name-box">Hakim Group</div>
-                </div>
-              </div>
-            </div>
-            <div id="viewFavorites" class="filter-view" style="display: none;">
-              <div class="d-flex flex-wrap gap-2">
-                <div class="tag-item active">Favorites</div>
-                <div class="tag-item">Favorites</div>
-                <div class="tag-item">Favorites</div>
-                <div class="tag-item">Favorites</div>
-              </div>
-            </div>
+            <button class="btn-add-receiving" onclick="showAddReceivingScreen()">
+              <i class="bi bi-plus-lg"></i> Add Receiving
+            </button>
           </div>
 
-          <!-- Search & Cart Card -->
-          <div class="recv-card">
-            <div class="recv-search-row">
-              <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
-              <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
-
-              <!-- ✅ Receive / Return Toggle -->
-              <div class="recv-mode-toggle">
-                <button class="btn-mode-toggle active" id="modeReceive" onclick="setReceivingMode('Receive')">
-                  <i class="bi bi-cart"></i> Receive
-                </button>
-                <button class="btn-mode-toggle" id="modeReturn" onclick="setReceivingMode('Return')">
-                  <i class="bi bi-arrow-return-left"></i> Return
-                </button>
-              </div>
-
-              <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
-            </div>
-
-            <!-- Cart (items being added now) -->
-            <div class="table-responsive">
-              <table class="recv-table" id="recvTable">
-                <thead>
-                  <tr>
-                    <th style="width: 40px;">-</th>
-                    <th style="text-align: left;">Item Name</th>
-                    <th>Cost</th>
-                    <th>Qty.</th>
-                    <th>Disc %</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody id="cartItems" style="display: none;">
-                  <tr>
-                    <td class="text-center"><button class="btn-remove-item"><i class="bi bi-dash-circle-fill"></i></button></td>
-                    <td>
-                      <div class="item-name" style="font-weight: 700; color: #1e293b;">Apple</div>
-                      <div class="item-details">
-                        <div><span>Serial</span><span style="color: #94a3b8; font-style: italic;">Empty</span></div>
-                        <div><span>Stock</span><span>40</span></div>
-                        <div><span>Selling Price</span><span>15.00</span></div>
-                        <div><span>Description</span><span>green honey</span></div>
-                        <div><span>UPC/EAN/ISBN</span><span>7714</span></div>
-                      </div>
-                    </td>
-                    <td class="text-center" style="color: var(--primary); font-weight: 700;">$0.00</td>
-                    <td class="text-center" style="color: var(--primary); font-weight: 700;">0</td>
-                    <td class="text-center">0%</td>
-                    <td class="text-center" style="color: var(--primary); font-weight: 700;">-$0.00</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div id="emptyCart" class="empty-cart-msg">
-                There are no items in the cart <span id="cartModeLabel">[Receiving]</span>
-              </div>
-              <div style="height: 10px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 5%22%3E%3Cpath d=%22M0 5h20V0L10 5 0 0z%22 fill=%22%23f1f5f9%22/%3E%3C/svg%3E') repeat-x; opacity: 0.5;"></div>
-            </div>
-
-            <!-- ✅ History Table (past records) -->
-            <div id="historySection">
-              <div class="history-title">
-                <i class="bi bi-clock-history"></i>
-                <span id="historyTitle">Recent Receivings</span>
-              </div>
-              <div class="table-responsive">
-                <table class="history-table">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Date</th>
-                      <th>Supplier</th>
-                      <th>Items</th>
-                      <th>Total</th>
-                      <th>Type</th>
-                    </tr>
-                  </thead>
-                  <tbody id="historyBody">
-                    <!-- Filled by receiving.js -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN -->
-        <div class="recv-right">
-          <div class="summary-card">
-            <div class="d-flex justify-content-center py-2 border-bottom">
-              <div class="dropdown">
-                <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
-                <ul class="dropdown-menu sidebar-options-menu">
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-arrow-left-right"></i> Transfer Requests</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-box-arrow-in-down"></i> Incoming Transfers</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-clock-history"></i> Show Last Receiving</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch Receiving</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-wrench"></i> Custom Field Configuration</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="d-flex border-bottom">
-              <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size: 12px;"><i class="bi bi-pencil-square"></i> Edit</button>
-              <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size: 12px;"><i class="bi bi-x-circle"></i> Detach</button>
-            </div>
-
-            <div class="supplier-search-recv">
-              <button class="btn-add-supplier"><i class="bi bi-plus"></i></button>
-              <input type="text" class="supplier-search-input" placeholder="Type supplier's name........">
-            </div>
-
-            <div class="discount-section">
-              <div class="discount-row">
-                <span>Discount all Items by Percent:</span>
-                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
-                  <input type="text" class="discount-mini-input" placeholder="0%">
-                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
-                </div>
-              </div>
-              <div class="discount-row">
-                <span>Discount Entire Receiving:</span>
-                <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
-                <div class="discount-input-group">
-                  <input type="text" class="discount-mini-input" placeholder="0.00">
-                  <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="totals-section">
-              <div class="total-row"><span>Sub Total:</span><span style="color: #3b82f6; text-decoration: underline dashed;">-$0.00</span></div>
-              <div class="total-row" style="color: #166534; margin-top: 8px;"><span>Total</span><span>Amount Due</span></div>
-              <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$0.00</span><span style="color: #ea580c;">-$0.00</span></div>
-            </div>
-
-            <div class="pay-input-row" style="padding: 12px 16px;">
-              <button class="btn-finish w-100" id="finishBtn" onclick="finishReceiving()">
-                <i class="bi bi-check-circle"></i> Finish Receiving
+          <!-- ✅ Receive / Return Toggle -->
+          <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+            <div class="recv-mode-toggle">
+              <button class="btn-mode-toggle active" id="modeReceive" onclick="setListMode('Receive')">
+                <i class="bi bi-cart"></i> Receive
+              </button>
+              <button class="btn-mode-toggle" id="modeReturn" onclick="setListMode('Return')">
+                <i class="bi bi-arrow-return-left"></i> Return
               </button>
             </div>
+            <span id="listModeLabel" style="font-size:12px;color:#64748b;">Showing: Receivings</span>
+          </div>
 
-            <div class="date-change">
-              <label class="d-flex align-items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked> Change receiving date
-              </label>
-              <div class="mt-2 position-relative">
-                <input type="text" class="pay-input w-100" value="04/12/2026 06:05 am" style="height: 32px; font-size: 12px;">
-                <i class="bi bi-calendar-event position-absolute" style="right: 10px; top: 8px;"></i>
-              </div>
-            </div>
+          <!-- ✅ Search bar + criteria (like other tables in the system) -->
+          <div class="history-search-bar">
+            <select class="history-criteria-select" id="searchCriteria">
+              <option value="id">ID</option>
+              <option value="supplier">Supplier</option>
+              <option value="date">Date</option>
+              <option value="status">Status</option>
+            </select>
+            <input type="text" class="history-search-input" id="historySearchInput" placeholder="Search receivings..." />
+            <button class="btn-history-search" onclick="searchHistory()">
+              <i class="bi bi-search"></i> Search
+            </button>
+            <button class="btn-recv-action btn-blue" onclick="clearSearch()" style="height:32px;font-size:12px;">
+              <i class="bi bi-x-circle"></i> Clear
+            </button>
+          </div>
 
-            <div class="recv-comment">
-              <div class="comment-label">Comments :</div>
-              <textarea class="comment-box"></textarea>
+          <!-- ✅ History Table — Type column REMOVED, Status (Open/Closed) added -->
+          <div class="table-responsive">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Supplier</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody">
+                <!-- Filled by JS below -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination placeholder -->
+          <div class="d-flex justify-content-between align-items-center mt-3" style="font-size:12px;color:#64748b;">
+            <span id="historyCount">Showing 6 records</span>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-secondary" style="font-size:11px;">← Prev</button>
+              <button class="btn btn-sm btn-outline-secondary" style="font-size:11px;">Next →</button>
             </div>
           </div>
         </div>
-
       </div>
-    </main>
-  </div>
-</div>
 
+      <!-- ════════════════════════════════════════
+           VIEW B: Add Receiving Screen (original entry form)
+           Shown when "Add Receiving" is clicked
+      ═════════════════════════════════════════ -->
+      <div id="viewAddReceiving" style="display:none;">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <button class="btn btn-sm btn-outline-secondary" onclick="showReceivingsList()" style="font-size:12px;">
+            <i class="bi bi-arrow-left"></i> Back to Receivings
+          </button>
+          <span style="font-size:13px;font-weight:700;color:#475569;">New Receiving</span>
+        </div>
+
+        <div class="receiving-grid">
+          <!-- LEFT COLUMN -->
+          <div class="recv-left">
+            <!-- Filters Card -->
+            <div class="recv-card" id="filtersCard">
+              <div class="recv-filters">
+                <button class="btn-filter active" onclick="switchFilter(this, 'viewCategories')">Categories</button>
+                <button class="btn-filter" onclick="switchFilter(this, 'viewTags')">Tags</button>
+                <button class="btn-filter" onclick="switchFilter(this, 'viewSuppliers')">Suppliers</button>
+                <button class="btn-filter" onclick="switchFilter(this, 'viewFavorites')">Favorites</button>
+              </div>
+              <div id="viewCategories" class="filter-view">
+                <div class="breadcrumb-recv">
+                  <span>All</span> <i class="bi bi-chevron-double-right"></i> <span style="color:#3b82f6;">Fruits</span>
+                </div>
+                <div class="category-grid">
+                  <div class="category-item">
+                    <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=150&q=80" alt="Fruits" class="category-img">
+                    <div class="category-name-box">Fruits</div>
+                  </div>
+                  <div class="category-item">
+                    <img src="https://images.unsplash.com/photo-1592489637182-8c172d6d7826?auto=format&fit=crop&w=150&q=80" alt="Vegetables" class="category-img">
+                    <div class="category-name-box">Vegetables</div>
+                  </div>
+                </div>
+              </div>
+              <div id="viewTags" class="filter-view" style="display:none;">
+                <div class="d-flex flex-wrap gap-2">
+                  <div class="tag-item active">Favorites</div>
+                  <div class="tag-item">Organic</div>
+                  <div class="tag-item">Seasonal</div>
+                  <div class="tag-item">Import</div>
+                </div>
+              </div>
+              <div id="viewSuppliers" class="filter-view" style="display:none;">
+                <div class="category-grid">
+                  <div class="category-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Hakim" class="category-img">
+                    <div class="category-name-box">Hakim Group</div>
+                  </div>
+                </div>
+              </div>
+              <div id="viewFavorites" class="filter-view" style="display:none;">
+                <div class="d-flex flex-wrap gap-2">
+                  <div class="tag-item active">Favorites</div>
+                  <div class="tag-item">Top Items</div>
+                  <div class="tag-item">Recent</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search & Cart Card -->
+            <div class="recv-card">
+              <div class="recv-search-row">
+                <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
+                <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
+                <div class="recv-mode-toggle">
+                  <button class="btn-mode-toggle active" id="modeReceiveForm" onclick="setReceivingMode('Receive')">
+                    <i class="bi bi-cart"></i> Receive
+                  </button>
+                  <button class="btn-mode-toggle" id="modeReturnForm" onclick="setReceivingMode('Return')">
+                    <i class="bi bi-arrow-return-left"></i> Return
+                  </button>
+                </div>
+                <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
+              </div>
+
+              <!-- Cart -->
+              <div class="table-responsive">
+                <table class="recv-table" id="recvTable">
+                  <thead>
+                    <tr>
+                      <th style="width:40px;">-</th>
+                      <th style="text-align:left;">Item Name</th>
+                      <th>Cost</th>
+                      <th>Qty.</th>
+                      <th>Disc %</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cartItems">
+                    <!-- Cart items added dynamically -->
+                  </tbody>
+                </table>
+                <div id="emptyCart" class="empty-cart-msg">
+                  There are no items in the cart <span id="cartModeLabel">[Receiving]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div class="recv-right">
+            <div class="summary-card">
+              <div class="d-flex justify-content-center py-2 border-bottom">
+                <div class="dropdown">
+                  <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
+                  <ul class="dropdown-menu sidebar-options-menu">
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-arrow-left-right"></i> Transfer Requests</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-box-arrow-in-down"></i> Incoming Transfers</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-clock-history"></i> Show Last Receiving</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch Receiving</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-wrench"></i> Custom Field Configuration</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="d-flex border-bottom">
+                <button class="btn flex-grow-1 border-end py-2 text-primary fw-bold" style="font-size:12px;"><i class="bi bi-pencil-square"></i> Edit</button>
+                <button class="btn flex-grow-1 py-2 text-danger fw-bold" style="font-size:12px;"><i class="bi bi-x-circle"></i> Detach</button>
+              </div>
+              <div class="supplier-search-recv">
+                <button class="btn-add-supplier"><i class="bi bi-plus"></i></button>
+                <input type="text" class="supplier-search-input" placeholder="Type supplier's name........">
+              </div>
+              <div class="discount-section">
+                <div class="discount-row">
+                  <span>Discount all Items by Percent:</span>
+                  <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
+                  <div class="discount-input-group">
+                    <input type="text" class="discount-mini-input" placeholder="0%">
+                    <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                  </div>
+                </div>
+                <div class="discount-row">
+                  <span>Discount Entire Receiving:</span>
+                  <span class="set-discount-link" onclick="showDiscountForm(this)">Set Discount</span>
+                  <div class="discount-input-group">
+                    <input type="text" class="discount-mini-input" placeholder="0.00">
+                    <button class="btn-set-mini" onclick="hideDiscountForm(this)">Set</button>
+                  </div>
+                </div>
+              </div>
+              <div class="totals-section">
+                <div class="total-row"><span>Sub Total:</span><span style="color:#3b82f6;text-decoration:underline dashed;">-$0.00</span></div>
+                <div class="total-row" style="color:#166534;margin-top:8px;"><span>Total</span><span>Amount Due</span></div>
+                <div class="total-row" style="color:#166534;font-size:18px;"><span>-$0.00</span><span style="color:#ea580c;">-$0.00</span></div>
+              </div>
+              <div class="pay-input-row" style="padding:12px 16px;">
+                <button class="btn-finish w-100" onclick="finishReceiving()">
+                  <i class="bi bi-check-circle"></i> Finish Receiving
+                </button>
+              </div>
+              <div class="date-change">
+                <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
+                  <input type="checkbox" checked> Change receiving date
+                </label>
+                <div class="mt-2 position-relative">
+                  <input type="text" class="pay-input w-100" value="04/30/2026 06:05 am" style="height:32px;font-size:12px;">
+                  <i class="bi bi-calendar-event position-absolute" style="right:10px;top:8px;"></i>
+                </div>
+              </div>
+              <div class="recv-comment">
+                <div class="comment-label">Comments :</div>
+                <textarea class="comment-box"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/main.js"></script>
 <script src="js/receiving.js"></script>
 </body>
 </html>

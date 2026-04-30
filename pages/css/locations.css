@@ -78,7 +78,7 @@
       justify-content: center;
       transition: background 0.2s;
     }
-    .btn-options:hover { background: #eff6ff; color: var(--primary-dark); }
+    .btn-options:hover { background: var(--primary-light); color: var(--primary-dark); }
 
     .locations-card {
       background: #fff;

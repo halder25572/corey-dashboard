@@ -1,96 +1,106 @@
-// ─── Dummy Data ───────────────────────────────────────────────
-const dummyReceivings = [
-  { id: 'RCV-1001', date: '28 Apr 2026', supplier: 'Hakim Group',    items: 5,  total: '$1,250.00' },
-  { id: 'RCV-1002', date: '27 Apr 2026', supplier: 'ACI Limited',    items: 3,  total: '$740.00'   },
-  { id: 'RCV-1003', date: '26 Apr 2026', supplier: 'Pran Foods',     items: 8,  total: '$3,200.00' },
-  { id: 'RCV-1004', date: '25 Apr 2026', supplier: 'Hakim Group',    items: 2,  total: '$480.00'   },
-  { id: 'RCV-1005', date: '24 Apr 2026', supplier: 'Square Pharma',  items: 6,  total: '$2,100.00' },
+// ─── Data ──────────────────────────────────────────────────
+const allReceivings = [
+  { id: 'RCV-001', date: 'Apr 28, 2026', supplier: 'Hakim Group',    items: 12, total: '$1,240.00', status: 'Closed', mode: 'Receive' },
+  { id: 'RCV-002', date: 'Apr 29, 2026', supplier: 'Fresh Farms',    items: 5,  total: '$430.50',   status: 'Open',   mode: 'Receive' },
+  { id: 'RCV-003', date: 'Apr 29, 2026', supplier: 'Global Traders', items: 8,  total: '$870.00',   status: 'Open',   mode: 'Receive' },
+  { id: 'RTV-001', date: 'Apr 27, 2026', supplier: 'Hakim Group',    items: 3,  total: '$210.00',   status: 'Closed', mode: 'Return'  },
+  { id: 'RTV-002', date: 'Apr 30, 2026', supplier: 'Fresh Farms',    items: 2,  total: '$95.00',    status: 'Open',   mode: 'Return'  },
+  { id: 'RCV-004', date: 'Apr 30, 2026', supplier: 'City Suppliers', items: 20, total: '$3,100.00', status: 'Open',   mode: 'Receive' },
 ];
 
-const dummyReturns = [
-  { id: 'RET-2001', date: '29 Apr 2026', supplier: 'Hakim Group',    items: 2,  total: '-$320.00'  },
-  { id: 'RET-2002', date: '27 Apr 2026', supplier: 'Pran Foods',     items: 1,  total: '-$150.00'  },
-  { id: 'RET-2003', date: '25 Apr 2026', supplier: 'ACI Limited',    items: 3,  total: '-$560.00'  },
-];
-
-// ─── Current Mode ─────────────────────────────────────────────
-let currentMode = 'Receive'; // 'Receive' or 'Return'
-
-// ─── Toggle: Receive / Return ──────────────────────────────────
-function setReceivingMode(mode) {
-  currentMode = mode;
-
-  // Update toggle button styles
-  const btnReceive = document.getElementById('modeReceive');
-  const btnReturn  = document.getElementById('modeReturn');
-  btnReceive.classList.toggle('active', mode === 'Receive');
-  btnReturn.classList.toggle('active',  mode === 'Return');
-
-  // Update empty cart label
-  const cartLabel = document.getElementById('cartModeLabel');
-  if (cartLabel) cartLabel.textContent = mode === 'Receive' ? '[Receiving]' : '[Return]';
-
-  // Update Finish button label
-  const finishBtn = document.getElementById('finishBtn');
-  if (finishBtn) {
-    finishBtn.innerHTML = mode === 'Receive'
-      ? '<i class="bi bi-check-circle"></i> Finish Receiving'
-      : '<i class="bi bi-check-circle"></i> Finish Return';
-  }
-
-  // Update history table
-  renderHistory(mode);
-}
+let currentMode = 'Receive';
+window.currentPercentDiscount = 0;
+window.currentFlatDiscount    = 0;
 
 // ─── Render History Table ─────────────────────────────────────
-function renderHistory(mode) {
-  const tbody      = document.getElementById('historyBody');
-  const titleEl    = document.getElementById('historyTitle');
-  const data       = mode === 'Receive' ? dummyReceivings : dummyReturns;
-  const isReceive  = mode === 'Receive';
-
-  titleEl.textContent = isReceive ? 'Recent Receivings' : 'Recent Returns';
-
-  tbody.innerHTML = '';
-
-  if (data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding: 20px;">No records found</td></tr>`;
+function renderHistory(data) {
+  const tbody = document.getElementById('historyBody');
+  if (!tbody) return;
+  
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:#94a3b8;">No records found.</td></tr>';
+    const countEl = document.getElementById('historyCount');
+    if (countEl) countEl.textContent = 'Showing 0 records';
     return;
   }
-
-  data.forEach(row => {
-    const badgeHTML = isReceive
-      ? `<span class="badge-receive">Receive</span>`
-      : `<span class="badge-return">Return</span>`;
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><span class="history-id">${row.id}</span></td>
-      <td>${row.date}</td>
-      <td>${row.supplier}</td>
-      <td style="text-align:center;">${row.items}</td>
-      <td style="font-weight:700; color:${isReceive ? '#166534' : '#d97706'};">${row.total}</td>
-      <td>${badgeHTML}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+  
+  tbody.innerHTML = data.map(r => `
+    <tr onclick="openReceiving('${r.id}')">
+      <td><span class="history-id">${r.id}</span></td>
+      <td>${r.date}</td>
+      <td>${r.supplier}</td>
+      <td style="text-align:center;">${r.items}</td>
+      <td style="font-weight:700;color:#1e293b;">${r.total}</td>
+      <td><span class="badge-${r.status.toLowerCase()}">${r.status}</span></td>
+    </tr>
+  `).join('');
+  
+  const countEl = document.getElementById('historyCount');
+  if (countEl) countEl.textContent = `Showing ${data.length} record${data.length !== 1 ? 's' : ''}`;
 }
 
-// ─── Filter (Category / Tags / Suppliers / Favorites) ─────────
-function switchFilter(el, viewId) {
-  document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('.filter-view').forEach(view => view.style.display = 'none');
+// ─── Toggle: Receive / Return (List View) ──────────────────────
+function setListMode(mode) {
+  currentMode = mode;
+  document.getElementById('modeReceive').classList.toggle('active', mode === 'Receive');
+  document.getElementById('modeReturn').classList.toggle('active', mode === 'Return');
+  document.getElementById('listModeLabel').textContent = `Showing: ${mode === 'Receive' ? 'Receivings' : 'Returns'}`;
+  document.getElementById('historyTitle').textContent = mode === 'Receive' ? 'Recent Receivings' : 'Recent Returns';
+  filterAndRender();
+}
+
+// ─── Search / Filter ──────────────────────────────────────────
+function filterAndRender() {
+  const criteria = document.getElementById('searchCriteria').value;
+  const query = document.getElementById('historySearchInput').value.trim().toLowerCase();
+  let filtered = allReceivings.filter(r => r.mode === currentMode);
+  if (query) {
+    filtered = filtered.filter(r => String(r[criteria] || '').toLowerCase().includes(query));
+  }
+  renderHistory(filtered);
+}
+
+function searchHistory() { filterAndRender(); }
+function clearSearch() {
+  document.getElementById('historySearchInput').value = '';
+  filterAndRender();
+}
+
+// ─── View Switching ───────────────────────────────────────────
+function showAddReceivingScreen() {
+  document.getElementById('viewReceivingsList').style.display = 'none';
+  document.getElementById('viewAddReceiving').style.display = 'block';
+}
+
+function showReceivingsList() {
+  document.getElementById('viewAddReceiving').style.display = 'none';
+  document.getElementById('viewReceivingsList').style.display = 'block';
+}
+
+function openReceiving(id) {
+  showAddReceivingScreen();
+}
+
+// ─── Form Helpers ─────────────────────────────────────────────
+function setReceivingMode(mode) {
+  document.getElementById('modeReceiveForm').classList.toggle('active', mode === 'Receive');
+  document.getElementById('modeReturnForm').classList.toggle('active', mode === 'Return');
+  document.getElementById('cartModeLabel').textContent = mode === 'Receive' ? '[Receiving]' : '[Return]';
+}
+
+function switchFilter(btn, viewId) {
+  document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.filter-view').forEach(v => v.style.display = 'none');
   document.getElementById(viewId).style.display = 'block';
 }
 
-// ─── Show / Hide Filters Grid ──────────────────────────────────
 function toggleGrid() {
   const grid = document.getElementById('filtersCard');
-  grid.style.display = grid.style.display === 'none' ? 'block' : 'none';
+  if (grid) grid.style.display = grid.style.display === 'none' ? 'block' : 'none';
 }
 
-// ─── Discount Form ─────────────────────────────────────────────
+// ─── Discount & Totals Logic ──────────────────────────────────
 function showDiscountForm(el) {
   el.style.display = 'none';
   el.nextElementSibling.style.display = 'flex';
@@ -98,94 +108,140 @@ function showDiscountForm(el) {
 }
 
 function hideDiscountForm(btn) {
-  const group = btn.closest('.discount-input-group');
-  const link  = group.previousElementSibling;
-  const val   = group.querySelector('input').value;
+  const group = btn.closest('.discount-input-group') || btn.parentElement;
+  const link = group.previousElementSibling;
+  const val = group.querySelector('input').value;
 
   if (val) {
     const parentRow = btn.closest('.discount-row');
     const labelText = parentRow.querySelector('span:first-child').innerText;
     const isPercent = labelText.includes('Percent');
 
-    link.innerText = isPercent ? (val.endsWith('%') ? val : val + '%') : '$' + val;
+    link.innerText = isPercent
+      ? (val.endsWith('%') ? val : val + '%')
+      : '$' + parseFloat(val).toFixed(2);
     link.style.color = 'var(--primary)';
     link.style.borderBottom = 'none';
 
-    const cartTable = document.getElementById('cartItems');
-    const emptyMsg  = document.getElementById('emptyCart');
-    if (cartTable && emptyMsg) {
-      cartTable.style.display = 'table-row-group';
-      emptyMsg.style.display  = 'none';
-    }
-
-    const subTotalEl  = document.querySelector('.totals-section .total-row:nth-child(1) span:last-child');
-    const totalEl     = document.querySelector('.totals-section .total-row:nth-child(3) span:first-child');
-    const amountDueEl = document.querySelector('.totals-section .total-row:nth-child(3) span:last-child');
-    const firstRow    = cartTable.querySelector('tr');
-    const cells       = firstRow ? firstRow.cells : null;
-
-    if (!isPercent) {
-      const flatVal = parseFloat(val) || 0;
-      window.currentDemoBase    = flatVal;
-      window.currentDemoPercent = window.currentDemoPercent || 0;
-      if (subTotalEl)  subTotalEl.innerText  = '-$' + flatVal.toFixed(2);
-      if (totalEl)     totalEl.innerText     = '-$' + flatVal.toFixed(2);
-      const finalAmount = flatVal - flatVal * (window.currentDemoPercent / 100);
-      if (amountDueEl) amountDueEl.innerText = '-$' + finalAmount.toFixed(2);
-      if (cells && cells.length >= 6) {
-        cells[2].innerText = '$' + flatVal.toFixed(2);
-        cells[3].innerText = '1';
-        cells[4].innerText = window.currentDemoPercent + '%';
-        cells[5].innerText = '-$' + finalAmount.toFixed(2);
-      }
+    if (isPercent) {
+      window.currentPercentDiscount = parseFloat(val) || 0;
+      
+      // Update the Disc % column in the cart table for all items (including Receiving Total row)
+      document.querySelectorAll('#cartItems tr').forEach(row => {
+        if (row.cells[4]) {
+          row.cells[4].innerText = window.currentPercentDiscount + '%';
+        }
+      });
     } else {
-      const percentVal  = parseFloat(val) || 0;
-      window.currentDemoPercent = percentVal;
-      const currentBase = window.currentDemoBase || 0;
-      const finalAmount = currentBase - currentBase * (percentVal / 100);
-      if (amountDueEl) amountDueEl.innerText = '-$' + finalAmount.toFixed(2);
-      if (cells && cells.length >= 6) {
-        cells[4].innerText = percentVal + '%';
-        cells[5].innerText = '-$' + finalAmount.toFixed(2);
+      const amount = parseFloat(val) || 0;
+      window.currentFlatDiscount = amount;
+
+      // Show this amount as a row in the cart table
+      const tbody   = document.getElementById('cartItems');
+      const emptyMsg = document.getElementById('emptyCart');
+
+      // Remove any previous "Receiving Total" row
+      const existing = tbody ? tbody.querySelector('.recv-total-row') : null;
+      if (existing) existing.remove();
+
+      if (tbody && amount > 0) {
+        const tr = document.createElement('tr');
+        tr.className = 'recv-total-row';
+        tr.innerHTML = `
+          <td><button class="btn-remove-item" onclick="this.closest('tr').remove(); window.currentFlatDiscount=0; updateTotals(); document.getElementById('emptyCart').style.display='block';"><i class="bi bi-dash-circle-fill"></i></button></td>
+          <td style="text-align:left;"><div class="item-name">Receiving Total</div></td>
+          <td style="color:var(--primary);font-weight:700;">$${amount.toFixed(2)}</td>
+          <td style="color:var(--primary);font-weight:700;">1</td>
+          <td>${window.currentPercentDiscount || 0}%</td>
+          <td style="color:var(--primary);font-weight:700;">$${amount.toFixed(2)}</td>`;
+        tbody.appendChild(tr);
+        if (emptyMsg) emptyMsg.style.display = 'none';
       }
     }
+    updateTotals();
   }
 
   group.style.display = 'none';
-  link.style.display  = 'inline';
+  link.style.display = 'inline';
 }
 
-// ─── Finish Receiving / Return ─────────────────────────────────
+function updateTotals() {
+  // Sub Total = sum of all cart row totals
+  let subTotal = 0;
+  document.querySelectorAll('#cartItems tr').forEach(row => {
+    const c = row.cells[5];
+    if (c) subTotal += parseFloat(c.innerText.replace(/[^0-9.]/g, '')) || 0;
+  });
+
+  const percentDisc = window.currentPercentDiscount || 0;
+
+  // Amount Due = Discount all Items by Percent → $ amount
+  const amountDue = subTotal * percentDisc / 100;
+
+  // Total = remaining after percent (Sub Total - Amount Due)
+  const total = Math.max(0, subTotal - amountDue);
+
+  const subTotalEl  = document.querySelector('.totals-section .total-row:nth-child(1) span:last-child');
+  const totalEl     = document.querySelector('.totals-section .total-row:nth-child(3) span:first-child');
+  const amountDueEl = document.querySelector('.totals-section .total-row:nth-child(3) span:last-child');
+
+  if (subTotalEl)  subTotalEl.innerText  = '$' + subTotal.toFixed(2);
+  if (amountDueEl) amountDueEl.innerText = '$' + amountDue.toFixed(2);
+  if (totalEl)     totalEl.innerText     = '$' + total.toFixed(2);
+}
+
 function finishReceiving() {
-  const cartItems = document.getElementById('cartItems');
-  const rows = cartItems ? cartItems.querySelectorAll('tr') : [];
-
-  if (rows.length === 0 || cartItems.style.display === 'none') {
-    alert('No items in the list.');
-    return;
-  }
-
-  rows.forEach(row => {
-    const cells    = row.cells;
-    if (!cells || cells.length < 4) return;
-    const itemName = row.querySelector('.item-name')?.innerText || 'Unknown';
-    const qty      = parseInt(cells[3]?.innerText) || 0;
-
-    if (currentMode === 'Return') {
-      // Return → stock decreases
-      console.log(`Return: ${itemName} → stock -${qty}`);
-      // TODO: connect to backend
-    } else {
-      // Receive → stock increases, NO payment
-      console.log(`Receive: ${itemName} → stock +${qty}`);
-      // TODO: connect to backend
+  // Collect data to pass to receipt page
+  const items = [];
+  document.querySelectorAll('#cartItems tr').forEach(row => {
+    const nameEl = row.querySelector('.item-name');
+    if (nameEl) {
+      items.push({
+        name: nameEl.innerText,
+        price: row.cells[2].innerText,
+        qty: row.cells[3].innerText,
+        disc: row.cells[4].innerText,
+        total: row.cells[5].innerText
+      });
     }
   });
 
-  location.href = 'receiving-receipt.html';
+  const subTotalEl = document.querySelector('.totals-section .total-row:nth-child(1) span:last-child');
+  const totalEl = document.querySelector('.totals-section .total-row:nth-child(3) span:first-child');
+  
+  const receiptData = {
+    items: items,
+    subTotal: subTotalEl ? subTotalEl.innerText : '$0.00',
+    total: totalEl ? totalEl.innerText : '$0.00',
+    date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+  };
+
+  localStorage.setItem('lastReceiptData', JSON.stringify(receiptData));
+  
+  // Redirect to receipt page
+  window.location.href = 'receiving-receipt.html';
 }
 
-// ─── Init on page load ────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  renderHistory('Receive'); // default: show Receivings
+// ─── Init (script is at bottom of body, DOM already parsed) ──
+renderHistory(allReceivings.filter(r => r.mode === 'Receive'));
+
+// Submenu toggle
+document.querySelectorAll('[data-toggle="submenu"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const sub = link.nextElementSibling;
+    const arrow = link.querySelector('.nav-arrow');
+    if (!sub) return;
+    const isOpen = sub.style.display === 'block';
+    sub.style.display = isOpen ? 'none' : 'block';
+    if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
+  });
 });
+
+// Enter key search
+const searchInput = document.getElementById('historySearchInput');
+if (searchInput) {
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchHistory();
+  });
+}

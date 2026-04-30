@@ -13,6 +13,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" />
 
   <style>
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --primary-soft: #DBEAFE;
+    }
     *, *::before, *::after { box-sizing: border-box; }
 
     body {
@@ -38,7 +44,7 @@
     /* ── LEFT PANEL (Blue) ── */
     .login-left {
       width: 42%;
-      background: #2563EB;
+      background: var(--primary);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -187,7 +193,7 @@
     }
 
     .form-input:focus {
-      border-color: #2563EB;
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(37,99,235,.12);
     }
 
@@ -199,20 +205,20 @@
       text-align: right;
       font-size: 12.5px;
       font-weight: 600;
-      color: #2563EB;
+      color: var(--primary);
       text-decoration: none;
       margin-top: -10px;
       margin-bottom: 22px;
       transition: color .2s;
     }
 
-    .forgot-link:hover { color: #1D4ED8; text-decoration: underline; }
+    .forgot-link:hover { color: var(--primary-dark); text-decoration: underline; }
 
     /* Login Button */
     .btn-login {
       width: 100%;
       height: 44px;
-      background: #2563EB;
+      background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -224,7 +230,7 @@
       letter-spacing: .3px;
     }
 
-    .btn-login:hover { background: #1D4ED8; }
+    .btn-login:hover { background: var(--primary-dark); }
     .btn-login:active { transform: scale(.99); }
 
     /* ── RESPONSIVE ── */
@@ -358,6 +364,8 @@
     if (e.key === 'Enter') handleLogin();
   });
 </script>
+
+<script src="../assets/js/main.js"></script>
 
 </body>
 </html>

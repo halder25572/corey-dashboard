@@ -61,11 +61,11 @@
     }
 
     .sc-search-input:focus {
-      border-color: var(--primary, #2563EB);
+      border-color: var(--primary, var(--primary));
     }
 
     .sc-btn-search {
-      background: #2563EB;
+      background: var(--primary);
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -80,7 +80,7 @@
     }
 
     .sc-btn-search:hover {
-      background: #1d4ed8;
+      background: var(--primary-dark);
     }
 
     .sc-tabs {
@@ -109,7 +109,7 @@
     }
 
     .sc-tab.active {
-      background: #2563EB;
+      background: var(--primary);
       color: #fff;
       font-weight: 600;
     }
@@ -150,7 +150,7 @@
     }
 
     .sc-form-control:focus {
-      border-color: #2563EB;
+      border-color: var(--primary);
     }
 
     .sc-file-wrap {
@@ -186,7 +186,7 @@
     .sc-file-check input[type="checkbox"] {
       width: 15px;
       height: 15px;
-      accent-color: #2563EB;
+      accent-color: var(--primary);
     }
 
     .sc-btn-save {
@@ -253,7 +253,7 @@
     }
 
     .sc-currency-control:focus {
-      border-color: #2563eb;
+      border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
     }
 
@@ -291,7 +291,7 @@
     }
 
     .sc-currency-link {
-      color: #2563eb;
+      color: var(--primary);
       font-size: 12px;
       text-decoration: none;
       cursor: pointer;
@@ -341,7 +341,7 @@
     }
 
     .sc-currency-denom-input:focus {
-      border-color: #2563eb;
+      border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
     }
 
@@ -469,7 +469,7 @@
     }
 
     .sc-time-picker-ampm:hover {
-      background: #2563eb;
+      background: var(--primary);
     }
 
     /* Sync Operation Toggles */
@@ -534,7 +534,7 @@
     }
 
     .sc-payment-control:focus {
-      border-color: #2563eb;
+      border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
     }
 
@@ -542,7 +542,7 @@
       display: inline-flex;
       border-radius: 4px;
       overflow: hidden;
-      border: 1.5px solid #1d4ed8;
+      border: 1.5px solid var(--primary-dark);
       gap: 0;
     }
 
@@ -566,7 +566,7 @@
 
     .sc-payment-pill:hover,
     .sc-payment-pill.is-active {
-      background: #1d4ed8;
+      background: var(--primary-dark);
       font-weight: 600;
     }
 
@@ -587,7 +587,7 @@
     .sc-payment-check {
       width: 13px;
       height: 13px;
-      accent-color: #2563eb;
+      accent-color: var(--primary);
       vertical-align: middle;
       cursor: pointer;
     }
@@ -629,7 +629,7 @@
     .sc-price-rules-check {
       width: 15px;
       height: 15px;
-      accent-color: #2563eb;
+      accent-color: var(--primary);
     }
 
     .sc-price-rules-save-wrap {
@@ -697,13 +697,13 @@
     }
 
     .sc-profit-input:focus {
-      border-color: #2563eb;
+      border-color: var(--primary);
     }
 
     .sc-profit-check {
       width: 14px;
       height: 14px;
-      accent-color: #2563eb;
+      accent-color: var(--primary);
       cursor: pointer;
       margin: 0;
     }
@@ -773,7 +773,7 @@
     .sc-od-check {
       width: 13px;
       height: 13px;
-      accent-color: #2563eb;
+      accent-color: var(--primary);
       margin-top: 7px;
       cursor: pointer;
     }
@@ -797,7 +797,7 @@
     }
 
     .sc-od-link {
-      color: #2563eb;
+      color: var(--primary);
       font-size: 12.5px;
       font-weight: 500;
       text-decoration: none;
@@ -882,14 +882,14 @@
     }
 
     .sc-receipt-label.link-style {
-      color: #2563eb;
+      color: var(--primary);
       font-weight: 500;
     }
 
     .sc-receipt-check {
       width: 13px;
       height: 13px;
-      accent-color: #2563eb;
+      accent-color: var(--primary);
       cursor: pointer;
     }
 
@@ -906,7 +906,7 @@
     }
 
     .sc-receipt-input:focus {
-      border-color: #2563eb;
+      border-color: var(--primary);
     }
 
     .sc-receipt-select {

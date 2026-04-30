@@ -198,7 +198,7 @@
       transition: background 0.2s;
     }
     .btn-choose-file:hover {
-      background: #2563eb;
+      background: var(--primary);
     }
     .checkbox-label-custom {
       font-size: 13px;
@@ -237,7 +237,7 @@
       float: right;
     }
     .btn-save-category:hover {
-      background: #2563eb;
+      background: var(--primary);
     }
     .image-preview-box {
       width: 100%;
