@@ -25,13 +25,26 @@ function renderHistory(data) {
   }
   
   tbody.innerHTML = data.map(r => `
-    <tr onclick="openReceiving('${r.id}')">
-      <td><span class="history-id">${r.id}</span></td>
-      <td>${r.date}</td>
-      <td>${r.supplier}</td>
-      <td style="text-align:center;">${r.items}</td>
-      <td style="font-weight:700;color:#1e293b;">${r.total}</td>
-      <td><span class="badge-${r.status.toLowerCase()}">${r.status}</span></td>
+    <tr>
+      <td><input type="checkbox" class="form-check-input receiving-checkbox"></td>
+      <td onclick="openReceiving('${r.id}')"><span class="history-id">${r.id}</span></td>
+      <td onclick="openReceiving('${r.id}')">${r.date}</td>
+      <td onclick="openReceiving('${r.id}')">${r.supplier}</td>
+      <td onclick="openReceiving('${r.id}')" style="text-align:center;">${r.items}</td>
+      <td onclick="openReceiving('${r.id}')" style="font-weight:700;color:#1e293b;">${r.total}</td>
+      <td onclick="openReceiving('${r.id}')">
+        <span class="badge-${r.status.toLowerCase()}">${r.status}</span>
+      </td>
+      <td style="text-align:right;">
+        <div class="d-flex justify-content-end gap-1">
+          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: var(--primary);" onclick="editReceiving('${r.id}')" title="Edit">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: #ef4444;" onclick="deleteReceiving('${r.id}')" title="Delete">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      </td>
     </tr>
   `).join('');
   
@@ -46,6 +59,11 @@ function setListMode(mode) {
   document.getElementById('modeReturn').classList.toggle('active', mode === 'Return');
   document.getElementById('listModeLabel').textContent = `Showing: ${mode === 'Receive' ? 'Receivings' : 'Returns'}`;
   document.getElementById('historyTitle').textContent = mode === 'Receive' ? 'Recent Receivings' : 'Recent Returns';
+  
+  // Update button names
+  const historyBtn = document.getElementById('historyAddBtn');
+  if (historyBtn) historyBtn.innerHTML = `<i class="bi bi-plus-lg"></i> ${mode === 'Receive' ? 'Add Receiving' : 'Add Return'}`;
+  
   filterAndRender();
 }
 
@@ -70,6 +88,8 @@ function clearSearch() {
 function showAddReceivingScreen() {
   document.getElementById('viewReceivingsList').style.display = 'none';
   document.getElementById('viewAddReceiving').style.display = 'block';
+  // Ensure the form mode matches the current list mode
+  setReceivingMode(currentMode);
 }
 
 function showReceivingsList() {
@@ -81,11 +101,37 @@ function openReceiving(id) {
   showAddReceivingScreen();
 }
 
+function editReceiving(id) {
+  console.log('Editing receiving:', id);
+  showAddReceivingScreen();
+}
+
+function deleteReceiving(id) {
+  if (confirm(`Are you sure you want to delete ${id}?`)) {
+    console.log('Deleting receiving:', id);
+    // Logic to remove from allReceivings and re-render
+  }
+}
+
+// Select All functionality
+document.addEventListener('change', e => {
+  if (e.target.id === 'selectAllReceivings') {
+    const checkboxes = document.querySelectorAll('.receiving-checkbox');
+    checkboxes.forEach(cb => cb.checked = e.target.checked);
+  }
+});
+
 // ─── Form Helpers ─────────────────────────────────────────────
 function setReceivingMode(mode) {
   document.getElementById('modeReceiveForm').classList.toggle('active', mode === 'Receive');
   document.getElementById('modeReturnForm').classList.toggle('active', mode === 'Return');
   document.getElementById('cartModeLabel').textContent = mode === 'Receive' ? '[Receiving]' : '[Return]';
+  
+  // Update finish button name
+  const finishBtn = document.getElementById('finishBtn');
+  if (finishBtn) {
+    finishBtn.innerHTML = `<i class="bi bi-check-circle"></i> ${mode === 'Receive' ? 'Finish Receiving' : 'Finish Return'}`;
+  }
 }
 
 function switchFilter(btn, viewId) {

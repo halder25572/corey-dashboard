@@ -174,8 +174,8 @@
       <span class="topbar-title">Receiving</span>
       <div class="topbar-actions">
         <!-- ✅ "Add Receiving" button - takes user back to add/entry screen -->
-        <button class="btn-add" onclick="showAddReceivingScreen()">
-          <i class="bi bi-plus-lg"></i> Add Receiving
+        <button class="btn-add" id="topAddBtn">
+          <i class="bi bi-plus-lg"></i> Add
         </button>
         <div class="topbar-icon-btn"><i class="bi bi-arrows-fullscreen"></i></div>
         <div class="topbar-icon-btn"><i class="bi bi-basket"></i><span class="badge-dot"></span></div>
@@ -210,7 +210,7 @@
               <i class="bi bi-clock-history"></i>
               <span id="historyTitle">Recent Receivings</span>
             </div>
-            <button class="btn-add-receiving" onclick="showAddReceivingScreen()">
+            <button class="btn-add-receiving" id="historyAddBtn" onclick="showAddReceivingScreen()">
               <i class="bi bi-plus-lg"></i> Add Receiving
             </button>
           </div>
@@ -250,12 +250,14 @@
             <table class="history-table">
               <thead>
                 <tr>
+                  <th style="width: 40px;"><input type="checkbox" class="form-check-input" id="selectAllReceivings"></th>
                   <th>ID</th>
                   <th>Date</th>
                   <th>Supplier</th>
-                  <th>Items</th>
+                  <th style="text-align:center;">Items</th>
                   <th>Total</th>
                   <th>Status</th>
+                  <th style="text-align:right;">Action</th>
                 </tr>
               </thead>
               <tbody id="historyBody">
@@ -433,7 +435,7 @@
                 <div class="total-row" style="color:#166534;font-size:18px;"><span>-$0.00</span><span style="color:#ea580c;">-$0.00</span></div>
               </div>
               <div class="pay-input-row" style="padding:12px 16px;">
-                <button class="btn-finish w-100" onclick="finishReceiving()">
+                <button class="btn-finish w-100" id="finishBtn" onclick="finishReceiving()">
                   <i class="bi bi-check-circle"></i> Finish Receiving
                 </button>
               </div>
