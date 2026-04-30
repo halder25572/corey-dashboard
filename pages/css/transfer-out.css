@@ -67,7 +67,7 @@
 
     .item-info { display: flex; flex-direction: column; gap: 2px; }
     .item-name { font-weight: 600; color: #1e293b; }
-    .item-id { font-size: 11px; color: #94a3b8; }
+    .item-id { font-size: 11px; color: #1e293b; }
 
     .btn-action-table {
       padding: 4px 12px;

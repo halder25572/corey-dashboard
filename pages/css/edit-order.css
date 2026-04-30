@@ -106,7 +106,7 @@
     .order-table tr:last-child td { border-bottom: none; }
     
     .item-info .item-name { font-weight: 700; display: block; }
-    .item-info .item-id { font-size: 12px; color: var(--gray-400); }
+    .item-info .item-id { font-size: 12px; color: #1e293b; }
 
     .qty-link {
       color: var(--primary);
