@@ -6,7 +6,7 @@
 :root {
   /* Colors */
   --primary: #2563EB;
-  --primary-dark: #1D4ED8;
+  --primary-dark: #2563EB;
   --primary-light: #EFF6FF;
   --primary-soft: #DBEAFE;
 
@@ -16,7 +16,7 @@
   --warning-light: #FFFBEB;
   --danger: #EF4444;
   --danger-light: #FEF2F2;
-  --info: #6366F1;
+  --info: #2563EB;
   --info-light: #EEF2FF;
   --orange: #F97316;
   --orange-light: #FFF7ED;
@@ -126,7 +126,7 @@ input, select, textarea { font-family: var(--font); }
 .sidebar-brand-icon {
   width: 34px;
   height: 34px;
-  background: #2563EB;
+  background: var(--primary);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -194,7 +194,7 @@ input, select, textarea { font-family: var(--font); }
 }
 
 .nav-link.active {
-  background: #2563EB;
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
 }
@@ -296,7 +296,7 @@ input, select, textarea { font-family: var(--font); }
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #2563EB;
+  background: var(--primary);
   color: #fff;
   padding: 7px 14px;
   border-radius: var(--radius-sm);
@@ -355,7 +355,7 @@ input, select, textarea { font-family: var(--font); }
   height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  background: #2563EB;
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,7 +444,7 @@ input, select, textarea { font-family: var(--font); }
   flex-shrink: 0;
 }
 
-.stat-icon.blue   { background: var(--primary-soft); color: #fff; }
+.stat-icon.blue   { background: var(--primary); color: #fff; }
 .stat-icon.green  { background: #D1FAE5; color: var(--success); }
 .stat-icon.red    { background: #FEE2E2; color: var(--danger); }
 .stat-icon.orange { background: #FFEDD5; color: var(--orange); }
@@ -508,8 +508,8 @@ input, select, textarea { font-family: var(--font); }
 }
 
 .gs-progress-badge {
-  background: var(--primary-soft);
-  color: #fff;
+  background: #DBE1FF;
+  color: var(--primary-dark);
   font-size: 12px;
   font-weight: 700;
   padding: 4px 10px;
@@ -538,7 +538,7 @@ input, select, textarea { font-family: var(--font); }
 
 .gs-item:hover {
   border-color: var(--primary);
-  background: var(--primary-light);
+  background: var(--primary);
 }
 
 .gs-item-icon {
@@ -555,7 +555,7 @@ input, select, textarea { font-family: var(--font); }
 }
 
 .gs-item:hover .gs-item-icon {
-  background: var(--primary-soft);
+  background: #2563EB;
   color: #fff;
 }
 
@@ -574,7 +574,7 @@ input, select, textarea { font-family: var(--font); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #2563EB;
+  background: var(--primary);
   color: #fff;
   border-radius: var(--radius);
   padding: 12px 16px;
@@ -631,7 +631,7 @@ input, select, textarea { font-family: var(--font); }
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm);
-  background: var(--primary-light);
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -65,11 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const dropdownEls = document.querySelectorAll('[data-bs-toggle="dropdown"]');
   dropdownEls.forEach(el => new bootstrap.Dropdown(el));
 
-  /* ── Load Saved Theme Color ── */
-  const savedColor = localStorage.getItem('themeColor') || 'var(--primary)';
-  applyThemeColor(savedColor);
+  /* ── Sync Theme Color Picker ── */
   const picker = document.getElementById('themeColorPicker');
-  if (picker) picker.value = savedColor;
+  if (picker) picker.value = localStorage.getItem('themeColor') || '#2563EB';
 
 });
 
@@ -90,9 +88,12 @@ function applyThemeColor(color) {
 
 // Helper to lighten/darken hex color
 function shadeColor(color, percent) {
+  if (!color || color.startsWith('var')) return color;
   let R = parseInt(color.substring(1,3),16);
   let G = parseInt(color.substring(3,5),16);
   let B = parseInt(color.substring(5,7),16);
+
+  if (isNaN(R) || isNaN(G) || isNaN(B)) return color;
 
   R = parseInt(R * (100 + percent) / 100);
   G = parseInt(G * (100 + percent) / 100);
@@ -108,6 +109,11 @@ function shadeColor(color, percent) {
 
   return "#"+RR+GG+BB;
 }
+
+/* ── Initial Theme Application (Run as early as possible) ── */
+const savedThemeColor = localStorage.getItem('themeColor') || '#2563EB';
+applyThemeColor(savedThemeColor);
+
 
 /* ── Sales Chart ── */
 function initSalesChart(canvas) {
