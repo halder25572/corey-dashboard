@@ -4,17 +4,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Receiving | POS System</title>
-
-  <!-- Bootstrap 5 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="css/receiving.css">
+  <style>
+    .recv-mode-toggle {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .btn-mode-toggle {
+      padding: 5px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: #64748b;
+      transition: all 0.2s;
+    }
+    .btn-mode-toggle.active {
+      background: #fff;
+      color: var(--primary, #2563eb);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+    }
+    .btn-mode-toggle#modeReturn.active {
+      color: #d97706;
+    }
+    #historySection { margin-top: 8px; }
+    .history-title {
+      padding: 12px 4px 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+    }
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .history-table thead tr { background: #f8fafc; }
+    .history-table th {
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 700;
+      color: #475569;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .history-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+      vertical-align: middle;
+    }
+    .history-table tbody tr:hover { background: #f8fafc; cursor: pointer; }
+    .badge-receive {
+      background: #dcfce7; color: #166534;
+      padding: 2px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+    }
+    .badge-return {
+      background: #fef3c7; color: #92400e;
+      padding: 2px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+    }
+    .history-id {
+      color: var(--primary, #2563eb);
+      font-weight: 700;
+      text-decoration: underline dashed;
+    }
+  </style>
 </head>
 <body>
-
 <div class="app-wrapper">
 
   <!-- SIDEBAR -->
@@ -26,24 +92,17 @@
         <div class="sidebar-brand-role">Administrator</div>
       </div>
     </div>
-
     <nav class="sidebar-nav">
       <div class="nav-item"><a href="../index.html" class="nav-link"><i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></div>
       <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-people-fill"></i><span>Contacts</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
+        <a href="#" class="nav-link" data-toggle="submenu"><i class="bi bi-people-fill"></i><span>Contacts</span><i class="bi bi-chevron-right nav-arrow"></i></a>
         <div class="nav-submenu">
           <div class="nav-item"><a href="customers.html" class="nav-link"><i class="bi bi-dot"></i> Customers</a></div>
           <div class="nav-item"><a href="suppliers.html" class="nav-link"><i class="bi bi-dot"></i> Suppliers</a></div>
         </div>
       </div>
       <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-box-seam-fill"></i><span>Inventory</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
+        <a href="#" class="nav-link" data-toggle="submenu"><i class="bi bi-box-seam-fill"></i><span>Inventory</span><i class="bi bi-chevron-right nav-arrow"></i></a>
         <div class="nav-submenu">
           <div class="nav-item"><a href="items.html" class="nav-link"><i class="bi bi-dot"></i> Items</a></div>
           <div class="nav-item"><a href="item-kits.html" class="nav-link"><i class="bi bi-dot"></i> Item Kits</a></div>
@@ -59,10 +118,7 @@
       <div class="nav-item"><a href="receiving.html" class="nav-link active"><i class="bi bi-truck"></i><span>Receiving</span></a></div>
       <div class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-cart-fill"></i><span>Sales</span></a></div>
       <div class="nav-item">
-        <a href="#" class="nav-link" data-toggle="submenu">
-          <i class="bi bi-arrow-left-right"></i><span>Transfer</span>
-          <i class="bi bi-chevron-right nav-arrow"></i>
-        </a>
+        <a href="#" class="nav-link" data-toggle="submenu"><i class="bi bi-arrow-left-right"></i><span>Transfer</span><i class="bi bi-chevron-right nav-arrow"></i></a>
         <div class="nav-submenu">
           <div class="nav-item"><a href="transfer-out.html" class="nav-link"><i class="bi bi-dot"></i> Transfer Out</a></div>
           <div class="nav-item"><a href="transfer-in.html" class="nav-link"><i class="bi bi-dot"></i> Transfer In</a></div>
@@ -74,12 +130,8 @@
       <div class="nav-item"><a href="locations.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i><span>Locations</span></a></div>
       <div class="nav-item"><a href="messages.html" class="nav-link"><i class="bi bi-chat-dots-fill"></i><span>Messages</span></a></div>
     </nav>
-
     <div class="sidebar-footer">
-      <div class="sidebar-logout">
-        <i class="bi bi-box-arrow-left"></i>
-        <span>Logout</span>
-      </div>
+      <div class="sidebar-logout"><i class="bi bi-box-arrow-left"></i><span>Logout</span></div>
     </div>
   </aside>
 
@@ -96,7 +148,6 @@
           <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
           <ul class="dropdown-menu"><li><a class="dropdown-item" href="#">Chittagong</a></li></ul>
         </div>
-        <!-- Theme Color Picker -->
         <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
           <i class="bi bi-palette"></i>
           <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
@@ -115,10 +166,10 @@
 
     <main class="page-content page-content-recv">
       <div class="receiving-grid">
-        
+
         <!-- LEFT COLUMN -->
         <div class="recv-left">
-          
+
           <!-- Filters Card -->
           <div class="recv-card" id="filtersCard">
             <div class="recv-filters">
@@ -127,7 +178,6 @@
               <button class="btn-filter" onclick="switchFilter(this, 'viewSuppliers')">Suppliers</button>
               <button class="btn-filter" onclick="switchFilter(this, 'viewFavorites')">Favorites</button>
             </div>
-            
             <div id="viewCategories" class="filter-view">
               <div class="breadcrumb-recv">
                 <span>All</span> <i class="bi bi-chevron-double-right"></i> <span style="color: #3b82f6;">Fruits</span>
@@ -143,7 +193,6 @@
                 </div>
               </div>
             </div>
-
             <div id="viewTags" class="filter-view" style="display: none;">
               <div class="d-flex flex-wrap gap-2">
                 <div class="tag-item active">Favorites</div>
@@ -152,7 +201,6 @@
                 <div class="tag-item">Favorites</div>
               </div>
             </div>
-
             <div id="viewSuppliers" class="filter-view" style="display: none;">
               <div class="category-grid">
                 <div class="category-item">
@@ -161,7 +209,6 @@
                 </div>
               </div>
             </div>
-
             <div id="viewFavorites" class="filter-view" style="display: none;">
               <div class="d-flex flex-wrap gap-2">
                 <div class="tag-item active">Favorites</div>
@@ -172,25 +219,26 @@
             </div>
           </div>
 
-          <!-- Search & Table Card -->
+          <!-- Search & Cart Card -->
           <div class="recv-card">
             <div class="recv-search-row">
               <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
               <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
-              <div class="dropdown">
-                <!-- ✅ CHANGED: Purchase Order mode removed from dropdown -->
-                <button class="btn-recv-action btn-recv-mode dropdown-toggle" type="button" data-bs-toggle="dropdown" id="currentMode">
+
+              <!-- ✅ Receive / Return Toggle -->
+              <div class="recv-mode-toggle">
+                <button class="btn-mode-toggle active" id="modeReceive" onclick="setReceivingMode('Receive')">
                   <i class="bi bi-cart"></i> Receive
                 </button>
-                <ul class="dropdown-menu recv-dropdown-menu">
-                  <li><a class="dropdown-item recv-dropdown-item mode-receive" href="javascript:void(0)" onclick="setMode('Receive', 'bi-cart')"><i class="bi bi-cart"></i> Receive</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-return" href="javascript:void(0)" onclick="setMode('Return', 'bi-download')"><i class="bi bi-download"></i> Return</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-transfer" href="javascript:void(0)" onclick="setMode('Transfer', 'bi-person-badge')"><i class="bi bi-person-badge"></i> Transfer</a></li>
-                </ul>
+                <button class="btn-mode-toggle" id="modeReturn" onclick="setReceivingMode('Return')">
+                  <i class="bi bi-arrow-return-left"></i> Return
+                </button>
               </div>
+
               <button class="btn-recv-action btn-blue" onclick="toggleGrid()"><i class="bi bi-grid"></i> Show Grid</button>
             </div>
 
+            <!-- Cart (items being added now) -->
             <div class="table-responsive">
               <table class="recv-table" id="recvTable">
                 <thead>
@@ -224,10 +272,36 @@
                 </tbody>
               </table>
               <div id="emptyCart" class="empty-cart-msg">
-                There are no items in the cart <span>[Receiving]</span>
+                There are no items in the cart <span id="cartModeLabel">[Receiving]</span>
               </div>
               <div style="height: 10px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 5%22%3E%3Cpath d=%22M0 5h20V0L10 5 0 0z%22 fill=%22%23f1f5f9%22/%3E%3C/svg%3E') repeat-x; opacity: 0.5;"></div>
             </div>
+
+            <!-- ✅ History Table (past records) -->
+            <div id="historySection">
+              <div class="history-title">
+                <i class="bi bi-clock-history"></i>
+                <span id="historyTitle">Recent Receivings</span>
+              </div>
+              <div class="table-responsive">
+                <table class="history-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Date</th>
+                      <th>Supplier</th>
+                      <th>Items</th>
+                      <th>Total</th>
+                      <th>Type</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyBody">
+                    <!-- Filled by receiving.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -290,12 +364,8 @@
               <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$0.00</span><span style="color: #ea580c;">-$0.00</span></div>
             </div>
 
-            <!-- ✅ REMOVED: Payment section (Cash/Check/Debit/Credit) removed entirely -->
-            <!-- Payment is handled separately, not during receiving -->
-
-            <!-- ✅ CHANGED: Finish button now only updates stock, no payment -->
             <div class="pay-input-row" style="padding: 12px 16px;">
-              <button class="btn-finish w-100" onclick="finishReceiving()">
+              <button class="btn-finish w-100" id="finishBtn" onclick="finishReceiving()">
                 <i class="bi bi-check-circle"></i> Finish Receiving
               </button>
             </div>
