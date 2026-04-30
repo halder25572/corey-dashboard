@@ -95,6 +95,11 @@
         <div class="dropdown">
           <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button">Dhaka</button>
         </div>
+        <!-- Theme Color Picker -->
+        <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
+          <i class="bi bi-palette"></i>
+          <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
+        </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
@@ -166,7 +171,12 @@
                 <td>Transfers</td>
                 <td><button class="btn-action-table btn-unsuspend" onclick="location.href='unsuspend-transfer.html'">Unsuspend</button></td>
                 <td><button class="btn-action-table btn-receipt-table" onclick="location.href='transfer-receipt.html'">Receipt</button></td>
-                <td><i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal"></i></td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal" style="cursor: pointer; color: var(--primary);"></i>
+                    <i class="bi bi-printer btn-print-table" onclick="location.href='transfer-receipt.html'" style="cursor: pointer; color: #64748b;"></i>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><input type="checkbox"></td>
@@ -185,7 +195,12 @@
                 <td>Transfers</td>
                 <td><button class="btn-action-table btn-unsuspend" onclick="location.href='unsuspend-transfer.html'">Unsuspend</button></td>
                 <td><button class="btn-action-table btn-receipt-table" onclick="location.href='transfer-receipt.html'">Receipt</button></td>
-                <td><i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal"></i></td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal" style="cursor: pointer; color: var(--primary);"></i>
+                    <i class="bi bi-printer btn-print-table" onclick="location.href='transfer-receipt.html'" style="cursor: pointer; color: #64748b;"></i>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><input type="checkbox"></td>
@@ -204,7 +219,12 @@
                 <td>Transfers</td>
                 <td><button class="btn-action-table btn-unsuspend" onclick="location.href='unsuspend-transfer.html'">Unsuspend</button></td>
                 <td><button class="btn-action-table btn-receipt-table" onclick="location.href='transfer-receipt.html'">Receipt</button></td>
-                <td><i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal"></i></td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <i class="bi bi-pencil-square btn-edit-table" data-bs-toggle="modal" data-bs-target="#editTransferModal" style="cursor: pointer; color: var(--primary);"></i>
+                    <i class="bi bi-printer btn-print-table" onclick="location.href='transfer-receipt.html'" style="cursor: pointer; color: #64748b;"></i>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><input type="checkbox"></td>
@@ -286,4 +306,5 @@
 <script src="../assets/js/main.js"></script>
 </body>
 </html>
+
 

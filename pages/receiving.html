@@ -96,6 +96,11 @@
           <button class="btn btn-outline-secondary dropdown-toggle btn-sm" style="border: none; font-size: 13px; font-weight: 600;" type="button" data-bs-toggle="dropdown">Dhaka</button>
           <ul class="dropdown-menu"><li><a class="dropdown-item" href="#">Chittagong</a></li></ul>
         </div>
+        <!-- Theme Color Picker -->
+        <div class="topbar-icon-btn" title="Change Theme Color" style="position: relative; overflow: hidden;">
+          <i class="bi bi-palette"></i>
+          <input type="color" id="themeColorPicker" style="position: absolute; opacity: 0; inset: 0; cursor: pointer; width: 100%; height: 100%;" value="#2563EB" onchange="changeThemeColor(this.value)">
+        </div>
         <div class="topbar-user">
           <div class="topbar-user-info">
             <div class="topbar-user-name">Shaun Marphy</div>
@@ -173,13 +178,13 @@
               <button class="btn-scan"><i class="bi bi-pencil-square"></i></button>
               <input type="text" class="search-input-recv" placeholder="Enter item name or scan barcode">
               <div class="dropdown">
+                <!-- ✅ CHANGED: Purchase Order mode removed from dropdown -->
                 <button class="btn-recv-action btn-recv-mode dropdown-toggle" type="button" data-bs-toggle="dropdown" id="currentMode">
                   <i class="bi bi-cart"></i> Receive
                 </button>
                 <ul class="dropdown-menu recv-dropdown-menu">
                   <li><a class="dropdown-item recv-dropdown-item mode-receive" href="javascript:void(0)" onclick="setMode('Receive', 'bi-cart')"><i class="bi bi-cart"></i> Receive</a></li>
                   <li><a class="dropdown-item recv-dropdown-item mode-return" href="javascript:void(0)" onclick="setMode('Return', 'bi-download')"><i class="bi bi-download"></i> Return</a></li>
-                  <li><a class="dropdown-item recv-dropdown-item mode-po" href="javascript:void(0)" onclick="setMode('Purchase Order', 'bi-cart-check')"><i class="bi bi-cart-check"></i> Purchase Order</a></li>
                   <li><a class="dropdown-item recv-dropdown-item mode-transfer" href="javascript:void(0)" onclick="setMode('Transfer', 'bi-person-badge')"><i class="bi bi-person-badge"></i> Transfer</a></li>
                 </ul>
               </div>
@@ -233,19 +238,17 @@
               <div class="dropdown">
                 <button class="btn-summary-sm btn-more-recv px-3 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">...</button>
                 <ul class="dropdown-menu sidebar-options-menu">
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings And Purchase orders</a></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-list-task"></i> Suspended Receivings</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-arrow-left-right"></i> Transfer Requests</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-box-arrow-in-down"></i> Incoming Transfers</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-cart-plus"></i> Create Purchase Order</a></li>
-                  <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-receipt"></i> Lookup Receipt</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-clock-history"></i> Show Last Receiving</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch receiving</a></li>
+                  <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-bag-check"></i> Batch Receiving</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item sidebar-options-item" href="#"><i class="bi bi-wrench"></i> Custom Field Configuration</a></li>
                 </ul>
@@ -287,18 +290,14 @@
               <div class="total-row" style="color: #166534; font-size: 18px;"><span>-$0.00</span><span style="color: #ea580c;">-$0.00</span></div>
             </div>
 
-            <div class="payment-section">
-              <div class="comment-label mb-2">Add Payment</div>
-              <div class="payment-methods">
-                <button class="btn-pay-method active" onclick="switchPayment(this)">Cash</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Check</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Debit card</button>
-                <button class="btn-pay-method" onclick="switchPayment(this)">Credit card</button>
-              </div>
-              <div class="pay-input-row">
-                <input type="text" class="pay-input" value="142.50">
-                <button class="btn-finish" onclick="location.href='receiving-receipt.html'">Finish</button>
-              </div>
+            <!-- ✅ REMOVED: Payment section (Cash/Check/Debit/Credit) removed entirely -->
+            <!-- Payment is handled separately, not during receiving -->
+
+            <!-- ✅ CHANGED: Finish button now only updates stock, no payment -->
+            <div class="pay-input-row" style="padding: 12px 16px;">
+              <button class="btn-finish w-100" onclick="finishReceiving()">
+                <i class="bi bi-check-circle"></i> Finish Receiving
+              </button>
             </div>
 
             <div class="date-change">
@@ -325,9 +324,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/main.js"></script>
-
-  <script src="js/receiving.js"></script>
+<script src="js/receiving.js"></script>
 </body>
 </html>
-
-
