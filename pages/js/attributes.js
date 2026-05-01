@@ -18,3 +18,7 @@ const attrModal = document.getElementById('attrModal');
       attrValuesInput.value = '';
     }
   });
+
+
+
+

@@ -83,7 +83,7 @@
       const card = group.closest('.sc-payment-card');
       if (!card) return;
       const dp = card.querySelector('#defaultPaymentType');
-      const drp = card.querySelector('#defaultReceivingPaymentType');
+      const drp = card.querySelector('#defaultPurchasesPaymentType');
       if (dp && dp.options.length > 0) dp.options[0].textContent = selectedLabel;
       if (drp && drp.options.length > 0) drp.options[0].textContent = selectedLabel;
     }
@@ -216,3 +216,7 @@
         if (tabBtn) tabBtn.click();
       }
     });
+
+
+
+

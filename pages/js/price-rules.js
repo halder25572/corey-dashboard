@@ -7,3 +7,7 @@ const editRuleModal = document.getElementById('editRuleModal');
     document.getElementById('editRuleName').value = ruleName;
     document.getElementById('editRuleType').value = ruleType;
   });
+
+
+
+

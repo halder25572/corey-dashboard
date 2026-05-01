@@ -64,7 +64,7 @@
     /* Table */
     .custom-table { width: 100%; border-collapse: collapse; min-width: 900px; }
     .custom-table th {
-      background: var(--primary-light); color: var(--gray-700); font-size: 12px; font-weight: 700;
+      background: #EEF0FF; color: var(--gray-700); font-size: 12px; font-weight: 700;
       padding: 12px 20px; text-align: left; white-space: nowrap;
     }
     .custom-table td {
@@ -101,3 +101,7 @@
       .search-input { max-width: 100%; }
       .toolbar-actions { justify-content: flex-end; }
     }
+
+
+
+

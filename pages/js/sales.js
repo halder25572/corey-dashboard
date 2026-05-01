@@ -33,3 +33,7 @@ function switchFilter(el, viewId) {
     group.style.display = 'none';
     link.style.display = 'inline';
   }
+
+
+
+

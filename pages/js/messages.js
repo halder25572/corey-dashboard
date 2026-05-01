@@ -34,3 +34,7 @@
     detailView.style.display = 'none';
     listView.style.display = 'flex';
   });
+
+
+
+

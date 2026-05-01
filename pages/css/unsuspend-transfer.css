@@ -1,4 +1,4 @@
-.receiving-grid {
+.purchases-grid {
       display: grid;
       grid-template-columns: 1fr 380px;
       gap: 0;
@@ -231,3 +231,7 @@
     .loc-form-select { flex: 1; border: 1px solid var(--gray-200); border-radius: 6px; padding: 8px 12px; font-size: 14px; outline: none; }
     .modal-footer-loc { padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--gray-200); }
     .btn-loc-save { background: #22c55e; color: #fff; border: none; border-radius: 6px; padding: 8px 25px; font-weight: 700; font-size: 14px; }
+
+
+
+

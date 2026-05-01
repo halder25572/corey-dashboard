@@ -59,10 +59,10 @@ dashboard/
     ├── reports-summary-items.html
     ├── reports-vat.html
     │
-    ├── — RECEIVING —
-    ├── receiving.html
-    ├── receiving-add.html
-    ├── receiving-view.html
+    ├── — Purchases —
+    ├── purchases.html
+    ├── Purchases-add.html
+    ├── Purchases-view.html
     │
     ├── — SALES —
     ├── sales.html
@@ -163,3 +163,7 @@ dashboard/
 - All pages in `pages/` must use `../assets/css/style.css` (one level up)
 - `index.html` at root uses `assets/css/style.css` (no `../`)
 # corey-dashboard
+
+
+
+

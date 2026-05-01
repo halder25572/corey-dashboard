@@ -1,4 +1,4 @@
-.receiving-grid {
+.purchases-grid {
       display: grid;
       grid-template-columns: 1fr 380px;
       gap: 0;
@@ -201,7 +201,7 @@
     /* Recv Table */
     .recv-table { width: 100%; border-collapse: collapse; }
     .recv-table th {
-      background: #f8fafc;
+      background: #EEF0FF;
       padding: 12px;
       font-size: 12px;
       font-weight: 700;
@@ -462,6 +462,10 @@
     }
 
     @media (max-width: 1100px) {
-      .receiving-grid { grid-template-columns: 1fr; }
+      .purchases-grid { grid-template-columns: 1fr; }
       .summary-card { position: static; }
     }
+
+
+
+

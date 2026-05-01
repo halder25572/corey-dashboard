@@ -43,7 +43,7 @@
     /* Table */
     .custom-table { width: 100%; border-collapse: collapse; min-width: 800px; }
     .custom-table th {
-      background: var(--primary-light); color: var(--gray-700); font-size: 12px; font-weight: 700;
+      background: #EEF0FF; color: var(--gray-700); font-size: 12px; font-weight: 700;
       padding: 14px 20px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--gray-200);
     }
     .custom-table td {
@@ -252,3 +252,7 @@
       font-size: 14px;
       font-weight: 600;
     }
+
+
+
+

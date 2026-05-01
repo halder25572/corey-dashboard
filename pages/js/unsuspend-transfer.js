@@ -33,3 +33,7 @@ function switchFilter(el, viewId) {
     document.getElementById('locModalTitle').innerText = 'Edit Transfer ' + type;
     document.getElementById('locSelect').value = current;
   }
+
+
+
+

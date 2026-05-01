@@ -189,3 +189,7 @@ function initSalesChart(canvas) {
 function formatCurrency(val, symbol = '$') {
   return symbol + Number(val).toLocaleString('en-US', { minimumFractionDigits: 2 });
 }
+
+
+
+

@@ -100,3 +100,7 @@ function showReportView() {
     `);
     doc.close();
   }
+
+
+
+

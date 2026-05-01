@@ -16,3 +16,7 @@ function updateColorSwatch(color) {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+
+
+

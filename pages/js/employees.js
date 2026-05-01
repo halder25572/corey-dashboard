@@ -3,3 +3,7 @@ function prepareEmpModal(name, email, phone) {
     document.getElementById('empEmailInput').value = email;
     document.getElementById('empPhoneInput').value = phone;
   }
+
+
+
+

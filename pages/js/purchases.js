@@ -1,5 +1,5 @@
 // ─── Data ──────────────────────────────────────────────────
-const allReceivings = [
+const allPurchases = [
   { id: 'RCV-001', date: 'Apr 28, 2026', supplier: 'Hakim Group',    items: 12, total: '$1,240.00', status: 'Closed', mode: 'Receive' },
   { id: 'RCV-002', date: 'Apr 29, 2026', supplier: 'Fresh Farms',    items: 5,  total: '$430.50',   status: 'Open',   mode: 'Receive' },
   { id: 'RCV-003', date: 'Apr 29, 2026', supplier: 'Global Traders', items: 8,  total: '$870.00',   status: 'Open',   mode: 'Receive' },
@@ -26,21 +26,21 @@ function renderHistory(data) {
   
   tbody.innerHTML = data.map(r => `
     <tr>
-      <td><input type="checkbox" class="form-check-input receiving-checkbox"></td>
-      <td onclick="openReceiving('${r.id}')"><span class="history-id">${r.id}</span></td>
-      <td onclick="openReceiving('${r.id}')">${r.date}</td>
-      <td onclick="openReceiving('${r.id}')">${r.supplier}</td>
-      <td onclick="openReceiving('${r.id}')" style="text-align:center;">${r.items}</td>
-      <td onclick="openReceiving('${r.id}')" style="font-weight:700;color:#1e293b;">${r.total}</td>
-      <td onclick="openReceiving('${r.id}')">
+      <td><input type="checkbox" class="form-check-input purchases-checkbox"></td>
+      <td onclick="openPurchases('${r.id}')"><span class="history-id">${r.id}</span></td>
+      <td onclick="openPurchases('${r.id}')">${r.date}</td>
+      <td onclick="openPurchases('${r.id}')">${r.supplier}</td>
+      <td onclick="openPurchases('${r.id}')" style="text-align:center;">${r.items}</td>
+      <td onclick="openPurchases('${r.id}')" style="font-weight:700;color:#1e293b;">${r.total}</td>
+      <td onclick="openPurchases('${r.id}')">
         <span class="badge-${r.status.toLowerCase()}">${r.status}</span>
       </td>
       <td style="text-align:right;">
         <div class="d-flex justify-content-end gap-1">
-          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: var(--primary);" onclick="editReceiving('${r.id}')" title="Edit">
+          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: var(--primary);" onclick="editPurchases('${r.id}')" title="Edit">
             <i class="bi bi-pencil"></i>
           </button>
-          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: #ef4444;" onclick="deleteReceiving('${r.id}')" title="Delete">
+          <button class="btn btn-sm btn-light" style="padding: 2px 8px; color: #ef4444;" onclick="deletePurchases('${r.id}')" title="Delete">
             <i class="bi bi-trash3"></i>
           </button>
         </div>
@@ -57,12 +57,12 @@ function setListMode(mode) {
   currentMode = mode;
   document.getElementById('modeReceive').classList.toggle('active', mode === 'Receive');
   document.getElementById('modeReturn').classList.toggle('active', mode === 'Return');
-  document.getElementById('listModeLabel').textContent = `Showing: ${mode === 'Receive' ? 'Receivings' : 'Returns'}`;
-  document.getElementById('historyTitle').textContent = mode === 'Receive' ? 'Recent Receivings' : 'Recent Returns';
+  document.getElementById('listModeLabel').textContent = `Showing: ${mode === 'Receive' ? 'Purchases' : 'Returns'}`;
+  document.getElementById('historyTitle').textContent = mode === 'Receive' ? 'Recent Purchases' : 'Recent Returns';
   
   // Update button names
   const historyBtn = document.getElementById('historyAddBtn');
-  if (historyBtn) historyBtn.innerHTML = `<i class="bi bi-plus-lg"></i> ${mode === 'Receive' ? 'Add Receiving' : 'Add Return'}`;
+  if (historyBtn) historyBtn.innerHTML = `<i class="bi bi-plus-lg"></i> ${mode === 'Receive' ? 'Add Purchases' : 'Add Return'}`;
   
   filterAndRender();
 }
@@ -71,7 +71,7 @@ function setListMode(mode) {
 function filterAndRender() {
   const criteria = document.getElementById('searchCriteria').value;
   const query = document.getElementById('historySearchInput').value.trim().toLowerCase();
-  let filtered = allReceivings.filter(r => r.mode === currentMode);
+  let filtered = allPurchases.filter(r => r.mode === currentMode);
   if (query) {
     filtered = filtered.filter(r => String(r[criteria] || '').toLowerCase().includes(query));
   }
@@ -85,52 +85,52 @@ function clearSearch() {
 }
 
 // ─── View Switching ───────────────────────────────────────────
-function showAddReceivingScreen() {
-  document.getElementById('viewReceivingsList').style.display = 'none';
-  document.getElementById('viewAddReceiving').style.display = 'block';
+function showAddPurchasesScreen() {
+  document.getElementById('viewPurchasesList').style.display = 'none';
+  document.getElementById('viewAddPurchases').style.display = 'block';
   // Ensure the form mode matches the current list mode
-  setReceivingMode(currentMode);
+  setPurchasesMode(currentMode);
 }
 
-function showReceivingsList() {
-  document.getElementById('viewAddReceiving').style.display = 'none';
-  document.getElementById('viewReceivingsList').style.display = 'block';
+function showPurchasesList() {
+  document.getElementById('viewAddPurchases').style.display = 'none';
+  document.getElementById('viewPurchasesList').style.display = 'block';
 }
 
-function openReceiving(id) {
-  showAddReceivingScreen();
+function openPurchases(id) {
+  showAddPurchasesScreen();
 }
 
-function editReceiving(id) {
-  console.log('Editing receiving:', id);
-  showAddReceivingScreen();
+function editPurchases(id) {
+  console.log('Editing Purchases:', id);
+  showAddPurchasesScreen();
 }
 
-function deleteReceiving(id) {
+function deletePurchases(id) {
   if (confirm(`Are you sure you want to delete ${id}?`)) {
-    console.log('Deleting receiving:', id);
-    // Logic to remove from allReceivings and re-render
+    console.log('Deleting Purchases:', id);
+    // Logic to remove from allPurchases and re-render
   }
 }
 
 // Select All functionality
 document.addEventListener('change', e => {
-  if (e.target.id === 'selectAllReceivings') {
-    const checkboxes = document.querySelectorAll('.receiving-checkbox');
+  if (e.target.id === 'selectAllPurchases') {
+    const checkboxes = document.querySelectorAll('.purchases-checkbox');
     checkboxes.forEach(cb => cb.checked = e.target.checked);
   }
 });
 
 // ─── Form Helpers ─────────────────────────────────────────────
-function setReceivingMode(mode) {
+function setPurchasesMode(mode) {
   document.getElementById('modeReceiveForm').classList.toggle('active', mode === 'Receive');
   document.getElementById('modeReturnForm').classList.toggle('active', mode === 'Return');
-  document.getElementById('cartModeLabel').textContent = mode === 'Receive' ? '[Receiving]' : '[Return]';
+  document.getElementById('cartModeLabel').textContent = mode === 'Receive' ? '[Purchases]' : '[Return]';
   
   // Update finish button name
   const finishBtn = document.getElementById('finishBtn');
   if (finishBtn) {
-    finishBtn.innerHTML = `<i class="bi bi-check-circle"></i> ${mode === 'Receive' ? 'Finish Receiving' : 'Finish Return'}`;
+    finishBtn.innerHTML = `<i class="bi bi-check-circle"></i> ${mode === 'Receive' ? 'Finish Purchases' : 'Finish Return'}`;
   }
 }
 
@@ -172,7 +172,7 @@ function hideDiscountForm(btn) {
     if (isPercent) {
       window.currentPercentDiscount = parseFloat(val) || 0;
       
-      // Update the Disc % column in the cart table for all items (including Receiving Total row)
+      // Update the Disc % column in the cart table for all items (including Purchases Total row)
       document.querySelectorAll('#cartItems tr').forEach(row => {
         if (row.cells[4]) {
           row.cells[4].innerText = window.currentPercentDiscount + '%';
@@ -186,7 +186,7 @@ function hideDiscountForm(btn) {
       const tbody   = document.getElementById('cartItems');
       const emptyMsg = document.getElementById('emptyCart');
 
-      // Remove any previous "Receiving Total" row
+      // Remove any previous "Purchases Total" row
       const existing = tbody ? tbody.querySelector('.recv-total-row') : null;
       if (existing) existing.remove();
 
@@ -195,7 +195,7 @@ function hideDiscountForm(btn) {
         tr.className = 'recv-total-row';
         tr.innerHTML = `
           <td><button class="btn-remove-item" onclick="this.closest('tr').remove(); window.currentFlatDiscount=0; updateTotals(); document.getElementById('emptyCart').style.display='block';"><i class="bi bi-dash-circle-fill"></i></button></td>
-          <td style="text-align:left;"><div class="item-name">Receiving Total</div></td>
+          <td style="text-align:left;"><div class="item-name">Purchases Total</div></td>
           <td style="color:var(--primary);font-weight:700;">$${amount.toFixed(2)}</td>
           <td style="color:var(--primary);font-weight:700;">1</td>
           <td>${window.currentPercentDiscount || 0}%</td>
@@ -236,7 +236,7 @@ function updateTotals() {
   if (totalEl)     totalEl.innerText     = '$' + total.toFixed(2);
 }
 
-function finishReceiving() {
+function finishPurchases() {
   // Collect data to pass to receipt page
   const items = [];
   document.querySelectorAll('#cartItems tr').forEach(row => {
@@ -265,11 +265,11 @@ function finishReceiving() {
   localStorage.setItem('lastReceiptData', JSON.stringify(receiptData));
   
   // Redirect to receipt page
-  window.location.href = 'receiving-receipt.html';
+  window.location.href = 'purchases-receipt.html';
 }
 
 // ─── Init (script is at bottom of body, DOM already parsed) ──
-renderHistory(allReceivings.filter(r => r.mode === 'Receive'));
+renderHistory(allPurchases.filter(r => r.mode === 'Receive'));
 
 // Submenu toggle
 document.querySelectorAll('[data-toggle="submenu"]').forEach(link => {
@@ -291,3 +291,6 @@ if (searchInput) {
     if (e.key === 'Enter') searchHistory();
   });
 }
+
+
+

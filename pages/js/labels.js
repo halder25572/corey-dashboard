@@ -50,3 +50,6 @@
       reader.readAsDataURL(file);
     }
   });
+
+
+
