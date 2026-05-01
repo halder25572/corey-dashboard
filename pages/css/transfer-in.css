@@ -46,7 +46,7 @@
 
     .transfer-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
     .transfer-table th {
-      background: #f8fafc;
+      background: #EEF0FF;
       padding: 12px 16px;
       font-size: 12px;
       font-weight: 700;
@@ -111,6 +111,7 @@
     .transfer-form-input:focus { border-color: var(--primary); }
     .modal-footer-transfer { padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--gray-200); }
     .btn-transfer-save { background: #22c55e; color: #fff; border: none; border-radius: 6px; padding: 8px 25px; font-weight: 700; font-size: 14px; }
+
 
 
 

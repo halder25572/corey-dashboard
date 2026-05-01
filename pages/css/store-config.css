@@ -276,7 +276,7 @@
       font-weight: 500;
       border: 1px solid #d1d5db;
       padding: 4px 6px;
-      background: #f9fafb;
+      background: #EEF0FF;
       line-height: 1.15;
       text-align: left;
     }
@@ -931,6 +931,7 @@
       display: flex;
       justify-content: flex-end;
     }
+
 
 
 

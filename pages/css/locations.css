@@ -128,7 +128,7 @@
       border-collapse: collapse;
     }
     .locations-table th {
-      background: #f8fafc;
+      background: #EEF0FF;
       padding: 14px 16px;
       font-size: 13px;
       font-weight: 700;
@@ -194,6 +194,7 @@
       cursor: pointer;
       accent-color: var(--primary);
     }
+
 
 
 

@@ -36,7 +36,7 @@
       border-collapse: collapse;
     }
     .tags-table th {
-      background: #f8fafc;
+      background: #EEF0FF;
       padding: 14px 24px;
       font-size: 13px;
       font-weight: 700;
@@ -139,6 +139,7 @@
       transition: background 0.2s;
     }
     .btn-tag-ok:hover { background: var(--primary); }
+
 
 
 

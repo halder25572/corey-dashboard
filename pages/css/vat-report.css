@@ -35,7 +35,7 @@
     /* Table */
     .custom-table { width: 100%; border-collapse: collapse; }
     .custom-table th {
-      background: linear-gradient(180deg, var(--primary-light) 0%, #FFFFFF 100%);
+      background: #EEF0FF;
       color: var(--gray-800); font-size: 12px; font-weight: 700;
       padding: 14px 20px; text-align: left; white-space: nowrap;
       border-bottom: 1px solid var(--gray-200);
@@ -171,6 +171,7 @@
     .btn-save-vat:hover { background: #22c55e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2); }
 
     .table-responsive { overflow-x: auto; }
+
 
 
 
